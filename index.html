@@ -99,9 +99,11 @@
     }
     .layout-two {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem 2.5rem;
+      grid-template-columns: auto 1fr;
+      column-gap: 1.25rem;
+      row-gap: 2rem;
       align-items: start;
+      justify-content: start;
     }
     @media (max-width: 767px) {
       :root { --page-pad: 1.25rem; }
@@ -129,6 +131,7 @@
       margin-top: 0.35rem;
     }
 
+    .prose { text-align: left; }
     .prose h2 {
       margin: 0 0 0.65rem;
       font-size: 1.05rem;
@@ -210,7 +213,7 @@
         <h2>Background</h2>
         <p>I was a Partner at design firm <a href="https://www.tinkerlondon.com/">TinkerLondon</a>, where we worked on projects that bridged the digital and physical worlds with interactive technology. I’ve worked as a <strong>consultant</strong> on a range of projects in both User Experience and Information Design/Analysis. See <a href="https://www.brockcraft.com/teaching-publications">Teaching and Publications</a> for a list of clients and projects.</p>
         <p>In 2007, I completed PhD research at UCL Interaction Centre (<a href="https://uclic.ucl.ac.uk/" target="_blank" rel="noopener noreferrer">UCLIC</a>) in the area of Information Visualization Design methodology. My design method is called <a href="https://www.brockcraft.com/visualization-design">SoViz</a> and is aimed at supporting software visualization design through collaboration and sketching. For a .pdf version, or if you are interested in visualization design, please contact me. I received awards from the UCL Graduate School Research Images as Art competition for images that were produced in the course of my research. Here are the winning images from <a href="https://www.grad.ucl.ac.uk/comp/2005-2006/research/gallery/index.pht?entryID=056" target="_blank" rel="noopener noreferrer">2006</a> and <a href="https://www.grad.ucl.ac.uk/comp/2006-2007/research/gallery/index.pht?entryID=163" target="_blank" rel="noopener noreferrer">2007</a>. These were produced with software called Context Free and Processing.</p>
-        <p>In the distant past, I was a member of the post-punk studio band, the <a href="https://souciant.com/2011/05/god-didnt-like-them/" target="_blank" rel="noopener noreferrer">Christal Methodists</a>, which produced culture-jamming electronic music that was almost unlistenable.</p>
+        <p>In the distant past, I was a member of the post-punk studio band, the <a href="https://www.discogs.com/artist/788651-The-Christal-Methodists" target="_blank" rel="noopener noreferrer">Christal Methodists</a>, which produced culture-jamming electronic music that was almost unlistenable.</p>
         <p><a href="https://twitter.com/thatbrock" target="_blank" rel="noopener noreferrer">@thatbrock</a><br />thatbrock[@]gmail.com</p>
       </div>
     </div>
