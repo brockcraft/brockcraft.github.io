@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HCDE BS — ABET Criterion 5b Dashboard</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #F4F6FA;
+    color: #2E2E2E;
+    font-size: 14px;
+    min-height: 100vh;
+  }
+
+  /* ── Header ── */
+  .header {
+    background: #2F5496;
+    color: #fff;
+    padding: 18px 32px 14px;
+    display: flex;
+    align-items: baseline;
+    gap: 18px;
+  }
+  .header h1 { font-size: 20px; font-weight: 700; letter-spacing: 0.01em; }
+  .header .sub { font-size: 13px; opacity: 0.75; }
+
+  /* ── Layout ── */
+  .shell {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    grid-template-rows: auto auto 1fr;
+    gap: 16px;
+    padding: 16px 24px 24px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  /* ── Tabs ── */
+  .tabs {
+    grid-column: 1 / 2;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+  .tab-btn {
+    padding: 6px 16px;
+    border: 1.5px solid #2F5496;
+    background: #fff;
+    color: #2F5496;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    font-family: Arial, sans-serif;
+    transition: background 0.15s, color 0.15s;
+  }
+  .tab-btn.active { background: #2F5496; color: #fff; }
+  .tab-hint { font-size: 12px; color: #888; margin-left: 8px; }
+
+  /* ── Cards ── */
+  .card {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.10);
+    padding: 20px 22px;
+    overflow: hidden;
+  }
+  .card-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #2F5496;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 14px;
+  }
+
+  /* ── Main panel ── */
+  .main-panel {
+    grid-column: 1 / 2;
+    grid-row: 2 / 4;
+  }
+
+  /* ── Sidebar ── */
+  .sidebar {
+    grid-column: 2 / 3;
+    grid-row: 2 / 4;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  /* ── Progress bar ── */
+  .progress-bar-wrap {
+    margin: 28px 0 4px;
+    position: relative;
+  }
+  .progress-track {
+    height: 24px;
+    background: #E8EDF5;
+    border-radius: 4px;
+    position: relative;
+    overflow: visible;
+  }
+  .progress-fill-low {
+    position: absolute;
+    left: 0; top: 0; height: 100%;
+    background: #2F5496;
+    border-radius: 4px 0 0 4px;
+    transition: width 0.5s;
+  }
+  .progress-fill-high {
+    position: absolute;
+    left: 0; top: 0; height: 100%;
+    background: rgba(47, 84, 150, 0.25);
+    border-radius: 4px;
+    transition: width 0.5s;
+  }
+  .progress-target-line {
+    position: absolute;
+    top: -6px; bottom: -6px;
+    width: 2px;
+    background: #C00000;
+    z-index: 10;
+  }
+  .progress-target-label {
+    position: absolute;
+    top: -22px;
+    font-size: 11px;
+    color: #C00000;
+    font-weight: 700;
+    white-space: nowrap;
+    transform: translateX(-50%);
+  }
+  .progress-numbers {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #666;
+    margin-top: 6px;
+  }
+  .progress-sc {
+    font-size: 20px;
+    font-weight: 700;
+    color: #2F5496;
+    margin-top: 4px;
+  }
+  .progress-sc span { font-size: 13px; font-weight: 400; color: #666; }
+
+  /* ── Confidence legend ── */
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 8px;
+    font-size: 12px;
+  }
+  .legend-item { display: flex; align-items: center; gap: 5px; }
+  .legend-swatch {
+    width: 14px; height: 14px; border-radius: 3px; flex-shrink: 0;
+  }
+
+  /* ── SVG charts ── */
+  #range-chart, #heatmap-chart { width: 100%; display: block; }
+
+  /* ── Tooltip ── */
+  .tooltip {
+    position: fixed;
+    pointer-events: none;
+    background: #1F3864;
+    color: #fff;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    max-width: 280px;
+    line-height: 1.5;
+    z-index: 1000;
+    display: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  }
+  .tooltip strong { display: block; font-size: 13px; margin-bottom: 4px; color: #A8C4F0; }
+
+  /* ── Detail drawer ── */
+  .detail-card { flex: 1; }
+  .detail-empty { color: #999; font-size: 13px; text-align: center; padding: 40px 0; }
+  .detail-course-num { font-size: 22px; font-weight: 700; color: #2F5496; }
+  .detail-course-name { font-size: 13px; color: #555; margin-bottom: 14px; line-height: 1.4; }
+  .detail-section { margin-bottom: 12px; }
+  .detail-label { font-size: 11px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 3px; }
+  .detail-value { font-size: 13px; color: #2E2E2E; line-height: 1.5; }
+  .detail-row { display: flex; gap: 16px; margin-bottom: 12px; }
+  .detail-stat { flex: 1; }
+  .detail-stat-num { font-size: 20px; font-weight: 700; color: #2F5496; }
+  .detail-stat-sub { font-size: 11px; color: #888; }
+  .conf-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .conf-High { background: #C6EFCE; color: #276221; }
+  .conf-Moderate { background: #FFEB9C; color: #9C5700; }
+  .conf-Low-Moderate { background: #FCE4D6; color: #974706; }
+  .conf-Low { background: #FFC7CE; color: #9C0006; }
+  .detail-notes { font-size: 12px; color: #555; line-height: 1.55; }
+  .detail-tools { font-size: 12px; color: #444; line-height: 1.55; }
+
+  /* ── Status bar ── */
+  .status-bar {
+    grid-column: 1 / 3;
+    display: flex;
+    gap: 16px;
+    align-items: stretch;
+  }
+  .stat-pill {
+    background: #fff;
+    border-radius: 8px;
+    padding: 12px 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+  }
+  .stat-pill .num { font-size: 22px; font-weight: 700; color: #2F5496; }
+  .stat-pill .lbl { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.05em; }
+  .stat-pill .sub { font-size: 12px; color: #555; }
+
+  /* ── Heatmap ── */
+  .heatmap-container { overflow-x: auto; }
+
+  .hidden { display: none !important; }
+
+  /* ── About button ── */
+  .about-btn {
+    margin-left: auto;
+    padding: 6px 16px;
+    background: transparent;
+    color: #fff;
+    border: 1.5px solid rgba(255,255,255,0.55);
+    border-radius: 4px;
+    font-size: 13px;
+    font-family: Arial, sans-serif;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .about-btn:hover { background: rgba(255,255,255,0.15); border-color: #fff; }
+
+  /* ── Modal ── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal-box {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.28);
+    max-width: 600px;
+    width: 92%;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 32px 36px 28px;
+    position: relative;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #2E2E2E;
+  }
+  .modal-box h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #2F5496;
+    margin-bottom: 18px;
+  }
+  .modal-box h3 {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #888;
+    margin: 20px 0 8px;
+  }
+  .modal-box p { margin-bottom: 10px; }
+  .modal-box ul { margin: 6px 0 10px 18px; }
+  .modal-box li { margin-bottom: 5px; }
+  .modal-close {
+    position: absolute;
+    top: 14px; right: 18px;
+    background: none;
+    border: none;
+    font-size: 22px;
+    color: #999;
+    cursor: pointer;
+    line-height: 1;
+    padding: 2px 6px;
+  }
+  .modal-close:hover { color: #333; }
+  .conf-table { width: 100%; border-collapse: collapse; margin: 8px 0 12px; font-size: 13px; }
+  .conf-table th { text-align: left; font-weight: 700; color: #2F5496; border-bottom: 1.5px solid #E0E6F0; padding: 4px 10px 6px 6px; }
+  .conf-table td { padding: 6px 10px 6px 6px; border-bottom: 1px solid #F0F2F7; vertical-align: top; }
+  .conf-table tr:last-child td { border-bottom: none; }
+
+  /* ── CSV Loader ── */
+  .csv-loader {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: auto;
+  }
+  .csv-btn {
+    padding: 6px 14px;
+    background: #fff;
+    color: #2F5496;
+    border: 1.5px solid #2F5496;
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: Arial, sans-serif;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    white-space: nowrap;
+  }
+  .csv-btn:hover { background: #2F5496; color: #fff; }
+  .csv-status {
+    font-size: 11px;
+    color: #888;
+    white-space: nowrap;
+    max-width: 240px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .csv-status.ok { color: #276221; }
+  .csv-status.err { color: #9C0006; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>HCDE BS — ABET Criterion 5b Dashboard</h1>
+  <div class="sub">University of Washington &nbsp;·&nbsp; Curriculum Analysis in Progress</div>
+  <button class="about-btn" onclick="document.getElementById('about-modal').classList.add('open')">About this dashboard</button>
+</div>
+
+<!-- ── About modal ── -->
+<div class="modal-overlay" id="about-modal" onclick="if(event.target===this) this.classList.remove('open')">
+  <div class="modal-box">
+    <button class="modal-close" onclick="document.getElementById('about-modal').classList.remove('open')" title="Close">×</button>
+    <h2>About this Dashboard</h2>
+
+    <h3>Methodology</h3>
+    <p>This dashboard summarizes an ongoing evaluation of the HCDE BS curriculum against <strong>ABET EAC Criterion 5b</strong>, which requires a minimum of 45 semester credits (SC) of engineering topics, including engineering design, engineering science, and modern engineering tools.</p>
+    <p>Each course is evaluated by examining its Canvas course export (assignments, rubrics, syllabi, and module structure). Credit estimates are expressed as quarter-credit (QC) ranges — a low estimate reflecting only the most clearly ABET-legible content, and a high estimate including content that qualifies with reasonable interpretation. Quarter credits are converted to semester credits using the standard UW conversion factor (×0.667).</p>
+    <p>Credit estimates reflect the <em>portion</em> of a course's content that qualifies under Criterion 5b — not the course's full credit value. A 5 QC course may contribute only 1–2 QC toward the 45 SC threshold if much of its content falls under other criteria (e.g., Criterion 5c: professional and social topics).</p>
+
+    <h3>Confidence Ratings</h3>
+    <p>Confidence reflects how clearly a course's assignments and rubrics map to ABET's definitions — it is confidence in the credit <em>estimate</em>, not an assessment of the course's quality or rigor.</p>
+    <table class="conf-table">
+      <tr><th>Rating</th><th>What it means</th></tr>
+      <tr>
+        <td><span class="conf-badge conf-High">High</span></td>
+        <td>Evidence is explicit and unambiguous. Assignments use ABET-legible language — design requirements, multiple alternatives, trade-off analysis, quantitative evaluation. A reviewer is unlikely to challenge the classification.</td>
+      </tr>
+      <tr>
+        <td><span class="conf-badge conf-Moderate">Moderate</span></td>
+        <td>The connection to ABET criteria is clear but requires some framing. The course may use different terminology or blend engineering content with other material, but the qualifying work is identifiable and defensible.</td>
+      </tr>
+      <tr>
+        <td><span class="conf-badge conf-LowModerate" style="background:#FCE4D6;color:#974706;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.04em;">Low-Moderate</span></td>
+        <td>Qualifying content exists but is partial, implicit, or relies on interpretive translation from HCD/UX framing to engineering language. Credit estimates for these courses carry more uncertainty and should be framed carefully in the self-study.</td>
+      </tr>
+      <tr>
+        <td><span class="conf-badge conf-Low">Low</span></td>
+        <td>The ABET connection is thin or speculative. The course may contribute marginally, but a strict reviewer could reasonably exclude it. The self-study should not depend on Low-confidence courses to meet the 45 SC threshold.</td>
+      </tr>
+    </table>
+    <p style="font-size:12px;color:#888;">Credit range bars in the dashboard use opacity to encode confidence — higher opacity indicates higher confidence in the estimate.</p>
+  </div>
+</div>
+
+<div class="shell">
+
+  <!-- ── Status bar ── -->
+  <div class="status-bar" id="status-bar"></div>
+
+  <!-- ── Tabs ── -->
+  <div class="tabs" style="grid-column:1/2; grid-row:2/3;">
+    <button class="tab-btn active" onclick="switchTab('range')">Credit Ranges</button>
+    <button class="tab-btn" onclick="switchTab('heatmap')">Confidence Heatmap</button>
+    <span class="tab-hint">Click any course row to see details →</span>
+    <div class="csv-loader">
+      <button class="csv-btn" onclick="fetchCSV()">⟳ Refresh data</button>
+      <span class="csv-status" id="csv-status">Loading…</span>
+    </div>
+  </div>
+
+  <!-- ── Main panel ── -->
+  <div class="main-panel card" style="grid-row:3/4;">
+    <div id="view-range">
+      <div class="card-title">Criterion 5b Credit Estimates — Quarter Credits (Low–High Range)</div>
+      <svg id="range-chart"></svg>
+      <div class="legend" id="range-legend"></div>
+    </div>
+    <div id="view-heatmap" class="hidden">
+      <div class="card-title">Confidence Level by Course and Category</div>
+      <div class="heatmap-container">
+        <svg id="heatmap-chart"></svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Sidebar ── -->
+  <div class="sidebar">
+    <!-- Progress -->
+    <div class="card">
+      <div class="card-title">Progress Toward 45 SC Target</div>
+      <div class="progress-sc" id="prog-sc-num">—</div>
+      <div style="font-size:12px;color:#888;margin-bottom:12px;" id="prog-sc-sub">semester credits accumulated (7 of 13 courses)</div>
+      <div class="progress-bar-wrap">
+        <div class="progress-track" id="prog-track">
+          <div class="progress-fill-high" id="prog-high"></div>
+          <div class="progress-fill-low" id="prog-low"></div>
+          <div class="progress-target-line" id="prog-target-line">
+            <div class="progress-target-label">45 SC target</div>
+          </div>
+        </div>
+      </div>
+      <div class="progress-numbers">
+        <span>0 SC</span>
+        <span id="prog-max-label">60 SC</span>
+      </div>
+      <div style="font-size:12px;color:#666;margin-top:10px;" id="prog-proj"></div>
+    </div>
+
+    <!-- Detail -->
+    <div class="card detail-card" id="detail-card">
+      <div class="card-title">Course Detail</div>
+      <div class="detail-empty" id="detail-empty">Click a course row to see details</div>
+      <div id="detail-content" class="hidden"></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="tooltip" id="tooltip"></div>
+
+<script>
+// ─────────────────────────────────────────────
+// DATA
+// ─────────────────────────────────────────────
+const TARGET_SC = 45;
+const TOTAL_COURSES = 13;
+
+let courses = [
+  {
+    number: "HCDE 302",
+    name: "Foundations of Human-Centered Design I",
+    credits: 5, sc: 3.3,
+    design:  { low: 2.5,  high: 3.5,  conf: "High" },
+    science: { low: 0.0,  high: 0.25, conf: "Low" },
+    total:   { scLow: 1.65, scHigh: 2.48 },
+    tools: "Miro/FigJam, Figma, Google Docs/Sheets, otter.ai, Zoom",
+    notes: "Complete front-end design process: problem framing, user research as requirements development, multi-solution ideation with weighted trade-off matrix, design requirements derivation, iterative critique/revision. No quantitative content so engineering science is Low/marginal. Pairs with HCDE 303 as unified two-quarter sequence.",
+    doc: "HCDE 302/HCDE_302_ABET_Evaluation.docx"
+  },
+  {
+    number: "HCDE 303",
+    name: "Foundations of Human-Centered Design II",
+    credits: 5, sc: 3.3,
+    design:  { low: 2.8,  high: 3.5,  conf: "High" },
+    science: { low: 0.35, high: 0.75, conf: "Low-Moderate" },
+    total:   { scLow: 2.08, scHigh: 2.81 },
+    tools: "Figma, Origami Studio, OnShape, Blender, Rhino, SketchUp, SUS/User Burden Scale, Framer/Google Sites/Canva/Wix, Slack",
+    notes: "Strongest Criterion 5b contributor. Explicit two-quarter sequence with 302. Complete back-end design cycle: IA + tree testing, lo-fi, concept testing (≥3 users), mid-fi, usability testing with SUS (validated quantitative instrument), expert review, hi-fi, design specifications (3 goals + 5 requirements + Figma design system for developer handoff). SUS = strongest engineering science evidence evaluated.",
+    doc: "HCDE 303/HCDE_303_ABET_Evaluation.docx"
+  },
+  {
+    number: "HCDE 313",
+    name: "Introduction to User Research",
+    credits: 5, sc: 3.3,
+    design:  { low: 0.25, high: 0.5,  conf: "Low" },
+    science: { low: 0.5,  high: 0.75, conf: "Low-Moderate" },
+    total:   { scLow: 0.50, scHigh: 0.83 },
+    tools: "Online survey platforms (WebQ/SurveyMonkey/Google Forms), Excel/Google Sheets",
+    notes: "Weakest Criterion 5b contributor. Field study and interview methods are qualitative and excluded from engineering science. Survey phase (Wks 8–10) provides quantitative content. Engineering design credit is marginal (Low) — may not survive strict ABET review. Consider positioning as Criterion 5c rather than 5b.",
+    doc: "HCDE 313/HCDE_313_ABET_Evaluation.docx"
+  },
+  {
+    number: "HCDE 315",
+    name: "Inclusive Design and Engineering",
+    credits: 5, sc: 3.3,
+    design:  { low: 1.7,  high: 2.95, conf: "Moderate" },
+    science: { low: 0.0,  high: 0.25, conf: "Low" },
+    total:   { scLow: 1.12, scHigh: 2.11 },
+    tools: "Silktide/Siteimprove/WAVE accessibility checkers, VoiceOver/NVDA/JAWS screen readers, Figma/FigJam, Slack, presentation software",
+    notes: "Complete co-design project sequence (P1–P11): requirements development via HMW questions, 6-concept generation with partner feedback, iterative prototyping (V1→V2), design principles + specifications, competitive analysis. A2 web accessibility evaluation using W3C/WCAG + 3 automated tools + screen reader is strong supporting design evidence. Large share of content (disability/race/feminist critique readings, philosophy zine) is Criterion 5c. Moderate because course frames work as inclusive design methodology requiring interpretive translation.",
+    doc: "HCDE 315/HCDE_315_ABET_Evaluation.docx"
+  },
+  {
+    number: "HCDE 351",
+    name: "User Experience Prototyping Techniques",
+    credits: 5, sc: 3.3,
+    design:  { low: 3.0,  high: 3.5,  conf: "High" },
+    science: { low: 0.25, high: 0.5,  conf: "Low" },
+    total:   { scLow: 2.15, scHigh: 2.65 },
+    tools: "Onshape/Rhino CAD, laser cutter, FDM 3D printer, sewing machine, vector graphics software",
+    notes: "Studio course focused on physical and digital prototyping techniques. Engineering design is primary strength. Engineering science is tacit materials/manufacturing knowledge only — disclose as uncertain in self-study. CAD tools (OnShape/Rhino) are unambiguously modern engineering tools.",
+    doc: "HCDE 351/HCDE_351_ABET_Evaluation.docx"
+  },
+  {
+    number: "HCDE 410",
+    name: "Human Data Interaction",
+    credits: 5, sc: 3.3,
+    design:  { low: 1.0,  high: 1.5,  conf: "Moderate" },
+    science: { low: 1.0,  high: 1.5,  conf: "Moderate" },
+    total:   { scLow: 1.32, scHigh: 1.98 },
+    tools: "Jupyter Notebooks, Python (pandas/matplotlib), GitHub, Socrata Open Data API, Perspective API",
+    notes: "Research process design (A4–A7) = primary engineering design content. Quantitative data analysis (A1/A2/A7) + scientific methodology = engineering science. A3 (ethnography) excluded entirely. Both categories Moderate confidence — must be framed carefully in self-study.",
+    doc: "HCDE 410/HCDE_410_ABET_Evaluation.docx"
+  },
+  {
+    number: "HCDE 411",
+    name: "Information Visualization",
+    credits: 5, sc: 3.3,
+    design:  { low: 2.5,  high: 3.0,  conf: "High" },
+    science: { low: 1.0,  high: 1.5,  conf: "Moderate" },
+    total:   { scLow: 2.32, scHigh: 2.98 },
+    tools: "Tableau, Altair/Python, Jupyter Notebooks, git, Google Sheets",
+    notes: "Lecture/studio hybrid with strong design cycle via 10-week team project (P1–P6). Engineering science grounded in perceptual science, formal data theory, and computational methods — more defensible than most HCDE courses. Strongest engineering science case among courses with High design confidence.",
+    doc: "HCDE 411/HCDE_411_ABET_Evaluation.docx"
+  },
+];
+
+const CONF_ORDER = ["High", "Moderate", "Low-Moderate", "Low"];
+const CONF_COLOR = {
+  "High":          "#2E7D32",
+  "Moderate":      "#F9A825",
+  "Low-Moderate":  "#E65100",
+  "Low":           "#C62828",
+};
+const CONF_BG = {
+  "High":          "#C6EFCE",
+  "Moderate":      "#FFF3CD",
+  "Low-Moderate":  "#FCE4D6",
+  "Low":           "#FFC7CE",
+};
+const DESIGN_COLOR  = "#2F5496";
+const SCIENCE_COLOR = "#C55A11";
+
+let selectedCourse = null;
+
+// ─────────────────────────────────────────────
+// STATUS BAR
+// ─────────────────────────────────────────────
+function buildStatusBar() {
+  const totalScLow  = courses.reduce((s, c) => s + c.total.scLow,  0);
+  const totalScHigh = courses.reduce((s, c) => s + c.total.scHigh, 0);
+  const avgRatio = totalScLow / (courses.length * 3.3);
+
+  const sb = document.getElementById("status-bar");
+  sb.innerHTML = `
+    <div class="stat-pill">
+      <div class="lbl">Courses Analyzed</div>
+      <div class="num">${courses.length} <span style="font-size:14px;font-weight:400;color:#888;">of ${TOTAL_COURSES}</span></div>
+      <div class="sub">${Math.round(courses.length/TOTAL_COURSES*100)}% complete</div>
+    </div>
+    <div class="stat-pill">
+      <div class="lbl">Accumulated SC (Low Est.)</div>
+      <div class="num">${totalScLow.toFixed(2)}</div>
+      <div class="sub">of 45 SC ABET target (${Math.round(totalScLow/TARGET_SC*100)}%)</div>
+    </div>
+    <div class="stat-pill">
+      <div class="lbl">Accumulated SC (High Est.)</div>
+      <div class="num">${totalScHigh.toFixed(2)}</div>
+      <div class="sub">of 45 SC ABET target (${Math.round(totalScHigh/TARGET_SC*100)}%)</div>
+    </div>
+    <div class="stat-pill">
+      <div class="lbl">Avg. SC / Course (Low)</div>
+      <div class="num">${(totalScLow/courses.length).toFixed(2)}</div>
+      <div class="sub">Projected total: ${(totalScLow/courses.length*TOTAL_COURSES).toFixed(1)} SC (low)</div>
+    </div>
+  `;
+}
+
+// ─────────────────────────────────────────────
+// PROGRESS BAR
+// ─────────────────────────────────────────────
+function buildProgress() {
+  const totalScLow  = courses.reduce((s, c) => s + c.total.scLow,  0);
+  const totalScHigh = courses.reduce((s, c) => s + c.total.scHigh, 0);
+  const projLow  = (totalScLow  / courses.length) * TOTAL_COURSES;
+  const projHigh = (totalScHigh / courses.length) * TOTAL_COURSES;
+  const maxSC = Math.max(TARGET_SC * 1.2, projHigh * 1.05);
+
+  document.getElementById("prog-sc-num").textContent = `${totalScLow.toFixed(1)}–${totalScHigh.toFixed(1)} SC`;
+  document.getElementById("prog-sc-sub").textContent = `semester credits from ${courses.length} of ${TOTAL_COURSES} courses analyzed`;
+  document.getElementById("prog-max-label").textContent = `${Math.round(maxSC)} SC`;
+  document.getElementById("prog-low").style.width  = `${(totalScLow  / maxSC) * 100}%`;
+  document.getElementById("prog-high").style.width = `${(totalScHigh / maxSC) * 100}%`;
+  document.getElementById("prog-target-line").style.left = `${(TARGET_SC / maxSC) * 100}%`;
+  document.getElementById("prog-proj").innerHTML =
+    `<b>Projection (if remaining 6 courses average same rate):</b><br>` +
+    `Low: ${projLow.toFixed(1)} SC &nbsp;·&nbsp; High: ${projHigh.toFixed(1)} SC<br>` +
+    `<span style="color:${projLow >= TARGET_SC ? '#276221' : '#9C0006'}">` +
+    `${projLow >= TARGET_SC ? '✓ Low estimate meets target' : '⚠ Low estimate may fall short of 45 SC target'}</span>`;
+}
+
+// ─────────────────────────────────────────────
+// RANGE CHART
+// ─────────────────────────────────────────────
+function buildRangeChart() {
+  const svg = document.getElementById("range-chart");
+  const W = svg.parentElement.clientWidth - 44;
+  const ROW_H = 58;
+  const LABEL_W = 100;
+  const CHART_W = W - LABEL_W - 16;
+  const H = courses.length * ROW_H + 60;
+  const MAX_QC = 5;
+
+  svg.setAttribute("width", W);
+  svg.setAttribute("height", H);
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+
+  const x = v => LABEL_W + (v / MAX_QC) * CHART_W;
+  const groups = [];
+
+  // Gridlines + axis
+  let markup = `<g>`;
+  [0,1,2,3,4,5].forEach(v => {
+    const cx = x(v);
+    markup += `<line x1="${cx}" y1="36" x2="${cx}" y2="${H - 10}" stroke="#E0E6F0" stroke-width="1"/>`;
+    markup += `<text x="${cx}" y="24" text-anchor="middle" font-size="11" fill="#999" font-family="Arial">${v} QC</text>`;
+  });
+
+  // Course rows
+  courses.forEach((c, i) => {
+    const y0 = 40 + i * ROW_H;
+    const midY = y0 + ROW_H / 2 - 4;
+    const isSelected = selectedCourse && selectedCourse.number === c.number;
+    const rowBg = isSelected ? "#EEF2F8" : (i % 2 === 0 ? "#FAFBFD" : "#fff");
+
+    markup += `<rect x="0" y="${y0}" width="${W}" height="${ROW_H}" fill="${rowBg}"
+      style="cursor:pointer;"
+      onmouseenter="rowHover(this,event,${i})" onmouseleave="rowLeave(this,${i})"
+      onclick="selectCourse(${i})" data-row="${i}"/>`;
+
+    // Course label
+    markup += `<text x="${LABEL_W - 8}" y="${midY - 6}" text-anchor="end" font-size="12" font-weight="700" fill="#2F5496" font-family="Arial" style="pointer-events:none;">${c.number}</text>`;
+    markup += `<text x="${LABEL_W - 8}" y="${midY + 8}" text-anchor="end" font-size="10" fill="#777" font-family="Arial" style="pointer-events:none;">${c.sc} SC</text>`;
+
+    // Design bar (top track)
+    const dy = midY - 16;
+    markup += drawRangeBar(x, c.design, dy, DESIGN_COLOR);
+
+    // Science bar (bottom track)
+    const sy = midY + 4;
+    markup += drawRangeBar(x, c.science, sy, SCIENCE_COLOR);
+
+    // Confidence dots
+    markup += confDot(W - 60, dy + 5, c.design.conf);
+    markup += confDot(W - 60, sy + 5, c.science.conf);
+    markup += `<text x="${W - 48}" y="${dy + 9}" font-size="9" fill="#666" font-family="Arial" style="pointer-events:none;">D</text>`;
+    markup += `<text x="${W - 48}" y="${sy + 9}" font-size="9" fill="#666" font-family="Arial" style="pointer-events:none;">S</text>`;
+  });
+
+  markup += `</g>`;
+  svg.innerHTML = markup;
+
+  // Legend
+  document.getElementById("range-legend").innerHTML = `
+    <div class="legend-item"><div class="legend-swatch" style="background:${DESIGN_COLOR};"></div> Engineering Design</div>
+    <div class="legend-item"><div class="legend-swatch" style="background:${SCIENCE_COLOR};"></div> Engineering Science</div>
+    <div style="width:1px;background:#ddd;align-self:stretch;margin:0 4px;"></div>
+    ${CONF_ORDER.map(c => `<div class="legend-item"><div class="legend-swatch" style="background:${CONF_COLOR[c]};border-radius:50%;"></div> ${c}</div>`).join("")}
+    <div class="legend-item" style="margin-left:8px;color:#888;font-size:11px;">D = Design confidence &nbsp; S = Science confidence</div>
+  `;
+}
+
+function drawRangeBar(x, cat, y, color) {
+  const xLow  = x(cat.low);
+  const xHigh = x(cat.high);
+  const barH  = 10;
+  const conf  = cat.conf;
+  const opacity = conf === "High" ? 0.9 : conf === "Moderate" ? 0.7 : conf === "Low-Moderate" ? 0.55 : 0.4;
+  let out = "";
+
+  // Background zero-to-high fill (faint)
+  out += `<rect x="${x(0)}" y="${y}" width="${xHigh - x(0)}" height="${barH}" rx="2" fill="${color}" opacity="${opacity * 0.15}" style="pointer-events:none;"/>`;
+  // Main range bar (low → high)
+  if (xHigh > xLow) {
+    out += `<rect x="${xLow}" y="${y}" width="${xHigh - xLow}" height="${barH}" rx="2" fill="${color}" opacity="${opacity}" style="pointer-events:none;"/>`;
+  }
+  // Low cap line
+  out += `<line x1="${xLow}" y1="${y - 2}" x2="${xLow}" y2="${y + barH + 2}" stroke="${color}" stroke-width="2" style="pointer-events:none;"/>`;
+  // High cap line
+  out += `<line x1="${xHigh}" y1="${y - 2}" x2="${xHigh}" y2="${y + barH + 2}" stroke="${color}" stroke-width="2" style="pointer-events:none;"/>`;
+  // Value label
+  out += `<text x="${xHigh + 5}" y="${y + 9}" font-size="10" fill="${color}" font-family="Arial" style="pointer-events:none;">${cat.low}–${cat.high}</text>`;
+  return out;
+}
+
+function confDot(x, y, conf) {
+  return `<circle cx="${x}" cy="${y}" r="5" fill="${CONF_COLOR[conf] || '#ccc'}" style="pointer-events:none;"/>`;
+}
+
+// ─────────────────────────────────────────────
+// HEATMAP
+// ─────────────────────────────────────────────
+function buildHeatmap() {
+  const svg = document.getElementById("heatmap-chart");
+  const COLS = ["Eng. Design Confidence", "Eng. Science Confidence"];
+  const CELL_W = 160, CELL_H = 46;
+  const LABEL_W = 110;
+  const LEG_W = 130; // vertical legend column width
+  const GRID_W = LABEL_W + COLS.length * CELL_W;
+  const W = GRID_W + LEG_W + 16;
+  const H = courses.length * CELL_H + 50;
+
+  svg.setAttribute("width", W);
+  svg.setAttribute("height", H);
+
+  let markup = `<g>`;
+
+  // Column headers
+  COLS.forEach((col, ci) => {
+    markup += `<text x="${LABEL_W + ci * CELL_W + CELL_W/2}" y="30" text-anchor="middle" font-size="12" font-weight="700" fill="#2F5496" font-family="Arial">${col}</text>`;
+  });
+
+  // Row labels + cells
+  courses.forEach((c, ri) => {
+    const y = 40 + ri * CELL_H;
+    const isSelected = selectedCourse && selectedCourse.number === c.number;
+
+    markup += `<text x="${LABEL_W - 8}" y="${y + CELL_H/2 + 4}" text-anchor="end" font-size="12" font-weight="700" fill="${isSelected ? '#2F5496' : '#444'}" font-family="Arial">${c.number}</text>`;
+
+    const cats = [c.design, c.science];
+    cats.forEach((cat, ci) => {
+      const cx = LABEL_W + ci * CELL_W;
+      const conf = cat.conf;
+      markup += `
+        <rect x="${cx + 3}" y="${y + 3}" width="${CELL_W - 6}" height="${CELL_H - 6}" rx="5"
+          fill="${CONF_BG[conf]}" stroke="${CONF_COLOR[conf]}" stroke-width="1.5"
+          style="cursor:pointer;"
+          onclick="selectCourse(${ri})"
+          onmouseenter="cellHover(event,'${c.number}','${ci===0?'Design':'Science'}','${conf}','${cat.low}–${cat.high} QC')"
+          onmouseleave="hideTooltip()"/>
+        <text x="${cx + CELL_W/2}" y="${y + CELL_H/2 - 2}" text-anchor="middle"
+          font-size="12" font-weight="700" fill="${CONF_COLOR[conf]}" font-family="Arial" style="pointer-events:none;">${conf}</text>
+        <text x="${cx + CELL_W/2}" y="${y + CELL_H/2 + 13}" text-anchor="middle"
+          font-size="10" fill="${CONF_COLOR[conf]}" font-family="Arial" style="pointer-events:none;">${cat.low}–${cat.high} QC</text>
+      `;
+    });
+  });
+
+  // Vertical legend — right of grid
+  const legX = GRID_W + 20;
+  markup += `<text x="${legX}" y="30" font-size="11" font-weight="700" fill="#888" font-family="Arial" text-anchor="start" letter-spacing="0.5">CONFIDENCE</text>`;
+  CONF_ORDER.forEach((conf, i) => {
+    const ly = 44 + i * 28;
+    markup += `<rect x="${legX}" y="${ly}" width="14" height="14" rx="3" fill="${CONF_BG[conf]}" stroke="${CONF_COLOR[conf]}" stroke-width="1.5"/>`;
+    markup += `<text x="${legX + 20}" y="${ly + 11}" font-size="12" fill="#444" font-family="Arial">${conf}</text>`;
+  });
+
+  markup += `</g>`;
+  svg.innerHTML = markup;
+}
+
+// ─────────────────────────────────────────────
+// TOOLTIP
+// ─────────────────────────────────────────────
+const tip = document.getElementById("tooltip");
+
+function showTooltip(event, html) {
+  tip.style.display = "block";
+  tip.innerHTML = html;
+  positionTooltip(event);
+}
+function hideTooltip() { tip.style.display = "none"; }
+function positionTooltip(event) {
+  const pad = 14;
+  let left = event.clientX + pad;
+  let top  = event.clientY + pad;
+  if (left + 300 > window.innerWidth) left = event.clientX - 300 - pad;
+  if (top  + 160 > window.innerHeight) top = event.clientY - 160 - pad;
+  tip.style.left = left + "px";
+  tip.style.top  = top  + "px";
+}
+
+function rowHover(el, event, idx) {
+  const c = courses[idx];
+  showTooltip(event, `
+    <strong>${c.number}: ${c.name}</strong>
+    Design: ${c.design.low}–${c.design.high} QC (${c.design.conf})<br>
+    Science: ${c.science.low}–${c.science.high} QC (${c.science.conf})<br>
+    Total: ${c.total.scLow}–${c.total.scHigh} SC
+  `);
+}
+function rowLeave(el, idx) { hideTooltip(); }
+
+function cellHover(event, num, cat, conf, range) {
+  showTooltip(event, `<strong>${num} — ${cat}</strong>Confidence: ${conf}<br>Estimate: ${range}`);
+}
+
+// ─────────────────────────────────────────────
+// DETAIL PANEL
+// ─────────────────────────────────────────────
+function selectCourse(idx) {
+  selectedCourse = courses[idx];
+  hideTooltip();
+
+  // Re-render charts to update highlight
+  buildRangeChart();
+  buildHeatmap();
+
+  const c = selectedCourse;
+  document.getElementById("detail-empty").classList.add("hidden");
+  const content = document.getElementById("detail-content");
+  content.classList.remove("hidden");
+
+  content.innerHTML = `
+    <div class="detail-course-num">${c.number}</div>
+    <div class="detail-course-name">${c.name}</div>
+
+    <div class="detail-row">
+      <div class="detail-stat">
+        <div class="detail-stat-num">${c.total.scLow}–${c.total.scHigh}</div>
+        <div class="detail-stat-sub">semester credits (5b)</div>
+      </div>
+      <div class="detail-stat">
+        <div class="detail-stat-num">${c.credits}</div>
+        <div class="detail-stat-sub">UW quarter credits</div>
+      </div>
+    </div>
+
+    <div class="detail-section">
+      <div class="detail-label">Engineering Design</div>
+      <div class="detail-value">
+        ${c.design.low}–${c.design.high} QC &nbsp;
+        <span class="conf-badge conf-${c.design.conf.replace('-','')}">${c.design.conf}</span>
+      </div>
+    </div>
+
+    <div class="detail-section">
+      <div class="detail-label">Engineering Science</div>
+      <div class="detail-value">
+        ${c.science.low}–${c.science.high} QC &nbsp;
+        <span class="conf-badge conf-${c.science.conf.replace('-','')}">${c.science.conf}</span>
+      </div>
+    </div>
+
+    <div class="detail-section">
+      <div class="detail-label">Modern Engineering Tools</div>
+      <div class="detail-tools">${c.tools}</div>
+    </div>
+
+    <div class="detail-section">
+      <div class="detail-label">Self-Study Notes</div>
+      <div class="detail-notes">${c.notes}</div>
+    </div>
+
+    <div style="margin-top:14px;">
+      <div class="detail-label">Evaluation Document</div>
+      <div style="font-size:12px;color:#2F5496;word-break:break-all;">${c.doc}</div>
+    </div>
+  `;
+}
+
+// ─────────────────────────────────────────────
+// CSV LOADER
+// ─────────────────────────────────────────────
+const CSV_URL = "../data/criterion5b_data.csv";
+
+function fetchCSV() {
+  const statusEl = document.getElementById("csv-status");
+  statusEl.textContent = "Loading…";
+  statusEl.className = "csv-status";
+  fetch(CSV_URL + "?t=" + Date.now())
+    .then(r => {
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      return r.text();
+    })
+    .then(text => {
+      const parsed = parseCSV(text);
+      if (parsed.length === 0) throw new Error("No data rows found.");
+      courses = parsed;
+      selectedCourse = null;
+      refreshAll();
+      statusEl.textContent = `✓ ${parsed.length} courses loaded`;
+      statusEl.className = "csv-status ok";
+    })
+    .catch(err => {
+      statusEl.textContent = `✗ Could not load CSV: ${err.message}`;
+      statusEl.className = "csv-status err";
+      // Fall back to built-in data silently — already rendered on init
+    });
+}
+
+function parseCSV(text) {
+  const lines = text.trim().split(/\r?\n/);
+  if (lines.length < 2) throw new Error("CSV has no data rows.");
+
+  // Parse header
+  const headers = lines[0].split(",").map(h => h.trim().replace(/^"|"$/g, ""));
+
+  // Column index map
+  const col = (name) => {
+    const i = headers.indexOf(name);
+    if (i === -1) throw new Error(`Missing column: ${name}`);
+    return i;
+  };
+
+  const iNum   = col("course_number");
+  const iName  = col("course_name");
+  const iQC    = col("quarter_credits");
+  const iSC    = col("semester_credits_equiv");
+  const iDLow  = col("eng_design_qc_low");
+  const iDHigh = col("eng_design_qc_high");
+  const iDConf = col("eng_design_confidence");
+  const iSLow  = col("eng_science_qc_low");
+  const iSHigh = col("eng_science_qc_high");
+  const iSConf = col("eng_science_confidence");
+  const iTSLow  = col("criterion5b_total_sc_low");
+  const iTSHigh = col("criterion5b_total_sc_high");
+  const iTools = col("modern_tools");
+  const iNotes = col("notes");
+  const iDoc   = col("eval_doc");
+
+  return lines.slice(1).map(line => {
+    // Handle quoted fields (commas inside quotes)
+    const fields = [];
+    let current = "";
+    let inQuotes = false;
+    for (let i = 0; i < line.length; i++) {
+      const ch = line[i];
+      if (ch === '"') {
+        inQuotes = !inQuotes;
+      } else if (ch === "," && !inQuotes) {
+        fields.push(current.trim());
+        current = "";
+      } else {
+        current += ch;
+      }
+    }
+    fields.push(current.trim());
+
+    const f = (i) => (fields[i] || "").replace(/^"|"$/g, "").trim();
+    const n = (i) => parseFloat(f(i)) || 0;
+
+    return {
+      number:  f(iNum),
+      name:    f(iName),
+      credits: n(iQC),
+      sc:      n(iSC),
+      design:  { low: n(iDLow), high: n(iDHigh), conf: f(iDConf) },
+      science: { low: n(iSLow), high: n(iSHigh), conf: f(iSConf) },
+      total:   { scLow: n(iTSLow), scHigh: n(iTSHigh) },
+      tools:   f(iTools),
+      notes:   f(iNotes),
+      doc:     f(iDoc),
+    };
+  }).filter(c => c.number); // skip empty rows
+}
+
+function refreshAll() {
+  buildStatusBar();
+  buildProgress();
+  buildRangeChart();
+  const heatmapVisible = !document.getElementById("view-heatmap").classList.contains("hidden");
+  if (heatmapVisible) buildHeatmap();
+  document.getElementById("detail-empty").classList.remove("hidden");
+  document.getElementById("detail-content").classList.add("hidden");
+}
+
+// ─────────────────────────────────────────────
+// TABS
+// ─────────────────────────────────────────────
+function switchTab(tab) {
+  document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+  event.target.classList.add("active");
+  document.getElementById("view-range").classList.toggle("hidden", tab !== "range");
+  document.getElementById("view-heatmap").classList.toggle("hidden", tab !== "heatmap");
+  if (tab === "heatmap") buildHeatmap();
+}
+
+// ─────────────────────────────────────────────
+// INIT
+// ─────────────────────────────────────────────
+window.addEventListener("DOMContentLoaded", () => {
+  // Render built-in data immediately so the page isn't blank while fetching
+  buildStatusBar();
+  buildProgress();
+  buildRangeChart();
+  // Then fetch the live CSV and re-render if it loads successfully
+  fetchCSV();
+});
+
+window.addEventListener("resize", () => {
+  buildRangeChart();
+  if (!document.getElementById("view-heatmap").classList.contains("hidden")) buildHeatmap();
+});
+
+window.addEventListener("mousemove", (e) => {
+  if (tip.style.display === "block") positionTooltip(e);
+});
+</script>
+</body>
+</html>
