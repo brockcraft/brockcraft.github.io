@@ -67,6 +67,24 @@ function getRichText(
   return p.rich_text.map((t) => t.plain_text).join("");
 }
 
+/** Slug column: plain Text (`rich_text`) or a Notion Formula (e.g. lower(replace(Name, " ", "-"))). */
+function getSlugRaw(
+  props: PageObjectResponse["properties"],
+  key: string,
+): string {
+  const p = props[key];
+  if (!p) return "";
+  if (p.type === "rich_text") {
+    return p.rich_text.map((t) => t.plain_text).join("").trim();
+  }
+  if (p.type === "formula") {
+    const f = p.formula;
+    if (f.type === "string") return (f.string ?? "").trim();
+    if (f.type === "number" && f.number != null) return String(f.number).trim();
+  }
+  return "";
+}
+
 function getCheckbox(
   props: PageObjectResponse["properties"],
   key: string,
@@ -114,12 +132,31 @@ function slugify(s: string): string {
     .slice(0, 80);
 }
 
+function fallbackSlug(page: PageObjectResponse, title: string): string {
+  const fromTitle = slugify(title);
+  if (fromTitle) return fromTitle;
+  return `entry-${page.id.replace(/-/g, "").slice(0, 12)}`;
+}
+
+function dedupeSlugs(items: WorkItem[]): void {
+  const used = new Set<string>();
+  for (const item of items) {
+    let candidate = item.slug;
+    let n = 2;
+    while (used.has(candidate)) {
+      candidate = `${item.slug}-${n++}`;
+    }
+    used.add(candidate);
+    item.slug = candidate;
+  }
+}
+
 function mapPage(page: PageObjectResponse): WorkItem {
   const keys = propNames();
   const props = page.properties;
   const title = getTitle(props);
-  let slug = getRichText(props, keys.slug).trim();
-  if (!slug) slug = slugify(title);
+  let slug = getSlugRaw(props, keys.slug);
+  if (!slug) slug = fallbackSlug(page, title);
   return {
     id: page.id,
     slug,
@@ -166,6 +203,7 @@ export async function fetchWorkItems(): Promise<WorkItem[]> {
     const db = b.date ?? "";
     return db.localeCompare(da);
   });
+  dedupeSlugs(items);
   return items;
 }
 
