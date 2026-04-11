@@ -1,0 +1,16 @@
+── Publish site (after Notion changes) ──
+
+① GitHub (no terminal) — direct link to Run workflow:
+   https://github.com/brockcraft/brockcraft.github.io/actions/workflows/deploy-pages.yml
+   Click “Run workflow” → Branch: main → Run workflow
+
+② Terminal — GitHub CLI (if you use gh):
+   cd "/path/to/websites/brockcraft.github.io"
+   gh workflow run deploy-pages.yml --ref main
+
+③ Terminal — empty commit (no gh CLI):
+   cd "/path/to/websites/brockcraft.github.io"
+   git pull && git commit --allow-empty -m "chore: redeploy from Notion" && git push
+
+Replace /path/to/websites/brockcraft.github.io with your local clone path.
+If your GitHub user or repo name differs, fix the URL in ①.

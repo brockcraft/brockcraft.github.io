@@ -36,4 +36,4 @@ Repository secrets: **`NOTION_TOKEN`**, **`NOTION_DATABASE_ID`**. The deploy wor
 
 ## After you change content in Notion
 
-The site does **not** auto-update until a new build runs. See **[PUBLISH_FROM_NOTION.md](./PUBLISH_FROM_NOTION.md)** for copy-paste instructions (Notion comment / terminal / GitHub UI) and optional **daily scheduled** deploys.
+The site does **not** auto-update until a new build runs. See **[PUBLISH_FROM_NOTION.md](./PUBLISH_FROM_NOTION.md)** for all three paths (scheduled, GitHub **Run workflow**, terminal). For a **plain-text block to paste into Notion**, copy **[`notion-publish-snippet.txt`](./notion-publish-snippet.txt)** in full.
