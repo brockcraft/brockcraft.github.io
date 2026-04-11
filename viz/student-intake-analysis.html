@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HCDE 530 SP26 — Welcome Survey Analysis</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --purple: #4B2E83;
+      --gold: #85754D;
+      --light-purple: #E8E3F0;
+      --light-gold: #F5F0E8;
+      --text: #1a1a1a;
+      --muted: #555;
+      --bg: #f9f8fc;
+      --card: #ffffff;
+      --border: #e0daea;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+    header {
+      background: var(--purple);
+      color: white;
+      padding: 2.5rem 2rem 2rem;
+      border-bottom: 4px solid var(--gold);
+    }
+    header h1 { font-size: 1.6rem; font-weight: 700; margin-bottom: 0.3rem; }
+    header p { opacity: 0.85; font-size: 0.9rem; }
+
+    .nav {
+      background: white;
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    .nav a {
+      padding: 0.85rem 1.1rem;
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.85rem;
+      font-weight: 500;
+      white-space: nowrap;
+      border-bottom: 3px solid transparent;
+      transition: all 0.15s;
+    }
+    .nav a:hover { color: var(--purple); border-color: var(--purple); }
+
+    main { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+
+    .summary-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.2rem 1.3rem;
+      text-align: center;
+    }
+    .stat-card .number {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--purple);
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+    .stat-card .label { font-size: 0.78rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+
+    section {
+      margin-bottom: 3rem;
+      scroll-margin-top: 60px;
+    }
+    section h2 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--purple);
+      margin-bottom: 1.2rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--light-purple);
+    }
+
+    .chart-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    .chart-grid.wide { grid-template-columns: 1fr; }
+    @media (max-width: 700px) { .chart-grid { grid-template-columns: 1fr; } }
+
+    .chart-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.4rem 1.5rem;
+    }
+    .chart-card h3 {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+    .chart-card canvas { max-height: 280px; }
+    .chart-card.tall canvas { max-height: 360px; }
+
+    .theme-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+    .theme-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.2rem 1.4rem;
+    }
+    .theme-card h4 {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--purple);
+      margin-bottom: 0.6rem;
+    }
+    .theme-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.55; }
+    .theme-card .count {
+      display: inline-block;
+      background: var(--light-purple);
+      color: var(--purple);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.15rem 0.55rem;
+      border-radius: 20px;
+      margin-bottom: 0.5rem;
+    }
+
+    .insight-box {
+      background: var(--light-gold);
+      border-left: 4px solid var(--gold);
+      border-radius: 0 8px 8px 0;
+      padding: 1rem 1.3rem;
+      margin-top: 1.2rem;
+      font-size: 0.88rem;
+      color: #5a4a2a;
+    }
+    .insight-box strong { color: #4a3a1a; }
+
+    .flags-list {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.4rem 1.5rem;
+    }
+    .flags-list ul { padding-left: 1.2rem; }
+    .flags-list li { margin-bottom: 0.6rem; font-size: 0.9rem; color: var(--muted); }
+    .flags-list li strong { color: var(--text); }
+
+    footer {
+      text-align: center;
+      font-size: 0.78rem;
+      color: #aaa;
+      padding: 1.5rem;
+      border-top: 1px solid var(--border);
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>HCDE 530 SP26 — Welcome Survey Analysis</h1>
+  <p>35 respondents &nbsp;·&nbsp; Intake survey, Spring 2026 &nbsp;·&nbsp; Instructor reference only</p>
+</header>
+
+<nav class="nav">
+  <a href="#overview">Overview</a>
+  <a href="#who">Who They Are</a>
+  <a href="#technical">Technical Background</a>
+  <a href="#goals">Goals &amp; Excitement</a>
+  <a href="#concerns">Concerns</a>
+  <a href="#qualitative">Open Responses</a>
+  <a href="#implications">Teaching Notes</a>
+</nav>
+
+<main>
+
+  <!-- OVERVIEW -->
+  <section id="overview">
+    <h2>Overview</h2>
+    <div class="summary-cards">
+      <div class="stat-card"><div class="number">35</div><div class="label">Respondents</div></div>
+      <div class="stat-card"><div class="number">54%</div><div class="label">UX Design</div></div>
+      <div class="stat-card"><div class="number">66%</div><div class="label">Existing HCD trajectory</div></div>
+      <div class="stat-card"><div class="number">66%</div><div class="label">Never or minimally coded</div></div>
+      <div class="stat-card"><div class="number">71%</div><div class="label">Worried they're not technical enough</div></div>
+      <div class="stat-card"><div class="number">73%</div><div class="label">Already using Claude or similar AI</div></div>
+    </div>
+
+    <div class="insight-box">
+      <strong>The headline:</strong> You have a room of motivated students who skew UX Design, most of whom are continuing in HCD rather than career-switching. The majority have some prior tool exposure but limited writing ability in code. The single biggest anxiety is "not being technical enough," and almost three-quarters already use AI coding assistants — making this cohort unusually well-positioned for a vibecoding-forward curriculum.
+    </div>
+  </section>
+
+  <!-- WHO THEY ARE -->
+  <section id="who">
+    <h2>Who They Are</h2>
+    <div class="chart-grid">
+      <div class="chart-card">
+        <h3>Concentration / Role</h3>
+        <canvas id="rolesChart"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>Career Trajectory</h3>
+        <canvas id="trajectoryChart"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>How They See Themselves (Researcher ↔ Designer)</h3>
+        <canvas id="selfIdChart"></canvas>
+      </div>
+    </div>
+    <div class="insight-box">
+      <strong>Note:</strong> The self-identification scale runs from 1 (strongly Researcher) to 5 (strongly Designer). The cohort clusters toward the Designer end, with a notable concentration at 3 (balanced). The four UX Research concentrators are almost all at 1–2, while most UX Designers are 4–5. PM students spread across the middle.
+    </div>
+  </section>
+
+  <!-- TECHNICAL BACKGROUND -->
+  <section id="technical">
+    <h2>Technical Background</h2>
+    <div class="chart-grid">
+      <div class="chart-card">
+        <h3>Coding Experience Overall</h3>
+        <canvas id="codingChart"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>Python Experience</h3>
+        <canvas id="pythonChart"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>Command Line Comfort (1 = None, 5 = Confident)</h3>
+        <canvas id="cmdChart"></canvas>
+      </div>
+      <div class="chart-card tall">
+        <h3>Tools Used Before (Check all that apply)</h3>
+        <canvas id="toolsChart"></canvas>
+      </div>
+    </div>
+    <div class="insight-box">
+      <strong>Key finding:</strong> Command line comfort skews low — 60% rated themselves 1 or 2. Despite this, VS Code (69%) and GitHub/Git (57%) have relatively high familiarity, suggesting many students installed tools without internalizing terminal workflows. Claude/AI assistant adoption (73%) is the highest of any tool, ahead of even GitHub. Cursor is already in use by 26%.
+    </div>
+  </section>
+
+  <!-- GOALS & EXCITEMENT -->
+  <section id="goals">
+    <h2>Goals &amp; What They're Excited to Do</h2>
+    <div class="chart-grid wide">
+      <div class="chart-card tall">
+        <h3>Work most excited to do this quarter (n = 35, multiple selections)</h3>
+        <canvas id="workChart"></canvas>
+      </div>
+    </div>
+
+    <h3 style="margin: 1.5rem 0 0.8rem; font-size: 0.95rem; font-weight: 600;">Themes from "What is your main goal?"</h3>
+    <div class="theme-grid">
+      <div class="theme-card">
+        <div class="count">~22 students</div>
+        <h4>Build Deployable Work &amp; Portfolio</h4>
+        <p>The dominant theme: students want to finish the quarter with something functional they can show. Portfolio artifacts, deployed prototypes, and "something people can actually use" appear across nearly all responses.</p>
+      </div>
+      <div class="theme-card">
+        <div class="count">~18 students</div>
+        <h4>Code Literacy &amp; Confidence</h4>
+        <p>Students want to cross from "intimidated by code" to "able to read, debug, and modify it." Many frame success as no longer feeling blocked when they encounter code in collaborative work.</p>
+      </div>
+      <div class="theme-card">
+        <div class="count">~14 students</div>
+        <h4>AI-Augmented Workflows</h4>
+        <p>Explicit interest in learning to work with AI tools deliberately — prompting well, judging AI output quality, and building fluency with the Claude/Cursor stack. Several mention wanting to understand what the AI actually generated.</p>
+      </div>
+      <div class="theme-card">
+        <div class="count">~12 students</div>
+        <h4>Connect Code to HCD Practice</h4>
+        <p>Students want technical skills that translate directly: talking to engineers, supporting data-informed design decisions, analyzing research data programmatically, or automating repetitive tasks in their existing workflows.</p>
+      </div>
+      <div class="theme-card">
+        <div class="count">~8 students</div>
+        <h4>Data Analysis &amp; Visualization</h4>
+        <p>A subset — particularly PM and UX Research students — are focused on the data side: pulling, cleaning, and visualizing data for stakeholders. Several mention this as a career-differentiating skill.</p>
+      </div>
+      <div class="theme-card">
+        <div class="count">~6 students</div>
+        <h4>Self-Sufficiency with Technical Stakeholders</h4>
+        <p>Career-changers and PM students especially want the fluency to hold their own in technical conversations with engineers — understanding requirements, reviewing code, and not needing to outsource basic debugging.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONCERNS -->
+  <section id="concerns">
+    <h2>What They're Nervous About</h2>
+    <div class="chart-grid wide">
+      <div class="chart-card">
+        <h3>Concerns (multiple selections, n = 35)</h3>
+        <canvas id="nervousChart"></canvas>
+      </div>
+    </div>
+    <div class="insight-box">
+      <strong>"Not technical enough"</strong> was selected by 23 of 35 students (66%) — by far the most common concern. "Learning not sticking" (40%) and "working in public on GitHub" (43%) are the next tier. Only 20% said they're not nervous at all. The pace concern (40%) is worth watching: this cohort has prior experience with code not sticking, so early wins matter.
+    </div>
+  </section>
+
+  <!-- QUALITATIVE / OPEN RESPONSES -->
+  <section id="qualitative">
+    <h2>Themes from Open-Ended Responses</h2>
+    <p style="font-size:0.88rem; color: var(--muted); margin-bottom: 1rem;">Synthesized from the "Is there anything else you'd like me to know?" field. No verbatim quotes are shown.</p>
+    <div class="theme-grid">
+      <div class="theme-card">
+        <div class="count">2 students</div>
+        <h4>AI Tool Subscription Costs</h4>
+        <p>Two students asked whether the technology fee covers paid tiers of Claude or similar tools. Worth addressing proactively in Week 1 — clarify what is required, what is optional, and what free tiers cover.</p>
+      </div>
+      <div class="theme-card">
+        <div class="count">1 student</div>
+        <h4>Vibecoding vs. Fundamentals Tension</h4>
+        <p>One student raised a substantive concern: that AI-first pedagogy might produce gaps in foundational understanding. They specifically asked whether prior Python lecture materials could be made available for self-directed study alongside the AI workflow. This is a thoughtful pedagogical concern worth addressing in your course framing.</p>
+      </div>
+      <div class="theme-card">
+        <div class="count">1 student</div>
+        <h4>Request for Accessible Language from Day One</h4>
+        <p>A student with zero prior coding exposure asked for course material to be explained from scratch, with no assumed baseline. Signals that even basic vocabulary (file, function, variable) needs scaffolding for at least part of the class.</p>
+      </div>
+      <div class="theme-card">
+        <div class="count">2 students</div>
+        <h4>Interest in Advanced AI Tooling</h4>
+        <p>Two students expressed explicit interest in going deeper into Claude and Cursor features — specifically agents, MCPs, and skills. Good candidates for stretch goals or bonus material.</p>
+      </div>
+      <div class="theme-card">
+        <div class="count">1 student</div>
+        <h4>Technical Vocabulary as a Barrier</h4>
+        <p>One student flagged "technical lingo" as a specific obstacle. Suggests a running glossary or consistent plain-language framing in lecture materials could lower the activation energy for that segment of the class.</p>
+      </div>
+      <div class="theme-card">
+        <div class="count">1 student</div>
+        <h4>Tool Flexibility Question</h4>
+        <p>One student asked whether an alternative IDE (not Cursor) could be used instead. Worth addressing your tool flexibility policy early so students invest in the right setup.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEACHING IMPLICATIONS -->
+  <section id="implications">
+    <h2>Teaching Notes</h2>
+    <div class="flags-list">
+      <ul>
+        <li><strong>Address the "not technical enough" anxiety directly in Week 1.</strong> Two-thirds of the class carry this concern. An explicit framing — that the course is designed for this starting point — and a low-stakes early win will matter more than any technical content in Week 1.</li>
+        <li><strong>Command line literacy is the weakest link.</strong> 60% rated themselves 1 or 2. Students may have VS Code open without knowing how to navigate their file system or run a script. A focused, hands-on terminal session early in the quarter will pay dividends.</li>
+        <li><strong>GitHub anxiety is real.</strong> 43% flagged "working in public on GitHub" as a concern — nearly as many as flagged pace. Normalize the "commit small, commit often" mindset and emphasize that rough commits are part of the craft.</li>
+        <li><strong>The AI tool question needs a clear answer early.</strong> Two students raised cost concerns about paid AI subscriptions. Whether the course requires a paid tier or not, the policy should be explicit by the first session.</li>
+        <li><strong>Address the vibecoding-vs-fundamentals question head-on.</strong> At least one student is worried about cutting corners they don't know they're cutting. Your framing of why AI-assisted learning still builds real skills — and how students can go deeper if they want — deserves airtime in the course introduction.</li>
+        <li><strong>The cohort is already AI-native.</strong> 73% use Claude or a similar tool already. You can move faster on AI tooling basics than a prior cohort might have allowed, and can direct energy toward prompt quality, output evaluation, and workflow integration.</li>
+        <li><strong>Stretch content exists.</strong> A subset of students want to go deeper into agents, MCPs, and advanced Claude/Cursor features. Consider optional challenge extensions rather than holding the full class to that pace.</li>
+        <li><strong>UX Research students and data-oriented PMs want a data track.</strong> About a third of the class is specifically focused on qualitative/quantitative data analysis for stakeholders. Make sure the data-side exercises feel HCD-relevant, not like generic data science homework.</li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer>HCDE 530 SP26 · Instructor use only · No individually identifying information included</footer>
+
+<script>
+// ─── Shared styles ───────────────────────────────────────────────────────────
+const PURPLE = '#4B2E83';
+const GOLD   = '#85754D';
+const LIGHT  = '#C4B8E0';
+const ACCENT = '#BFD3E6';
+const MUTED  = '#888';
+
+Chart.defaults.font.family = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+Chart.defaults.font.size = 12;
+Chart.defaults.color = '#555';
+Chart.defaults.plugins.legend.display = false;
+
+const hbar = (id, labels, data, color, options = {}) => {
+  const ctx = document.getElementById(id).getContext('2d');
+  return new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{ data, backgroundColor: color, borderRadius: 4, barThickness: 18 }]
+    },
+    options: {
+      indexAxis: 'y',
+      responsive: true,
+      maintainAspectRatio: true,
+      plugins: { legend: { display: false }, tooltip: { callbacks: {
+        label: ctx => ` ${ctx.raw} students`
+      }}},
+      scales: {
+        x: { beginAtZero: true, grid: { color: '#f0eef6' }, ticks: { stepSize: 5 } },
+        y: { grid: { display: false }, ticks: { font: { size: 11 } } }
+      },
+      ...options
+    }
+  });
+};
+
+const vbar = (id, labels, data, colors, options = {}) => {
+  const ctx = document.getElementById(id).getContext('2d');
+  return new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{ data, backgroundColor: colors, borderRadius: 4 }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      plugins: { legend: { display: false }, tooltip: { callbacks: {
+        label: ctx => ` ${ctx.raw} students`
+      }}},
+      scales: {
+        x: { grid: { display: false }, ticks: { font: { size: 11 } } },
+        y: { beginAtZero: true, grid: { color: '#f0eef6' }, ticks: { stepSize: 2 } }
+      },
+      ...options
+    }
+  });
+};
+
+const donut = (id, labels, data, colors) => {
+  const ctx = document.getElementById(id).getContext('2d');
+  return new Chart(ctx, {
+    type: 'doughnut',
+    data: { labels, datasets: [{ data, backgroundColor: colors, borderWidth: 2, borderColor: '#fff' }] },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      plugins: {
+        legend: {
+          display: true,
+          position: 'right',
+          labels: { font: { size: 11 }, padding: 10, boxWidth: 12 }
+        },
+        tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${ctx.raw}` }}
+      }
+    }
+  });
+};
+
+// ─── Roles ───────────────────────────────────────────────────────────────────
+donut('rolesChart',
+  ['UX Design', 'Product Mgmt', 'UX Research', 'UX Research & Eng', 'Exploring / Undecided'],
+  [19, 7, 6, 1, 2],
+  [PURPLE, GOLD, LIGHT, ACCENT, '#ccc']
+);
+
+// ─── Trajectory ──────────────────────────────────────────────────────────────
+donut('trajectoryChart',
+  ['Expanding within HCD', 'Career change', 'Not sure yet'],
+  [24, 10, 1],
+  [PURPLE, GOLD, '#ccc']
+);
+
+// ─── Self-ID ─────────────────────────────────────────────────────────────────
+vbar('selfIdChart',
+  ['1 — Researcher', '2', '3 — Balanced', '4', '5 — Designer'],
+  [5, 5, 10, 9, 6],
+  [ACCENT, LIGHT, PURPLE, LIGHT, GOLD]
+);
+
+// ─── Coding Experience ───────────────────────────────────────────────────────
+hbar('codingChart',
+  ['None', 'Minimal\n(tutorials didn\'t stick)', 'Some\n(can read, struggle to write)', 'Moderate\n(completed a course)', 'Comfortable\n(codes regularly)'],
+  [2, 11, 8, 11, 3],
+  [PURPLE, PURPLE, PURPLE, PURPLE, PURPLE]
+);
+
+// ─── Python ──────────────────────────────────────────────────────────────────
+hbar('pythonChart',
+  ['Never', 'Briefly\n(tutorial / class)', 'Yes, for specific tasks', 'Yes, regularly'],
+  [9, 13, 11, 2],
+  [GOLD, GOLD, GOLD, GOLD]
+);
+
+// ─── Command line ────────────────────────────────────────────────────────────
+vbar('cmdChart',
+  ['1 — None', '2', '3', '4', '5 — Confident'],
+  [10, 11, 5, 5, 4],
+  ['#C4B8E0', '#BFD3E6', LIGHT, GOLD, PURPLE]
+);
+
+// ─── Tools ───────────────────────────────────────────────────────────────────
+hbar('toolsChart',
+  ['Claude / AI assistant', 'VS Code', 'GitHub / Git', 'Command line', 'Jupyter Notebooks', 'Cursor', 'None of these'],
+  [25, 24, 20, 19, 10, 9, 3],
+  [PURPLE, PURPLE, PURPLE, PURPLE, PURPLE, PURPLE, '#ddd'],
+  { scales: { x: { ticks: { stepSize: 5 }, max: 35 }, y: { ticks: { font: { size: 12 } } } } }
+);
+
+// ─── Excited work ────────────────────────────────────────────────────────────
+hbar('workChart',
+  [
+    'Building prototypes & interactive tools',
+    'Building a professional portfolio',
+    'Automating repetitive research/design tasks',
+    'Visualizing data for stakeholders',
+    'Deploying something people can actually use',
+    'Analyzing qualitative data (interviews, surveys)',
+    'Working with APIs & external data sources',
+  ],
+  [30, 26, 25, 22, 22, 21, 20],
+  [PURPLE, GOLD, LIGHT, ACCENT, PURPLE, GOLD, LIGHT],
+  { scales: { x: { max: 35, ticks: { stepSize: 5 } }, y: { ticks: { font: { size: 12 } } } } }
+);
+
+// ─── Nervous ─────────────────────────────────────────────────────────────────
+hbar('nervousChart',
+  [
+    'Not technical enough for this course',
+    'Working in public on GitHub',
+    'Keeping up with the 10-week pace',
+    'Learning hasn\'t stuck before',
+    'Not sure how coding connects to HCD work',
+    'Skills becoming obsolete quickly',
+    'Not nervous at all',
+  ],
+  [23, 15, 14, 14, 4, 1, 7],
+  ['#c0392b', '#e07b6a', '#e07b6a', '#e07b6a', GOLD, '#aaa', '#5a9e7a'],
+  { scales: { x: { max: 35, ticks: { stepSize: 5 } }, y: { ticks: { font: { size: 12 } } } } }
+);
+</script>
+</body>
+</html>
