@@ -30,3 +30,4 @@ See [migration/CUSTOM_DOMAIN.md](./migration/CUSTOM_DOMAIN.md).
 ## Legacy paths
 
 - `/viz/*` and `/hcde530-curriculum/*` live under `public/` so URLs stay stable.
+- Crawled Squarespace images live under `public/legacy/`. The **Work** page hero and card fallbacks use filenames listed in [`src/data/work-legacy-accents.json`](src/data/work-legacy-accents.json) (edit to swap visuals). Per-item **Cover** in Notion overrides the fallback thumbnail.

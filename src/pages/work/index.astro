@@ -1,25 +1,43 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import WorkFilter from "../../components/WorkFilter";
+import accentFiles from "../../data/work-legacy-accents.json";
 import { fetchWorkItems } from "../../lib/notion";
 
 const items = await fetchWorkItems();
-const forFilter = items.map((i) => ({
+const base = import.meta.env.BASE_URL || "/";
+const accentUrls = (accentFiles as string[]).map(
+  (f) => `${base}legacy/${encodeURIComponent(f)}`,
+);
+const forFilter = items.map((i, idx) => ({
   slug: i.slug,
   title: i.title,
   tags: i.tags,
   summary: i.summary,
   date: i.date,
+  imageUrl: i.coverUrl ?? accentUrls[idx % accentUrls.length] ?? accentUrls[0] ?? "",
 }));
 ---
 
 <BaseLayout title="Work — Brock Craft" activeNav="work">
-  <section>
-    <p class="work-intro">
-      Projects, papers, and teaching highlights are sourced from <strong>Notion</strong> at build time.
-      Use tags to filter. See <code>NOTION_SCHEMA.md</code> in the repository for database property names and CI
-      secrets.
-    </p>
+  <section class="work-page">
+    <div class="work-hero-strip" aria-hidden="true">
+      {accentUrls.map((src) => (
+        <div class="work-hero-strip__cell">
+          <img src={src} alt="" width="320" height="200" loading="lazy" decoding="async" />
+        </div>
+      ))}
+    </div>
+
+    <header class="work-page__head">
+      <h1 class="work-page__title">Work</h1>
+      <p class="work-intro">
+        Projects and teaching highlights from <strong>Notion</strong>. Filter by tag. Images below the strip rotate as
+        thumbnails when a row has no <strong>Cover</strong> in Notion — swap filenames in
+        <code>src/data/work-legacy-accents.json</code> to feature different <code>/legacy/</code> assets.
+      </p>
+    </header>
+
     <WorkFilter client:load items={forFilter} />
   </section>
 </BaseLayout>

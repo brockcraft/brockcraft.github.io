@@ -6,6 +6,8 @@ export type WorkIndexItem = {
   tags: string[];
   summary: string;
   date: string | null;
+  /** Notion Cover URL, or a curated /legacy/ image from the server */
+  imageUrl: string;
 };
 
 const base = import.meta.env.BASE_URL || "/";
@@ -31,7 +33,7 @@ export default function WorkFilter({ items }: { items: WorkIndexItem[] }) {
   }
 
   return (
-    <div>
+    <div className="work-filter">
       {allTags.length > 0 ? (
         <div className="tag-bar" role="group" aria-label="Filter by tag">
           {allTags.map((t) => (
@@ -46,19 +48,35 @@ export default function WorkFilter({ items }: { items: WorkIndexItem[] }) {
           ))}
         </div>
       ) : null}
-      <ul className="work-list">
+
+      <ul className="work-grid">
         {filtered.map((i) => (
-          <li key={i.slug}>
-            <a href={`${base}work/${encodeURIComponent(i.slug)}/`}>
-              {i.title}
+          <li key={i.slug} className="work-card">
+            <a className="work-card__link" href={`${base}work/${encodeURIComponent(i.slug)}/`}>
+              <div className="work-card__thumb">
+                <img src={i.imageUrl} alt="" width="640" height="400" loading="lazy" decoding="async" />
+              </div>
+              <div className="work-card__body">
+                <h2 className="work-card__title">{i.title}</h2>
+                {i.summary ? <p className="work-card__summary">{i.summary}</p> : null}
+                {i.date ? <p className="work-card__meta">{i.date}</p> : null}
+                {i.tags.length > 0 ? (
+                  <div className="work-card__tags">
+                    {i.tags.map((t) => (
+                      <span key={t} className="work-card__tag">
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                ) : null}
+              </div>
             </a>
-            {i.summary ? <p className="summary">{i.summary}</p> : null}
-            {i.date ? <p className="meta">{i.date}</p> : null}
           </li>
         ))}
       </ul>
+
       {filtered.length === 0 ? (
-        <p className="summary">No entries match the selected tags.</p>
+        <p className="work-empty">No entries match the selected tags.</p>
       ) : null}
     </div>
   );
