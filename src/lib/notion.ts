@@ -19,13 +19,28 @@ export type WorkItem = {
 
 type FallbackRow = WorkItem & { bodyMarkdown?: string };
 
+/**
+ * Astro/Vite loads `.env` into `import.meta.env`. The prebuild script uses `tsx` + `dotenv`
+ * which populates `process.env`. Read both so dev, build, and `emit-work-index` all work.
+ */
+function env(name: string): string | undefined {
+  try {
+    const fromVite = import.meta.env[name as keyof ImportMetaEnv] as unknown;
+    if (typeof fromVite === "string" && fromVite.trim()) return fromVite.trim();
+  } catch {
+    /* no import.meta */
+  }
+  const fromProcess = process.env[name]?.trim();
+  return fromProcess || undefined;
+}
+
 const propNames = () => ({
-  slug: process.env.NOTION_PROP_SLUG ?? "Slug",
-  tags: process.env.NOTION_PROP_TAGS ?? "Tags",
-  published: process.env.NOTION_PROP_PUBLISHED ?? "Published",
-  summary: process.env.NOTION_PROP_SUMMARY ?? "Summary",
-  date: process.env.NOTION_PROP_DATE ?? "Date",
-  cover: process.env.NOTION_PROP_COVER ?? "Cover",
+  slug: env("NOTION_PROP_SLUG") ?? "Slug",
+  tags: env("NOTION_PROP_TAGS") ?? "Tags",
+  published: env("NOTION_PROP_PUBLISHED") ?? "Published",
+  summary: env("NOTION_PROP_SUMMARY") ?? "Summary",
+  date: env("NOTION_PROP_DATE") ?? "Date",
+  cover: env("NOTION_PROP_COVER") ?? "Cover",
 });
 
 function isFullDatabasePage(
@@ -118,8 +133,8 @@ function mapPage(page: PageObjectResponse): WorkItem {
 }
 
 export async function fetchWorkItems(): Promise<WorkItem[]> {
-  const token = process.env.NOTION_TOKEN;
-  const databaseId = process.env.NOTION_DATABASE_ID;
+  const token = env("NOTION_TOKEN");
+  const databaseId = env("NOTION_DATABASE_ID");
   if (!token || !databaseId) {
     return (fallback as { items: FallbackRow[] }).items
       .filter((i) => i.published)
@@ -155,7 +170,7 @@ export async function fetchWorkItems(): Promise<WorkItem[]> {
 }
 
 export async function fetchWorkBodyMarkdown(pageId: string): Promise<string> {
-  const token = process.env.NOTION_TOKEN;
+  const token = env("NOTION_TOKEN");
   if (!token) {
     const fb = (fallback as { items: FallbackRow[] }).items;
     const hit = fb.find((i) => i.id === pageId);
@@ -171,8 +186,8 @@ export async function fetchWorkBodyMarkdown(pageId: string): Promise<string> {
 export async function resolvePageIdBySlug(
   slug: string,
 ): Promise<string | null> {
-  const token = process.env.NOTION_TOKEN;
-  const databaseId = process.env.NOTION_DATABASE_ID;
+  const token = env("NOTION_TOKEN");
+  const databaseId = env("NOTION_DATABASE_ID");
   if (!token || !databaseId) {
     const hit = (fallback as { items: FallbackRow[] }).items.find(
       (i) => i.slug === slug,

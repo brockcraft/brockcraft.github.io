@@ -1,3 +1,4 @@
+import "dotenv/config";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { fetchWorkItems } from "../src/lib/notion.ts";
