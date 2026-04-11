@@ -33,3 +33,7 @@ Without env vars, the site uses [`src/data/work-fallback.json`](src/data/work-fa
 ## CI
 
 Repository secrets: **`NOTION_TOKEN`**, **`NOTION_DATABASE_ID`**. The deploy workflow passes them into `npm run build`.
+
+## After you change content in Notion
+
+The site does **not** auto-update until a new build runs. See **[PUBLISH_FROM_NOTION.md](./PUBLISH_FROM_NOTION.md)** for copy-paste instructions (Notion comment / terminal / GitHub UI) and optional **daily scheduled** deploys.

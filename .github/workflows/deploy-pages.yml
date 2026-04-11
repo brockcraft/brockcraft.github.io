@@ -4,6 +4,10 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  # Rebuild from Notion on a schedule without a git push. Comment out the whole
+  # "schedule:" block if you only want deploys on push / manual runs.
+  schedule:
+    - cron: "30 12 * * *" # 12:30 UTC daily (~morning US); edit cron as you like
 
 permissions:
   contents: read

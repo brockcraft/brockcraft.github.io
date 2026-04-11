@@ -17,6 +17,8 @@ Static site for [brockcraft.github.io](https://brockcraft.github.io), built with
 
 See [NOTION_SCHEMA.md](./NOTION_SCHEMA.md). For GitHub Actions, add secrets **`NOTION_TOKEN`** and **`NOTION_DATABASE_ID`**. Without them, the build uses [src/data/work-fallback.json](./src/data/work-fallback.json).
 
+After editing Notion, trigger a deploy: [PUBLISH_FROM_NOTION.md](./PUBLISH_FROM_NOTION.md) (copy-paste block for a Notion comment, GitHub **Run workflow**, or terminal).
+
 ## Custom domain
 
 See [migration/CUSTOM_DOMAIN.md](./migration/CUSTOM_DOMAIN.md).
