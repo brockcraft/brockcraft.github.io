@@ -1,0 +1,33 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { marked } from "marked";
+import { fetchWorkBodyMarkdown, fetchWorkItems } from "../../lib/notion";
+
+export async function getStaticPaths() {
+  const items = await fetchWorkItems();
+  return items.map((item) => ({
+    params: { slug: item.slug },
+    props: { item },
+  }));
+}
+
+const { item } = Astro.props;
+const md = await fetchWorkBodyMarkdown(item.id);
+const bodyHtml = marked.parse(md || "") as string;
+---
+
+<BaseLayout title={`${item.title} — Brock Craft`} activeNav="work">
+  <article class="work-detail prose">
+    <p>
+      <a href={`${import.meta.env.BASE_URL}work`}>← All work</a>
+    </p>
+    {item.coverUrl ? <img src={item.coverUrl} alt="" width="800" loading="lazy" /> : null}
+    <h1>{item.title}</h1>
+    {item.date ? <p class="summary">{item.date}</p> : null}
+    {item.tags?.length ? (
+      <p class="summary">Tags: {item.tags.join(", ")}</p>
+    ) : null}
+    {item.summary ? <p class="summary">{item.summary}</p> : null}
+    <div class="article-body" set:html={bodyHtml} />
+  </article>
+</BaseLayout>

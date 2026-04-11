@@ -1,0 +1,30 @@
+{
+  "name": "brockcraft-github-io",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "prebuild": "tsx scripts/emit-work-index.ts",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "crawl": "python3 migration/scripts/inventory_crawl.py",
+    "download-legacy": "python3 migration/scripts/download_legacy_assets.py"
+  },
+  "dependencies": {
+    "@astrojs/react": "^4.2.1",
+    "@notionhq/client": "^2.2.15",
+    "astro": "^5.2.5",
+    "marked": "^15.0.7",
+    "notion-to-md": "^3.1.8",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
+  }
+}

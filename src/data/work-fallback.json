@@ -1,0 +1,15 @@
+{
+  "items": [
+    {
+      "id": "fallback-sample",
+      "slug": "sample-entry",
+      "title": "Sample work entry",
+      "tags": ["design", "teaching"],
+      "summary": "This appears when NOTION_TOKEN and NOTION_DATABASE_ID are not set. Configure Notion (see NOTION_SCHEMA.md) and secrets for CI.",
+      "date": "2026-04-01",
+      "coverUrl": null,
+      "published": true,
+      "bodyMarkdown": "## Sample\n\nAdd rows to your Notion database to replace this placeholder. Each **Published** row with a **Slug** becomes a page at `/work/{slug}`."
+    }
+  ]
+}

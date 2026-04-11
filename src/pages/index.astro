@@ -1,0 +1,14 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout title="Brock Craft" activeNav="home">
+  <section class="prose">
+    <p>
+      Personal site (in transition from Squarespace). Explore
+      <a href={`${import.meta.env.BASE_URL}work`}>work</a>
+      or read the
+      <a href={`${import.meta.env.BASE_URL}about`}>about</a> page.
+    </p>
+  </section>
+</BaseLayout>

@@ -1,0 +1,25 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import WorkFilter from "../../components/WorkFilter";
+import { fetchWorkItems } from "../../lib/notion";
+
+const items = await fetchWorkItems();
+const forFilter = items.map((i) => ({
+  slug: i.slug,
+  title: i.title,
+  tags: i.tags,
+  summary: i.summary,
+  date: i.date,
+}));
+---
+
+<BaseLayout title="Work — Brock Craft" activeNav="work">
+  <section>
+    <p class="work-intro">
+      Projects, papers, and teaching highlights are sourced from <strong>Notion</strong> at build time.
+      Use tags to filter. See <code>NOTION_SCHEMA.md</code> in the repository for database property names and CI
+      secrets.
+    </p>
+    <WorkFilter client:load items={forFilter} />
+  </section>
+</BaseLayout>

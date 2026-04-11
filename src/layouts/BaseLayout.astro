@@ -1,0 +1,61 @@
+---
+import "../styles/global.css";
+
+type NavKey = "home" | "work" | "about";
+
+interface Props {
+  title: string;
+  description?: string;
+  activeNav?: NavKey;
+}
+
+const { title, description = "Brock Craft — physical · digital · interaction", activeNav } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,700&family=Roboto:ital,wght@0,400;0,700;1,700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header id="header">
+      <div id="logo">
+        <h1 class="logo">
+          <a href={`${import.meta.env.BASE_URL}`}>Brock Craft</a>
+        </h1>
+        <div class="logo-subtitle">physical - digital - interaction</div>
+      </div>
+      <div id="topNav">
+        <nav class="main-nav" aria-label="Primary">
+          <ul>
+            <li class:list={{ "active-link": activeNav === "work" }}>
+              <a href={`${import.meta.env.BASE_URL}work`}>Projects</a>
+            </li>
+            <li>
+              <a href="https://www.brockcraft.com/teaching-publications">Teaching &amp; Scholarship</a>
+            </li>
+            <li>
+              <a href="https://www.brockcraft.com/visualization-design">Visualization Design</a>
+            </li>
+            <li class:list={{ "active-link": activeNav === "about" }}>
+              <a href={`${import.meta.env.BASE_URL}about`}>About</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <div class="page-divider" role="presentation"></div>
+    <main id="page" role="main">
+      <slot />
+    </main>
+  </body>
+</html>
