@@ -332,6 +332,28 @@
   }
   .sort-select:focus { box-shadow: 0 0 0 2px rgba(47,84,150,0.2); }
 
+  /* ── Unit toggle ── */
+  .unit-toggle {
+    display: flex;
+    border: 1.5px solid #2F5496;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-left: 12px;
+  }
+  .unit-btn {
+    padding: 3px 10px;
+    font-size: 12px;
+    font-family: Arial, sans-serif;
+    color: #2F5496;
+    background: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    line-height: 1.6;
+  }
+  .unit-btn.active { background: #2F5496; color: #fff; }
+  .unit-btn:first-child { border-right: 1.5px solid #2F5496; }
+
   /* ── CSV Loader ── */
   .csv-loader {
     display: flex;
@@ -429,7 +451,7 @@
   <div class="main-panel card" style="grid-row:3/4;">
     <div id="view-range">
       <div class="range-header">
-        <div class="card-title" style="margin-bottom:0;">Criterion 5b Credit Estimates — Quarter Credits (Low–High Range)</div>
+        <div class="card-title" id="range-chart-title" style="margin-bottom:0;">Criterion 5b Credit Estimates — Quarter Credits (Low–High Range)</div>
         <div style="display:flex;align-items:center;">
           <span class="sort-label">Sort by</span>
           <select class="sort-select" id="range-sort" onchange="buildRangeChart()">
@@ -437,6 +459,10 @@
             <option value="design">Eng. Design (high→low)</option>
             <option value="science">Eng. Science (high→low)</option>
           </select>
+          <div class="unit-toggle">
+            <button class="unit-btn active" id="btn-qc" onclick="setUnit(true)">QC</button>
+            <button class="unit-btn" id="btn-sc" onclick="setUnit(false)">SC</button>
+          </div>
         </div>
       </div>
       <svg id="range-chart"></svg>
@@ -611,6 +637,17 @@ const DESIGN_COLOR  = "#2F5496";
 const SCIENCE_COLOR = "#C55A11";
 
 let selectedCourse = null;
+let showQC = true;   // true = quarter credits, false = semester credits
+
+function setUnit(isQC) {
+  showQC = isQC;
+  document.getElementById("btn-qc").classList.toggle("active", isQC);
+  document.getElementById("btn-sc").classList.toggle("active", !isQC);
+  buildRangeChart();
+  // Rebuild heatmap if it's currently visible so cell labels update too
+  const heatmapVisible = !document.getElementById("view-heatmap").classList.contains("hidden");
+  if (heatmapVisible) buildHeatmap();
+}
 
 // ─────────────────────────────────────────────
 // STATUS BAR
@@ -689,20 +726,31 @@ function buildRangeChart() {
   const CHART_W = W - LABEL_W - 16;
   const sorted = getSortedCourses();
   const H = sorted.length * ROW_H + 60;
-  const MAX_QC = 5;
+
+  // Unit-aware settings
+  const unit  = showQC ? "QC" : "SC";
+  const mult  = showQC ? 1 : 0.667;
+  const MAX   = showQC ? 5 : 3.5;
+  const ticks = showQC ? [0,1,2,3,4,5] : [0,0.5,1.0,1.5,2.0,2.5,3.0,3.5];
+
+  // Update card title
+  const titleEl = document.getElementById("range-chart-title");
+  if (titleEl) titleEl.textContent =
+    `Criterion 5b Credit Estimates — ${showQC ? "Quarter" : "Semester"} Credits (Low–High Range)`;
 
   svg.setAttribute("width", W);
   svg.setAttribute("height", H);
   svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
 
-  const x = v => LABEL_W + (v / MAX_QC) * CHART_W;
+  const x = v => LABEL_W + (v / MAX) * CHART_W;
 
   // Gridlines + axis
   let markup = `<g>`;
-  [0,1,2,3,4,5].forEach(v => {
+  ticks.forEach(v => {
     const cx = x(v);
+    const label = Number.isInteger(v) ? `${v}` : v.toFixed(1);
     markup += `<line x1="${cx}" y1="36" x2="${cx}" y2="${H - 10}" stroke="#E0E6F0" stroke-width="1"/>`;
-    markup += `<text x="${cx}" y="24" text-anchor="middle" font-size="11" fill="#999" font-family="Arial">${v} QC</text>`;
+    markup += `<text x="${cx}" y="24" text-anchor="middle" font-size="11" fill="#999" font-family="Arial">${label} ${unit}</text>`;
   });
 
   // Course rows
@@ -722,13 +770,17 @@ function buildRangeChart() {
     markup += `<text x="${LABEL_W - 8}" y="${midY - 6}" text-anchor="end" font-size="12" font-weight="700" fill="#2F5496" font-family="Arial" style="pointer-events:none;">${c.number}</text>`;
     markup += `<text x="${LABEL_W - 8}" y="${midY + 8}" text-anchor="end" font-size="10" fill="#777" font-family="Arial" style="pointer-events:none;">${c.sc} SC</text>`;
 
+    // Scale cat values for display
+    const dDisplay = { ...c.design,  low: +(c.design.low  * mult).toFixed(2), high: +(c.design.high  * mult).toFixed(2) };
+    const sDisplay = { ...c.science, low: +(c.science.low * mult).toFixed(2), high: +(c.science.high * mult).toFixed(2) };
+
     // Design bar (top track)
     const dy = midY - 16;
-    markup += drawRangeBar(x, c.design, dy, DESIGN_COLOR);
+    markup += drawRangeBar(x, dDisplay, dy, DESIGN_COLOR, unit);
 
     // Science bar (bottom track)
     const sy = midY + 4;
-    markup += drawRangeBar(x, c.science, sy, SCIENCE_COLOR);
+    markup += drawRangeBar(x, sDisplay, sy, SCIENCE_COLOR, unit);
 
     // Confidence dots
     markup += confDot(W - 60, dy + 5, c.design.conf);
@@ -750,7 +802,7 @@ function buildRangeChart() {
   `;
 }
 
-function drawRangeBar(x, cat, y, color) {
+function drawRangeBar(x, cat, y, color, unit = "QC") {
   const xLow  = x(cat.low);
   const xHigh = x(cat.high);
   const barH  = 10;
@@ -769,7 +821,7 @@ function drawRangeBar(x, cat, y, color) {
   // High cap line
   out += `<line x1="${xHigh}" y1="${y - 2}" x2="${xHigh}" y2="${y + barH + 2}" stroke="${color}" stroke-width="2" style="pointer-events:none;"/>`;
   // Value label
-  out += `<text x="${xHigh + 5}" y="${y + 9}" font-size="10" fill="${color}" font-family="Arial" style="pointer-events:none;">${cat.low}–${cat.high}</text>`;
+  out += `<text x="${xHigh + 5}" y="${y + 9}" font-size="10" fill="${color}" font-family="Arial" style="pointer-events:none;">${cat.low}–${cat.high} ${unit}</text>`;
   return out;
 }
 
@@ -811,17 +863,21 @@ function buildHeatmap() {
     cats.forEach((cat, ci) => {
       const cx = LABEL_W + ci * CELL_W;
       const conf = cat.conf;
+      const unit = showQC ? "QC" : "SC";
+      const mult = showQC ? 1 : 0.667;
+      const lo   = (cat.low  * mult).toFixed(2);
+      const hi   = (cat.high * mult).toFixed(2);
       markup += `
         <rect x="${cx + 3}" y="${y + 3}" width="${CELL_W - 6}" height="${CELL_H - 6}" rx="5"
           fill="${CONF_BG[conf]}" stroke="${CONF_COLOR[conf]}" stroke-width="1.5"
           style="cursor:pointer;"
           onclick="selectCourse(${ri})"
-          onmouseenter="cellHover(event,'${c.number}','${ci===0?'Design':'Science'}','${conf}','${cat.low}–${cat.high} QC')"
+          onmouseenter="cellHover(event,${ri},${ci})"
           onmouseleave="hideTooltip()"/>
         <text x="${cx + CELL_W/2}" y="${y + CELL_H/2 - 2}" text-anchor="middle"
           font-size="12" font-weight="700" fill="${CONF_COLOR[conf]}" font-family="Arial" style="pointer-events:none;">${conf}</text>
         <text x="${cx + CELL_W/2}" y="${y + CELL_H/2 + 13}" text-anchor="middle"
-          font-size="10" fill="${CONF_COLOR[conf]}" font-family="Arial" style="pointer-events:none;">${cat.low}–${cat.high} QC</text>
+          font-size="10" fill="${CONF_COLOR[conf]}" font-family="Arial" style="pointer-events:none;">${lo}–${hi} ${unit}</text>
       `;
     });
   });
@@ -862,17 +918,27 @@ function positionTooltip(event) {
 
 function rowHover(el, event, idx) {
   const c = courses[idx];
+  const unit = showQC ? "QC" : "SC";
+  const mult = showQC ? 1 : 0.667;
+  const fmt  = v => (v * mult).toFixed(2);
   showTooltip(event, `
     <strong>${c.number}: ${c.name}</strong>
-    Design: ${c.design.low}–${c.design.high} QC (${c.design.conf})<br>
-    Science: ${c.science.low}–${c.science.high} QC (${c.science.conf})<br>
+    Design: ${fmt(c.design.low)}–${fmt(c.design.high)} ${unit} (${c.design.conf})<br>
+    Science: ${fmt(c.science.low)}–${fmt(c.science.high)} ${unit} (${c.science.conf})<br>
     Total: ${c.total.scLow}–${c.total.scHigh} SC
   `);
 }
 function rowLeave(el, idx) { hideTooltip(); }
 
-function cellHover(event, num, cat, conf, range) {
-  showTooltip(event, `<strong>${num} — ${cat}</strong>Confidence: ${conf}<br>Estimate: ${range}`);
+function cellHover(event, ri, ci) {
+  const c    = courses[ri];
+  const cat  = ci === 0 ? c.design : c.science;
+  const catName = ci === 0 ? "Design" : "Science";
+  const unit = showQC ? "QC" : "SC";
+  const mult = showQC ? 1 : 0.667;
+  const lo   = (cat.low  * mult).toFixed(2);
+  const hi   = (cat.high * mult).toFixed(2);
+  showTooltip(event, `<strong>${c.number} — ${catName}</strong>Confidence: ${cat.conf}<br>Estimate: ${lo}–${hi} ${unit}`);
 }
 
 // ─────────────────────────────────────────────
