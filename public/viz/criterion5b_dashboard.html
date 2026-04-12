@@ -440,6 +440,10 @@
     <button class="tab-btn active" onclick="switchTab('range')">Credit Ranges</button>
     <button class="tab-btn" onclick="switchTab('heatmap')">Confidence Heatmap</button>
     <span class="tab-hint">Click any course row to see details →</span>
+    <div class="unit-toggle" style="margin-left:8px;">
+      <button class="unit-btn active" id="btn-qc" onclick="setUnit(true)">QC</button>
+      <button class="unit-btn" id="btn-sc" onclick="setUnit(false)">SC</button>
+    </div>
     <div class="csv-loader">
       <input type="file" id="csv-file-input" accept=".csv" style="display:none;" onchange="handleCSVFile(event)">
       <button class="csv-btn" onclick="document.getElementById('csv-file-input').click()">⟳ Load CSV</button>
@@ -459,10 +463,6 @@
             <option value="design">Eng. Design (high→low)</option>
             <option value="science">Eng. Science (high→low)</option>
           </select>
-          <div class="unit-toggle">
-            <button class="unit-btn active" id="btn-qc" onclick="setUnit(true)">QC</button>
-            <button class="unit-btn" id="btn-sc" onclick="setUnit(false)">SC</button>
-          </div>
         </div>
       </div>
       <svg id="range-chart"></svg>
