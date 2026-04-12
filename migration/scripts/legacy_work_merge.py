@@ -244,6 +244,13 @@ def main() -> int:
         slug = path.strip("/").split("/")[-1] or "untitled"
         title = pick_title(wg, detail, slug)
         body = build_body(w_paras, d_paras)
+        if embeds:
+            lines = []
+            for e in embeds:
+                if e.get("type") == "vimeo" and e.get("src"):
+                    lines.append(f"[Video (Vimeo)]({e['src']})")
+            if lines:
+                body = (body + "\n\n" + "\n\n".join(lines)).strip()
         summary = summary_from(w_paras, d_paras)
 
         notes: list[str] = []

@@ -12,21 +12,21 @@ Static site for [brockcraft.github.io](https://brockcraft.github.io), built with
 | `npm run preview` | Preview `dist/` |
 | `npm run crawl` | Regenerate `migration/inventory.json` from brockcraft.com sitemap |
 | `npm run download-legacy` | Download Squarespace CDN images → `public/legacy/` |
+| `npm run legacy-import` | Scrape legacy site → `migration/legacy-ia-outline.json` + merge → `migration/legacy-work-merged.json` + checklist (needs Python deps below) |
+| `npm run legacy-import-merge` | Re-run merge only (expects `legacy-ia-outline.json` already) |
+| `npm run legacy-import-notion` | Dry-run Notion create from `legacy-work-merged.json` (needs `.env` Notion vars) |
+| `npm run legacy-import-notion:apply` | **Creates** Notion database rows + page bodies (skips existing slugs / matching titles if Slug is a formula) |
 
-### Legacy IA outline (optional)
+### Legacy → Notion (full pipeline)
 
-Scrape the live Squarespace HTML into structured JSON (headings, copy, images, embeds) to help rebuild `/work` in Notion. Python only:
+1. **Python deps** (once): `pip install -r migration/scripts/requirements-ia.txt`
+2. **Scrape + merge + checklist**: `npm run legacy-import`  
+   Writes `migration/legacy-ia-outline.json`, `migration/legacy-work-merged.json`, and `migration/LEGACY_IMPORT_CHECKLIST.md`. Fetches `/work` during merge if it was not part of the outline crawl.
+3. **Preview Notion writes**: `npm run legacy-import-notion` (dry-run log only).
+4. **Apply**: `npm run legacy-import-notion:apply` (requires `NOTION_TOKEN` + `NOTION_DATABASE_ID` in `.env`). Optional: `NOTION_IMPORT_PUBLISHED=false` to import as drafts. If **Slug** is a **Formula** column, Slug is not set on create (Notion derives it); duplicates are detected by **title**.
+5. **Ship**: redeploy so `/work` rebuilds from Notion ([PUBLISH_FROM_NOTION.md](./PUBLISH_FROM_NOTION.md)).
 
-```bash
-cd websites/brockcraft.github.io
-pip install -r migration/scripts/requirements-ia.txt
-python3 migration/scripts/legacy_ia_extract.py \
-  --discover-work \
-  --asset-map migration/asset-url-map.json \
-  --out migration/legacy-ia-outline.json
-```
-
-Use `--paths /work,/the-inner-ear-project` for a subset, or `--use-inventory` to merge sitemap `page_paths` from `migration/inventory.json`. See the script docstring in [`migration/scripts/legacy_ia_extract.py`](./migration/scripts/legacy_ia_extract.py).
+Manual equivalents / options: [`migration/scripts/legacy_ia_extract.py`](./migration/scripts/legacy_ia_extract.py) supports `--paths` and `--use-inventory`.
 
 ## Notion
 

@@ -10,7 +10,11 @@
     "preview": "astro preview",
     "astro": "astro",
     "crawl": "python3 migration/scripts/inventory_crawl.py",
-    "download-legacy": "python3 migration/scripts/download_legacy_assets.py"
+    "download-legacy": "python3 migration/scripts/download_legacy_assets.py",
+    "legacy-import": "python3 migration/scripts/legacy_ia_extract.py --discover-work --asset-map migration/asset-url-map.json --out migration/legacy-ia-outline.json && python3 migration/scripts/legacy_work_merge.py --asset-map migration/asset-url-map.json",
+    "legacy-import-merge": "python3 migration/scripts/legacy_work_merge.py --asset-map migration/asset-url-map.json",
+    "legacy-import-notion": "tsx scripts/notion-import-legacy.ts",
+    "legacy-import-notion:apply": "tsx scripts/notion-import-legacy.ts --apply"
   },
   "dependencies": {
     "@astrojs/react": "^4.2.1",
