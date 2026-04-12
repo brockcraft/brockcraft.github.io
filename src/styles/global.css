@@ -257,11 +257,37 @@ a:hover {
   line-height: 1.55;
 }
 
+.work-filter__toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 0.65rem 1rem;
+  padding: 0.65rem 0 1rem;
+  margin: 0 0 1.25rem;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--rule);
+}
+
+.work-filter__label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #888;
+  padding-top: 0.4rem;
+  flex: 0 0 auto;
+}
+
 .tag-bar {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  margin-bottom: 1.35rem;
+  flex: 1;
+  min-width: 0;
 }
 
 .tag-bar button {
@@ -273,6 +299,10 @@ a:hover {
   background: #fff;
   color: var(--text);
   cursor: pointer;
+}
+
+.tag-bar__all {
+  font-weight: 600;
 }
 
 .tag-bar button:hover {
@@ -293,6 +323,11 @@ a:hover {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(272px, 1fr));
   gap: 1.25rem;
+}
+
+.work-grid--tiles {
+  align-items: stretch;
+  grid-auto-rows: 1fr;
 }
 
 .work-card {
