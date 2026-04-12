@@ -13,6 +13,21 @@ Static site for [brockcraft.github.io](https://brockcraft.github.io), built with
 | `npm run crawl` | Regenerate `migration/inventory.json` from brockcraft.com sitemap |
 | `npm run download-legacy` | Download Squarespace CDN images → `public/legacy/` |
 
+### Legacy IA outline (optional)
+
+Scrape the live Squarespace HTML into structured JSON (headings, copy, images, embeds) to help rebuild `/work` in Notion. Python only:
+
+```bash
+cd websites/brockcraft.github.io
+pip install -r migration/scripts/requirements-ia.txt
+python3 migration/scripts/legacy_ia_extract.py \
+  --discover-work \
+  --asset-map migration/asset-url-map.json \
+  --out migration/legacy-ia-outline.json
+```
+
+Use `--paths /work,/the-inner-ear-project` for a subset, or `--use-inventory` to merge sitemap `page_paths` from `migration/inventory.json`. See the script docstring in [`migration/scripts/legacy_ia_extract.py`](./migration/scripts/legacy_ia_extract.py).
+
 ## Notion
 
 See [NOTION_SCHEMA.md](./NOTION_SCHEMA.md). For GitHub Actions, add secrets **`NOTION_TOKEN`** and **`NOTION_DATABASE_ID`**. Without them, the build uses [src/data/work-fallback.json](./src/data/work-fallback.json).
