@@ -1,0 +1,656 @@
+{
+  "generated_at": "2026-04-12T01:22:05.161659+00:00",
+  "base_url": "https://www.brockcraft.com",
+  "paths_crawled": [
+    "/the-inner-ear-project",
+    "/tinkerlondon",
+    "/apfd",
+    "/spacehoppers",
+    "/borisbikes",
+    "/ycn",
+    "/ldse",
+    "/spot-on",
+    "/ihockney",
+    "/brockenspiel",
+    "/generativeart"
+  ],
+  "discovered_from_work": [
+    "/the-inner-ear-project",
+    "/tinkerlondon",
+    "/apfd",
+    "/spacehoppers",
+    "/borisbikes",
+    "/ycn",
+    "/ldse",
+    "/spot-on",
+    "/ihockney",
+    "/brockenspiel",
+    "/generativeart"
+  ],
+  "pages": [
+    {
+      "path": "/the-inner-ear-project",
+      "document_title": "The Inner Ear Project \u2014 Brock Craft",
+      "mode": "slideshow_gallery",
+      "gallery_projects": [
+        {
+          "title": "The Inner Ear Project",
+          "paragraphs": [],
+          "images": [
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1696446785234-76DQGAYCTGL53R2Q0UJM/64a8949d23106e4e32812218_InnerEar2.1-35-p-800.jpg",
+              "local_web_path": "/legacy/078514550f_64a8949d23106e4e32812218_InnerEar2.1-35-p-800.jpg"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1696446783461-W3ZMJY8BVWQNEFXRGSIA/64a88db458f8d5407cc0ff5a_Tech-9-p-500.jpg",
+              "local_web_path": null
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1696446786956-U15YVYA73KQEHSW78RXI/64a8956d3bb295773803e5e2_Screen+Shot+2023-07-07+at+3.44.56+PM-p-800.png",
+              "local_web_path": null
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1696446784343-JZ2IWWPZIFLUWGCFAYJD/64a894cc7dba1d158839f252_InnerEar2.6-26-p-500.jpg",
+              "local_web_path": null
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1696446783955-9QJFNPK89WJ8FW2S9IDU/64a88bb281e87e14cc9fdbca_IMG_0244-p-800.jpeg",
+              "local_web_path": null
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1696446785091-QZ6KG9AHNDEVE3AT4DPJ/64a8934ee6d7f48c1f27bc14_IMG_9402-p-800.jpeg",
+              "local_web_path": null
+            }
+          ],
+          "embeds": [],
+          "image_captions": []
+        }
+      ],
+      "sections": [],
+      "fetched_url": "https://www.brockcraft.com/the-inner-ear-project/"
+    },
+    {
+      "path": "/tinkerlondon",
+      "document_title": "TinkerLondon \u2014 Brock Craft",
+      "mode": "sqs_or_generic",
+      "gallery_projects": [],
+      "sections": [
+        {
+          "heading": null,
+          "paragraphs": [],
+          "images": [
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1422920898749-BW6RTPJS2SANH85JC0IW/3319222306_b0a6428f75_b.jpg",
+              "local_web_path": "/legacy/e80103d5ac_3319222306_b0a6428f75_b.jpg"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1422920888981-6DNSDX85ZV08BXQ996HK/3191553856_5ac16744a2_o+%281%29.jpg",
+              "local_web_path": "/legacy/cd322e347d_3191553856_5ac16744a2_o__1_.jpg"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1422920889949-T6B2IFA9H0M34FWJN0KF/3921903427_2f3b92f2bd_b_2.jpg",
+              "local_web_path": "/legacy/3a2abe680d_3921903427_2f3b92f2bd_b_2.jpg"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1422920890689-ASGUD4MS7AZ6A485D4IF/auduino6+%281%29.jpg",
+              "local_web_path": "/legacy/ff8a6963ab_auduino6__1_.jpg"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1422920898034-7P9SHM1LBBWU3BD2FVWC/hopperasciiart_0.jpg",
+              "local_web_path": "/legacy/112f6ed1d9_hopperasciiart_0.jpg"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1422920898784-N1BYQKXDVWYNUD4FF3VK/IMG_2094.JPG",
+              "local_web_path": "/legacy/b58be9a380_IMG_2094.JPG"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1422920899972-NVMWFQ19QDUEWNK36SOV/IMG_4736.JPG",
+              "local_web_path": "/legacy/e33b938ab5_IMG_4736.JPG"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1422920899286-LKZRLJF2H7CDVXEVF6LT/IMG_5048_1+%281%29.JPG",
+              "local_web_path": "/legacy/2257e03470_IMG_5048_1__1_.JPG"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1422920900039-RAURTDUCW4UDUD5J8ZQJ/IMG_5176.JPG",
+              "local_web_path": "/legacy/bec7beaf7e_IMG_5176.JPG"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1422920902109-KYRVWDUH3Z1CXD0MEPF7/walking.jpg",
+              "local_web_path": "/legacy/bc47cb0349_walking.jpg"
+            }
+          ],
+          "html_excerpt": "TinkerLondon TinkerLondon was a multidisciplinary design studio based in London that operated from May 2007 to December 2010. I was a partner in the business and co-director, along with Alexandra Deschamps-Sonsino and Arduino co-founder Massimo Banzi. We designed products and services that bridge the digital and the physical. We also taught people how to use new technologies in creative ways through a hands-on approach. We challenged existing design, innovation and research practices. Go to the TinkerLondon archive..."
+        },
+        {
+          "heading": "TinkerLondon",
+          "paragraphs": [],
+          "images": [],
+          "html_excerpt": ""
+        }
+      ],
+      "fetched_url": "https://www.brockcraft.com/tinkerlondon/"
+    },
+    {
+      "path": "/apfd",
+      "document_title": "Arduino Projects for Dummies \u2014 Brock Craft",
+      "mode": "sqs_or_generic",
+      "gallery_projects": [],
+      "sections": [
+        {
+          "heading": null,
+          "paragraphs": [],
+          "images": [
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1422921971514-RPNRKO1OTHANE9ERCY2J/9781118551479-cover-d1+icon.png",
+              "local_web_path": "/legacy/40efeb518b_9781118551479-cover-d1_icon.png"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1423570522371-H7D6MKIM2HWDXOBD044G/551479+fg0605.jpeg",
+              "local_web_path": "/legacy/9d26c27d9e_551479_fg0605.jpeg"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1426336049094-QO1TFLMZPOY4QGQRH41Q/Screen+Shot+2015-03-14+at+12.27.00.png",
+              "local_web_path": "/legacy/cd5fe306fe_Screen_Shot_2015-03-14_at_12.27.00.png"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1423570523175-GD20ZP7YTHDVRXB4VCOA/551479+fg0606.jpeg",
+              "local_web_path": "/legacy/dc450d0d43_551479_fg0606.jpeg"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1423570521546-7QEVG0OHOM7EO8CNSUXM/551479+fg0501.jpeg",
+              "local_web_path": "/legacy/081b4ff9e3_551479_fg0501.jpeg"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1423570522587-Z3D88B1YLJQZKVMQZMRX/551479+fg0708.jpeg",
+              "local_web_path": "/legacy/75aed3b45e_551479_fg0708.jpeg"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1423570522790-PE7A405GS6WZRZOVZ0EB/551479+fg0808a.jpeg",
+              "local_web_path": "/legacy/3cc74806de_551479_fg0808a.jpeg"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1423570522997-WC0ZTF91GA6NKT7VVHQ9/551479+fg0811.jpeg",
+              "local_web_path": "/legacy/0a50511b0c_551479_fg0811.jpeg"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1423570523907-UD56XRK0CN3DYNKVFJCV/Fig+8-5breadboard+revised+raw.jpg",
+              "local_web_path": "/legacy/7282dfefa1_Fig_8-5breadboard_revised_raw.jpg"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1423570523289-IZQ51TMMKFAGQP00D4R3/551479+fg1015.jpeg",
+              "local_web_path": "/legacy/87e2c5ab9b_551479_fg1015.jpeg"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1423570523386-VYBLMOG63YMFVZBPW7M8/551479+fg1016.jpeg",
+              "local_web_path": "/legacy/63e219208f_551479_fg1016.jpeg"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1423570523492-A04ZWPT1UVF5K41O0625/551479+fg1205.jpeg",
+              "local_web_path": "/legacy/30b448a465_551479_fg1205.jpeg"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1423570523587-GL6D16GOG63NFT5QJBV4/551479+fg1215.jpeg",
+              "local_web_path": "/legacy/0aa4373493_551479_fg1215.jpeg"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1423570523613-1XR1ZMNYAU52922DQ7W9/551479+fg1413.jpeg",
+              "local_web_path": "/legacy/9d2498a53c_551479_fg1413.jpeg"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1423570523797-FBJ80QIEKSD0BGFB0DD1/551479+fg1416.jpeg",
+              "local_web_path": "/legacy/9e4f4ba428_551479_fg1416.jpeg"
+            }
+          ],
+          "html_excerpt": "Arduino Projects for Dummies In 2013, I wrote\u00a0Arduino Projects for Dummies\u00a0in the popular how-to series by publisher John Wiley & Sons. The book describes a dozen interactive projects based on the popular Arduino microcontroller prototyping platform. It has\u00a0simple, clear explanations, step-by-step\u00a0instructions and plenty of images and illustrations. You can get a copy of my book on the ForDummies website, at Amazon, or at your local bookstore."
+        },
+        {
+          "heading": "Arduino Projects for Dummies",
+          "paragraphs": [],
+          "images": [],
+          "html_excerpt": ""
+        }
+      ],
+      "fetched_url": "https://www.brockcraft.com/apfd/"
+    },
+    {
+      "path": "/spacehoppers",
+      "document_title": "Spacehoppers \u2014 Brock Craft",
+      "mode": "sqs_or_generic",
+      "gallery_projects": [],
+      "sections": [
+        {
+          "heading": null,
+          "paragraphs": [],
+          "images": [
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1423341058495-SL1CVEM9YF6Z6X7ODJIO/Screen+Shot+2015-02-07+at+20.11.13.png",
+              "local_web_path": "/legacy/d43d4984b7_Screen_Shot_2015-02-07_at_20.11.13.png"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1422907759842-MRHPC6HSPKJCZCMCVJDD/IMG_0417.JPG",
+              "local_web_path": "/legacy/a9f8b9ee71_IMG_0417.JPG"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1422907648627-91MEGZ53T2VZOP034EZO/DSCF1264.JPG",
+              "local_web_path": "/legacy/3c03372512_DSCF1264.JPG"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1422907456575-XHIX3I67WVCL5R21G8FV/DSCF1259.JPG",
+              "local_web_path": "/legacy/26b6f3e76f_DSCF1259.JPG"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1422907308544-TYQNI06VMCL9P8ZRAS69/DSCF1256.JPG",
+              "local_web_path": "/legacy/e917dc3830_DSCF1256.JPG"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1422907402754-7VFHH7K742GNOAKT9JOH/DSCF1265.JPG",
+              "local_web_path": "/legacy/9e6de9146a_DSCF1265.JPG"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1422907672880-G9X58X784GC30P2N16XS/DSCF1255.JPG",
+              "local_web_path": "/legacy/622f8a3046_DSCF1255.JPG"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1422907747792-NYJX8OOUV7BHLHRVBFRR/IMG_0398.JPG",
+              "local_web_path": "/legacy/232a31d8cf_IMG_0398.JPG"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1422907782934-OAC1KH675U2SQJEE62VL/IMG_0418.JPG",
+              "local_web_path": "/legacy/a7ff9b1c58_IMG_0418.JPG"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1422907797318-4T9JTWTFSKTI3JEOJRVW/IMG_0414.JPG",
+              "local_web_path": "/legacy/75a04674fa_IMG_0414.JPG"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1422907863903-P8OKC2WUW39R8PFL92A7/IMG_0406.JPG",
+              "local_web_path": "/legacy/dd659c5250_IMG_0406.JPG"
+            }
+          ],
+          "html_excerpt": "Spacehoppers What do you get when you connect 49 inflatable exercise balls to the internet with live streaming webcams? Spacehoppers was an installation linking twitter with an array of inflatable spacehoppers for a Sony Ericsson mobile phone campaign. Visitors to the campaign website could watch live video feeds as their tweets inflated a grid of spacehoppers, which was tended by technicians 24/7 over a two week period. I managed the design and production of the project while a Partner at TinkerLondon . Type: Interactive installation For: Dare Digital/Sony Ericsson Site: sonyericsson.com Tech: Arduino, mixed hardware, twitter API, streaming video"
+        },
+        {
+          "heading": "Spacehoppers",
+          "paragraphs": [],
+          "images": [],
+          "html_excerpt": ""
+        }
+      ],
+      "fetched_url": "https://www.brockcraft.com/spacehoppers/"
+    },
+    {
+      "path": "/borisbikes",
+      "document_title": "Boris Bikes Visualisation \u2014 Brock Craft",
+      "mode": "slideshow_gallery",
+      "gallery_projects": [
+        {
+          "title": "Boris Bikes Visualisation",
+          "paragraphs": [],
+          "images": [
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1422924156503-K68RUUJLYKB6FLDI4SMK/image-asset.jpeg",
+              "local_web_path": null
+            }
+          ],
+          "embeds": [],
+          "image_captions": []
+        }
+      ],
+      "sections": [],
+      "fetched_url": "https://www.brockcraft.com/borisbikes/"
+    },
+    {
+      "path": "/ycn",
+      "document_title": "Young Creatives Network \u2014 Brock Craft",
+      "mode": "sqs_or_generic",
+      "gallery_projects": [],
+      "sections": [
+        {
+          "heading": null,
+          "paragraphs": [],
+          "images": [
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1422917072959-1XK019YO11PWI8NH8818/2.jpg",
+              "local_web_path": "/legacy/a49dee523b_2.jpg"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1422917087510-58GZVSB4PU5YY42RQA7E/5.jpg",
+              "local_web_path": "/legacy/b3b7b54d50_5.jpg"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1422917100128-LBOVEAKG86FKRUVDK34N/6.jpg",
+              "local_web_path": "/legacy/90361d037b_6.jpg"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1422917094114-CUO5V5OSXROTGVDYKF4K/DSCN1478.JPG",
+              "local_web_path": "/legacy/896806e982_DSCN1478.JPG"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1422917100421-WGHGME5C35ES8ZTG7J0R/DSCN1482.JPG",
+              "local_web_path": "/legacy/b7fa5a23b7_DSCN1482.JPG"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1422917107483-TLFW68F1GUAOIP1GQYA3/DSCN1486.JPG",
+              "local_web_path": "/legacy/d63b444dd7_DSCN1486.JPG"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1422917105388-W1EZ1NLX8YSKL1J3L04D/DSCN1489.JPG",
+              "local_web_path": "/legacy/947de10fd4_DSCN1489.JPG"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1422917106344-KZDJNZ8D3IDNFQV0SC3I/led+assembly.JPG",
+              "local_web_path": "/legacy/c0d950c19a_led_assembly.JPG"
+            }
+          ],
+          "html_excerpt": "Young Creatives Network This was a client project at Tinker London for YCN, who host an designers' showcase event annually. We created an interactive kiosk system that allowed guests to select their favourite work using RFID VIP cards. We also created a ballon display that used Atmel CPUs (ATTINY) to display a glowing pattern within hundreds of giant helium balloons. These were released \u201cinto the wild\u201d in London, after the event. Type: Interactive Event (2008) For: Client Project at Tinker London Site: Tinker London Tech: Arduino, RFID tags, mixed hardware"
+        },
+        {
+          "heading": "Young Creatives Network",
+          "paragraphs": [],
+          "images": [],
+          "html_excerpt": ""
+        }
+      ],
+      "fetched_url": "https://www.brockcraft.com/ycn/"
+    },
+    {
+      "path": "/ldse",
+      "document_title": "Learning Design Support Environment \u2014 Brock Craft",
+      "mode": "sqs_or_generic",
+      "gallery_projects": [],
+      "sections": [
+        {
+          "heading": null,
+          "paragraphs": [],
+          "images": [
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1422918123519-YZBPAEZ0XLFYMVXQB5DM/dscf1584.jpg",
+              "local_web_path": "/legacy/aab994f4f8_dscf1584.jpg"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1422918123150-7VN9TT74Y4FNBJLLZLEB/dscn1672.jpg",
+              "local_web_path": "/legacy/bd4074d677_dscn1672.jpg"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1422918124972-X9FF54RT19UYOBHA2NHE/ldse-mockup-2.jpg",
+              "local_web_path": "/legacy/3f316b6be2_ldse-mockup-2.jpg"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1422918125296-TZY1F0HILS7NR1TQN0ZL/ldse-screenshots1.jpg",
+              "local_web_path": "/legacy/8b8ee1f93c_ldse-screenshots1.jpg"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1422918127116-AGKD8F4GUPKULH61AWDU/ldse-screenshots3.jpg",
+              "local_web_path": "/legacy/78f127ffc2_ldse-screenshots3.jpg"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1422918127974-DIYF5PZOJ30CCSDPW5CZ/picture-2.png",
+              "local_web_path": "/legacy/b3db76e9a5_picture-2.png"
+            }
+          ],
+          "html_excerpt": "Learning Design Support Environment (LDSE) was an UK research council-funded research project working on an interactive system to scaffold teachers\u2019 decision-making from basic planning to creative Technology-Enhanced Learning (TEL) design. As a Research Fellow on the project I\u00a0conducted\u00a0user requirements research, designed the information architecture and prototyped\u00a0the UI for the software. Type: TEL Research Project Funded by: EPSRC/ESRC (2009-2012) Site: ldse.org.uk Tech: Flex, NetBeans, Processing, Adobe CS4"
+        },
+        {
+          "heading": "Learning Design Support Environment",
+          "paragraphs": [],
+          "images": [],
+          "html_excerpt": ""
+        }
+      ],
+      "fetched_url": "https://www.brockcraft.com/ldse/"
+    },
+    {
+      "path": "/spot-on",
+      "document_title": "Spot ON \u2014 Brock Craft",
+      "mode": "sqs_or_generic",
+      "gallery_projects": [],
+      "sections": [
+        {
+          "heading": null,
+          "paragraphs": [],
+          "images": [
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1423007123497-5CSNWNNE4NHOP7L7SAQR/DSCN1364.JPG",
+              "local_web_path": "/legacy/601b40aa28_DSCN1364.JPG"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1423007056965-QTEGXUZH8JUUJJQ0PJE6/Untitled.png",
+              "local_web_path": "/legacy/391fa35e4b_Untitled.png"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1423007153957-EDGV5F51F9RMRK9GZ0MU/spot+on+angles.png",
+              "local_web_path": "/legacy/522ab7accf_spot_on_angles.png"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1423007142110-RR7FOHXPK1OTYTJO0F89/DSCN1368.JPG",
+              "local_web_path": "/legacy/72f179413c_DSCN1368.JPG"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1423007078203-R0OLVV7EC3EHQY06M021/DSCN1229.JPG",
+              "local_web_path": "/legacy/90c4ee46f5_DSCN1229.JPG"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1423006967519-3AWF29OQQ158GTQ9FWPV/DSCN1124.JPG",
+              "local_web_path": "/legacy/6c986ae44d_DSCN1124.JPG"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1423007050135-MQ1481IC17N85Y965I9N/DSCN1050.JPG",
+              "local_web_path": "/legacy/b4a6355c91_DSCN1050.JPG"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1423007056440-RYDZ1N68PV7K2NTJ2CMJ/DSCN1049.JPG",
+              "local_web_path": "/legacy/ee21dd2d60_DSCN1049.JPG"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1423007060580-VQE704G9VJK7G6UAA9DS/DSCN1144.JPG",
+              "local_web_path": "/legacy/0cb6804caa_DSCN1144.JPG"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1423007060116-AHZ5DTEZSM5LPCOYNEG3/DSCN1145.JPG",
+              "local_web_path": "/legacy/907974979e_DSCN1145.JPG"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1423007066276-GKXML3KP2RL2W0QTHYA0/DSCN1147.JPG",
+              "local_web_path": "/legacy/538744060d_DSCN1147.JPG"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1423007070116-AD961FLVOO29VL0U99Y8/DSCN1226.JPG",
+              "local_web_path": "/legacy/6759e452ed_DSCN1226.JPG"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1423007081347-P6P9HCVCNWLMEEFDWMAP/DSCN1238.JPG",
+              "local_web_path": "/legacy/268a75eb53_DSCN1238.JPG"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1423007094326-R72TWVYJ8OCLAXXZU43G/DSCN1277.JPG",
+              "local_web_path": "/legacy/ddd2ff715a_DSCN1277.JPG"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1423007097791-5ZEYAW2L03WOND8D2LPA/IMG_0103.JPG",
+              "local_web_path": "/legacy/50edc95e33_IMG_0103.JPG"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1423007158009-MC6EHEJYOWM9C75VIXSO/DSCN1376.JPG",
+              "local_web_path": "/legacy/1c83ff9353_DSCN1376.JPG"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1423007102010-KK0OUUCKC5RHQ6Q9BAUB/DSCN1293.JPG",
+              "local_web_path": "/legacy/677e7ac4d5_DSCN1293.JPG"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1423007109204-IOBBWCHFJW1B8HG5D9RK/DSCN1300.JPG",
+              "local_web_path": "/legacy/908128fa8b_DSCN1300.JPG"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1423007120792-1LUJZ4G6E2EMXXDNI15Q/DSCN1330.JPG",
+              "local_web_path": "/legacy/e8da3fdf53_DSCN1330.JPG"
+            }
+          ],
+          "html_excerpt": "Spot-ON This research investigated how learners may understand 3-D and non-Euclidean geometries by using bespoke Tangible Widgets and Sun Microsystems SPOTs as a digital extension of their bodily movements. These interactive objects served as an interface to connect learners\u2019 capacity for kinaesthetic thinking with digital learning environments. We built on 40 years of previous research with technologies such as Logo and programmable \u201cTurtles\u201d, but using tangibles to explore possibilities for new kinds of learning experiences in mathematics and science. Type: BECTA Research Project Funded by: BECTA (2008) Site: LKL Website for SPOT On Tech: Infrared Pointers, Arduino, BoeBOTS, Sun SPOTs, Processing, JAVA"
+        },
+        {
+          "heading": "Spot-ON",
+          "paragraphs": [],
+          "images": [],
+          "html_excerpt": ""
+        }
+      ],
+      "fetched_url": "https://www.brockcraft.com/spot-on/"
+    },
+    {
+      "path": "/ihockney",
+      "document_title": "iHockney \u2014 Brock Craft",
+      "mode": "sqs_or_generic",
+      "gallery_projects": [],
+      "sections": [
+        {
+          "heading": null,
+          "paragraphs": [],
+          "images": [
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1423004099677-JMZSMNTZRMWH17PAJ3U4/hock1.JPG",
+              "local_web_path": "/legacy/58f2484aa5_hock1.JPG"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1423004087763-M54NSHB5D5RXLWK852JQ/hock2.JPG",
+              "local_web_path": "/legacy/2498fe80b7_hock2.JPG"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1423004107732-T1E2QWNV9L5JMM5UM2E0/hock3.JPG",
+              "local_web_path": "/legacy/e844fa8ddc_hock3.JPG"
+            }
+          ],
+          "html_excerpt": "iHockney As 2009 drew to a close, TinkerLondon were approached by The Evening Standard to create a unique piece of design based on the work of a unique artist: David Hockney. Mr Hockney has consistently innovated, using unconventional modern devices such as the Polaroid instant photograph, the Quantel Paintbox, fax machines, digital cameras, laser printing and digital painting software when they very first appeared on the market. By 2008, David Hockney was drawing on the then new Apple iPhone, using the Brushes application. As a tribute, we designed iHockney: a framed array of twelve iPod touches, each displaying selections of Hockney's original drawings. The interplay of these small devices displaying art in a visually strong pattern, itself framed in a traditional way really reflects the work of Mr Hockney in mixing artistic tools both old and new. iHockney is an entrancing piece and is a permanent fixture in the office of Evening Standard editor Geordie Greig."
+        },
+        {
+          "heading": "iHockney",
+          "paragraphs": [],
+          "images": [],
+          "html_excerpt": ""
+        }
+      ],
+      "fetched_url": "https://www.brockcraft.com/ihockney/"
+    },
+    {
+      "path": "/brockenspiel",
+      "document_title": "Brockenspiel \u2014 Brock Craft",
+      "mode": "sqs_or_generic",
+      "gallery_projects": [],
+      "sections": [
+        {
+          "heading": null,
+          "paragraphs": [],
+          "images": [
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1423007917449-TDTB50GSQZCIG6HEX78B/DSCN0901.JPG",
+              "local_web_path": "/legacy/5ba914dec9_DSCN0901.JPG"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1423007913424-7WRJNFOS20UZMSAZY0MY/DSCN0903.JPG",
+              "local_web_path": "/legacy/1829882a1b_DSCN0903.JPG"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1423007932123-SZRN3JUNB2A0OMPFSRMR/DSCN0904.JPG",
+              "local_web_path": "/legacy/48e9147c7d_DSCN0904.JPG"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1423007919891-EVIA63B7IVWENHQV3ZQZ/DSCN0905.JPG",
+              "local_web_path": "/legacy/d0e4fff283_DSCN0905.JPG"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1423007922131-33H9OIKXIVZNG03Z0BKO/DSCN0906+copy.JPG",
+              "local_web_path": "/legacy/19ea6a7c7f_DSCN0906_copy.JPG"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1423007941703-6GMNL2OZ98KICKYQLGA0/DSCN0918.JPG",
+              "local_web_path": "/legacy/e0b7dec819_DSCN0918.JPG"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1423007934765-1MKHQ8BPXIKR7QZRHWKO/DSCN0919.JPG",
+              "local_web_path": "/legacy/73c6698951_DSCN0919.JPG"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1423007939422-8EBQWISCRCQC5ZCDR929/DSCN0921.JPG",
+              "local_web_path": "/legacy/ffcf80d152_DSCN0921.JPG"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1423007956674-GU62SWOFNHX3WYF6R1P0/DSCN0935.JPG",
+              "local_web_path": "/legacy/aff66a7b72_DSCN0935.JPG"
+            }
+          ],
+          "html_excerpt": "Brockenspiel The Brockenspiel is a musical swipe\u00a0card reader. It plays the numbers that are encoded on the magnetic stripe of credit cards and access cards, turning the invisibly encoded data on our pocketfuls of cards into something melodious and beautiful. It also reads and plays barcodes, with an optional barcode scanner plugged in. The Brockenspiel was featured on the BBCs Tech Know series."
+        },
+        {
+          "heading": "Brockenspiel",
+          "paragraphs": [],
+          "images": [
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1426115861002-UO5UVKPDNCG2Y9I7V81B/Screen+Shot+2015-03-11+at+23.16.03.png",
+              "local_web_path": "/legacy/dac742c9f8_Screen_Shot_2015-03-11_at_23.16.03.png"
+            }
+          ],
+          "html_excerpt": ""
+        }
+      ],
+      "fetched_url": "https://www.brockcraft.com/brockenspiel/"
+    },
+    {
+      "path": "/generativeart",
+      "document_title": "Generative Art \u2014 Brock Craft",
+      "mode": "sqs_or_generic",
+      "gallery_projects": [],
+      "sections": [
+        {
+          "heading": null,
+          "paragraphs": [],
+          "images": [
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1423009397445-9C3BLW4P5DQR9OB60QSY/context+free+tree_b+craft.png",
+              "local_web_path": "/legacy/b884167d67_context_free_tree_b_craft.png"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1423009182136-NI99EKZZF0UYUYWZ1ONV/plantvariations3b-big-zyh.png",
+              "local_web_path": "/legacy/91bf877494_plantvariations3b-big-zyh.png"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1423009651132-JG5WQYWH8AUCTFRO03B7/plantvariations3b-big.png",
+              "local_web_path": "/legacy/3ac59afd06_plantvariations3b-big.png"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1423009823161-6L2KPU0R7SS47R0HYUXJ/sharp_zigzagger_fuzzy_hue-hue.png",
+              "local_web_path": "/legacy/a1418a3cee_sharp_zigzagger_fuzzy_hue-hue.png"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1423009746364-JYNAKRYW3SGVDRYZKBVK/sharp_zigzagger_fuzzy-zzzz.png",
+              "local_web_path": "/legacy/3a1f8a7907_sharp_zigzagger_fuzzy-zzzz.png"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1423009755930-98Q5GRP4DE7ZN32CWVMQ/spinecity-aah-test72dpi.png",
+              "local_web_path": "/legacy/0897895b2c_spinecity-aah-test72dpi.png"
+            },
+            {
+              "url": "https://images.squarespace-cdn.com/content/v1/54cfd106e4b059148957ab84/1423165599420-S3K4JMWAG3FZJ3AN5GZ7/image-asset.png",
+              "local_web_path": "/legacy/9647d20c62_image-asset.png"
+            }
+          ],
+          "html_excerpt": "Generative Art My work explores the use of information as a medium of creative expression in a variety of manifestations. It comprises both images and interactive projects, and often employs software and hardware systems. These images were generated using context-free grammars, which\u00a0can generate abstract forms from relatively simple sets of instructions. In this series, the\u00a0rules describe how to build the structure rather than describing the location and characteristics of their\u00a0branches and leaves. Besides generating elegant images, research in complex grammars can lead to more efficient and powerful techniques for computation. Gicl\u00e9e Prints 2006-2008"
+        },
+        {
+          "heading": "Generative Art",
+          "paragraphs": [],
+          "images": [],
+          "html_excerpt": ""
+        }
+      ],
+      "fetched_url": "https://www.brockcraft.com/generativeart/"
+    }
+  ],
+  "notes": [
+    "gallery_stack: /work index \u2014 div.project.gallery-project under #projectPages (stacked projects + image-list).",
+    "slideshow_gallery: standalone gallery pages \u2014 #slideshow .slide images (excludes tiny-thumb controls).",
+    "sqs_or_generic: headings + sqs html blocks + CDN images (excludes .project-image thumbs).",
+    "Crawl each discovered project path for full slideshows; /work holds stacked previews + copy.",
+    "Legacy hash URLs (#/...) are not required; use paths like /the-inner-ear-project/."
+  ]
+}

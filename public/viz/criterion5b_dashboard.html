@@ -398,8 +398,9 @@
     <button class="tab-btn" onclick="switchTab('heatmap')">Confidence Heatmap</button>
     <span class="tab-hint">Click any course row to see details →</span>
     <div class="csv-loader">
-      <button class="csv-btn" onclick="fetchCSV()">⟳ Refresh data</button>
-      <span class="csv-status" id="csv-status">Loading…</span>
+      <input type="file" id="csv-file-input" accept=".csv" style="display:none;" onchange="handleCSVFile(event)">
+      <button class="csv-btn" onclick="document.getElementById('csv-file-input').click()">⟳ Load CSV</button>
+      <span class="csv-status" id="csv-status">Using built-in data</span>
     </div>
   </div>
 
@@ -537,6 +538,17 @@ let courses = [
     tools: "Tableau, Altair/Python, Jupyter Notebooks, git, Google Sheets",
     notes: "Lecture/studio hybrid with strong design cycle via 10-week team project (P1–P6). Engineering science grounded in perceptual science, formal data theory, and computational methods — more defensible than most HCDE courses. Strongest engineering science case among courses with High design confidence.",
     doc: "HCDE 411/HCDE_411_ABET_Evaluation.docx"
+  },
+  {
+    number: "HCDE 438",
+    name: "Web Technologies",
+    credits: 5, sc: 3.3,
+    design:  { low: 1.25, high: 2.0,  conf: "Moderate" },
+    science: { low: 0.0,  high: 0.25, conf: "Low" },
+    total:   { scLow: 0.83, scHigh: 1.49 },
+    tools: "HTML5/CSS3, JavaScript (ES6+/async/await), React (Vite), Bootstrap, Tailwind CSS, Firebase (Firestore/Auth/Hosting), Netlify, Vercel, Git/GitHub, VS Code, Chrome DevTools, Miro, REST APIs",
+    notes: "Programming course; engineering design derives from the Final Project sequence (FP1–FP3, 70% of grade): student-defined app concept, requirements, architecture, wireframes (FP1), iterative development with feedback (FP2), deployed product evaluated against stated requirements (FP3). Mini projects and 1.x assignment series are prescribed implementation exercises. No engineering science content. Strongest modern tools inventory in the curriculum.",
+    doc: "HCDE 438/HCDE_438_ABET_Evaluation.docx"
   },
 ];
 
@@ -877,31 +889,29 @@ function selectCourse(idx) {
 // ─────────────────────────────────────────────
 // CSV LOADER
 // ─────────────────────────────────────────────
-const CSV_URL = "../data/criterion5b_data.csv";
-
-function fetchCSV() {
-  const statusEl = document.getElementById("csv-status");
-  statusEl.textContent = "Loading…";
-  statusEl.className = "csv-status";
-  fetch(CSV_URL + "?t=" + Date.now())
-    .then(r => {
-      if (!r.ok) throw new Error(`HTTP ${r.status}`);
-      return r.text();
-    })
-    .then(text => {
-      const parsed = parseCSV(text);
+function handleCSVFile(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const parsed = parseCSV(e.target.result);
       if (parsed.length === 0) throw new Error("No data rows found.");
       courses = parsed;
       selectedCourse = null;
       refreshAll();
-      statusEl.textContent = `✓ ${parsed.length} courses loaded`;
+      const statusEl = document.getElementById("csv-status");
+      statusEl.textContent = `✓ ${file.name} — ${parsed.length} courses`;
       statusEl.className = "csv-status ok";
-    })
-    .catch(err => {
-      statusEl.textContent = `✗ Could not load CSV: ${err.message}`;
+    } catch(err) {
+      const statusEl = document.getElementById("csv-status");
+      statusEl.textContent = `✗ Parse error: ${err.message}`;
       statusEl.className = "csv-status err";
-      // Fall back to built-in data silently — already rendered on init
-    });
+    }
+    // Reset so same file can be reloaded again
+    event.target.value = "";
+  };
+  reader.readAsText(file);
 }
 
 function parseCSV(text) {
@@ -995,12 +1005,9 @@ function switchTab(tab) {
 // INIT
 // ─────────────────────────────────────────────
 window.addEventListener("DOMContentLoaded", () => {
-  // Render built-in data immediately so the page isn't blank while fetching
   buildStatusBar();
   buildProgress();
   buildRangeChart();
-  // Then fetch the live CSV and re-render if it loads successfully
-  fetchCSV();
 });
 
 window.addEventListener("resize", () => {
