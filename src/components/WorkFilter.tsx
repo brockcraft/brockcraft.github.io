@@ -55,7 +55,7 @@ export default function WorkFilter({ items }: { items: WorkIndexItem[] }) {
           Filter
         </span>
         <div
-          className="tag-bar"
+          className="work-filter__chips"
           role="group"
           aria-labelledby="work-filter-label"
         >
@@ -67,16 +67,20 @@ export default function WorkFilter({ items }: { items: WorkIndexItem[] }) {
           >
             All
           </button>
-          {allTags.map((t) => (
-            <button
-              key={t}
-              type="button"
-              aria-pressed={selected.includes(t)}
-              onClick={() => toggle(t)}
-            >
-              {t}
-            </button>
-          ))}
+          <div className="tag-bar-scroll">
+            <div className="tag-bar tag-bar--hscroll">
+              {allTags.map((t) => (
+                <button
+                  key={t}
+                  type="button"
+                  aria-pressed={selected.includes(t)}
+                  onClick={() => toggle(t)}
+                >
+                  {t}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
 

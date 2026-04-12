@@ -282,12 +282,36 @@ a:hover {
   flex: 0 0 auto;
 }
 
+.work-filter__chips {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.tag-bar-scroll {
+  flex: 1;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  padding-bottom: 2px; /* room for focus ring / scrollbar */
+}
+
 .tag-bar {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  flex: 1;
-  min-width: 0;
+}
+
+.tag-bar--hscroll {
+  flex-wrap: nowrap;
+  width: max-content;
+  max-width: none;
+  padding-right: 0.5rem;
 }
 
 .tag-bar button {
