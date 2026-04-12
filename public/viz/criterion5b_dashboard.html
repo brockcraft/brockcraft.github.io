@@ -726,6 +726,7 @@ function getSortedCourses() {
 function buildRangeChart() {
   const svg = document.getElementById("range-chart");
   const W = svg.parentElement.clientWidth - 44;
+  if (W <= 0) return; // element is hidden; skip render
   const ROW_H = 58;
   const LABEL_W = 100;
   const CHART_W = W - LABEL_W - 16;
@@ -1123,6 +1124,7 @@ function switchTab(tab) {
   document.getElementById("view-range").classList.toggle("hidden", tab !== "range");
   document.getElementById("view-heatmap").classList.toggle("hidden", tab !== "heatmap");
   if (tab === "heatmap") buildHeatmap();
+  if (tab === "range") buildRangeChart();
 }
 
 // ─────────────────────────────────────────────
