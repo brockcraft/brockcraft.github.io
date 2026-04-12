@@ -311,6 +311,27 @@
   .conf-table td { padding: 6px 10px 6px 6px; border-bottom: 1px solid #F0F2F7; vertical-align: top; }
   .conf-table tr:last-child td { border-bottom: none; }
 
+  /* ── Sort control ── */
+  .range-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .sort-label { font-size: 12px; color: #888; margin-right: 6px; }
+  .sort-select {
+    font-size: 12px;
+    font-family: Arial, sans-serif;
+    color: #2F5496;
+    border: 1.5px solid #2F5496;
+    border-radius: 4px;
+    padding: 3px 8px;
+    background: #fff;
+    cursor: pointer;
+    outline: none;
+  }
+  .sort-select:focus { box-shadow: 0 0 0 2px rgba(47,84,150,0.2); }
+
   /* ── CSV Loader ── */
   .csv-loader {
     display: flex;
@@ -407,7 +428,17 @@
   <!-- ── Main panel ── -->
   <div class="main-panel card" style="grid-row:3/4;">
     <div id="view-range">
-      <div class="card-title">Criterion 5b Credit Estimates — Quarter Credits (Low–High Range)</div>
+      <div class="range-header">
+        <div class="card-title" style="margin-bottom:0;">Criterion 5b Credit Estimates — Quarter Credits (Low–High Range)</div>
+        <div style="display:flex;align-items:center;">
+          <span class="sort-label">Sort by</span>
+          <select class="sort-select" id="range-sort" onchange="buildRangeChart()">
+            <option value="course">Course number</option>
+            <option value="design">Eng. Design (high→low)</option>
+            <option value="science">Eng. Science (high→low)</option>
+          </select>
+        </div>
+      </div>
       <svg id="range-chart"></svg>
       <div class="legend" id="range-legend"></div>
     </div>
@@ -483,6 +514,17 @@ let courses = [
     tools: "Figma, Origami Studio, OnShape, Blender, Rhino, SketchUp, SUS/User Burden Scale, Framer/Google Sites/Canva/Wix, Slack",
     notes: "Strongest Criterion 5b contributor. Explicit two-quarter sequence with 302. Complete back-end design cycle: IA + tree testing, lo-fi, concept testing (≥3 users), mid-fi, usability testing with SUS (validated quantitative instrument), expert review, hi-fi, design specifications (3 goals + 5 requirements + Figma design system for developer handoff). SUS = strongest engineering science evidence evaluated.",
     doc: "HCDE 303/HCDE_303_ABET_Evaluation.docx"
+  },
+  {
+    number: "HCDE 417",
+    name: "Usability Research Techniques",
+    credits: 5, sc: 3.3,
+    design:  { low: 0.25, high: 0.75, conf: "Low" },
+    science: { low: 0.0,  high: 0.25, conf: "Low" },
+    total:   { scLow: 0.17, scHigh: 0.66 },
+    tools: "Slack, screen/session recording (not prescribed), Google Scholar",
+    notes: "Research methods course; quarter-long team project designing and conducting an empirical usability study of a self-selected product. Engineering design credit derives from study protocol design (research questions, task list/script, study specifications). Course is qualitatively dominant throughout — think-aloud, observation, interviews. No quantitative methods required. W-credit course; primary outcome is research communication. No rubrics in Canvas export. Do not cite for engineering science without confirming quantitative methods are regularly used.",
+    doc: "HCDE 417/HCDE_417_ABET_Evaluation.docx"
   },
   {
     number: "HCDE 313",
@@ -614,7 +656,7 @@ function buildProgress() {
   const maxSC = Math.max(TARGET_SC * 1.2, projHigh * 1.05);
 
   document.getElementById("prog-sc-num").textContent = `${totalScLow.toFixed(1)}–${totalScHigh.toFixed(1)} SC`;
-  document.getElementById("prog-sc-sub").textContent = `semester credits from ${courses.length} of ${TOTAL_COURSES} courses analyzed`;
+  document.getElementById("prog-sc-sub").innerHTML = `semester credits from ${courses.length} of ${TOTAL_COURSES} courses analyzed<br><span style="color:#aaa;">Eng. Design + Eng. Science combined</span>`;
   document.getElementById("prog-max-label").textContent = `${Math.round(maxSC)} SC`;
   document.getElementById("prog-low").style.width  = `${(totalScLow  / maxSC) * 100}%`;
   document.getElementById("prog-high").style.width = `${(totalScHigh / maxSC) * 100}%`;
@@ -629,13 +671,24 @@ function buildProgress() {
 // ─────────────────────────────────────────────
 // RANGE CHART
 // ─────────────────────────────────────────────
+function getSortedCourses() {
+  const sel = document.getElementById("range-sort");
+  const by = sel ? sel.value : "course";
+  const arr = [...courses];
+  if (by === "design")  arr.sort((a, b) => b.design.high  - a.design.high);
+  if (by === "science") arr.sort((a, b) => b.science.high - a.science.high);
+  // "course" keeps original order (already sorted by course number)
+  return arr;
+}
+
 function buildRangeChart() {
   const svg = document.getElementById("range-chart");
   const W = svg.parentElement.clientWidth - 44;
   const ROW_H = 58;
   const LABEL_W = 100;
   const CHART_W = W - LABEL_W - 16;
-  const H = courses.length * ROW_H + 60;
+  const sorted = getSortedCourses();
+  const H = sorted.length * ROW_H + 60;
   const MAX_QC = 5;
 
   svg.setAttribute("width", W);
@@ -643,7 +696,6 @@ function buildRangeChart() {
   svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
 
   const x = v => LABEL_W + (v / MAX_QC) * CHART_W;
-  const groups = [];
 
   // Gridlines + axis
   let markup = `<g>`;
@@ -654,7 +706,8 @@ function buildRangeChart() {
   });
 
   // Course rows
-  courses.forEach((c, i) => {
+  sorted.forEach((c, i) => {
+    const masterIdx = courses.indexOf(c);
     const y0 = 40 + i * ROW_H;
     const midY = y0 + ROW_H / 2 - 4;
     const isSelected = selectedCourse && selectedCourse.number === c.number;
@@ -662,8 +715,8 @@ function buildRangeChart() {
 
     markup += `<rect x="0" y="${y0}" width="${W}" height="${ROW_H}" fill="${rowBg}"
       style="cursor:pointer;"
-      onmouseenter="rowHover(this,event,${i})" onmouseleave="rowLeave(this,${i})"
-      onclick="selectCourse(${i})" data-row="${i}"/>`;
+      onmouseenter="rowHover(this,event,${masterIdx})" onmouseleave="rowLeave(this,${i})"
+      onclick="selectCourse(${masterIdx})" data-row="${i}"/>`;
 
     // Course label
     markup += `<text x="${LABEL_W - 8}" y="${midY - 6}" text-anchor="end" font-size="12" font-weight="700" fill="#2F5496" font-family="Arial" style="pointer-events:none;">${c.number}</text>`;
