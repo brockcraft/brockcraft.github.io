@@ -314,11 +314,24 @@
   /* ── Sort control ── */
   .range-header {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 6px;
     margin-bottom: 14px;
   }
-  .sort-label { font-size: 12px; color: #888; margin-right: 6px; }
+  .range-header-row1 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .range-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  .range-hint { font-size: 12px; color: #888; }
+  .sort-label { font-size: 12px; color: #888; margin-right: 4px; }
   .sort-select {
     font-size: 12px;
     font-family: Arial, sans-serif;
@@ -332,27 +345,27 @@
   }
   .sort-select:focus { box-shadow: 0 0 0 2px rgba(47,84,150,0.2); }
 
-  /* ── Unit toggle ── */
-  .unit-toggle {
+  /* ── View toggles ── */
+  .view-toggle {
     display: flex;
     border: 1.5px solid #2F5496;
     border-radius: 4px;
     overflow: hidden;
     margin-left: 12px;
   }
-  .unit-btn {
+  .view-toggle button {
     padding: 3px 10px;
+    border: none;
+    background: #fff;
+    color: #2F5496;
     font-size: 12px;
     font-family: Arial, sans-serif;
-    color: #2F5496;
-    background: #fff;
-    border: none;
     cursor: pointer;
     transition: background 0.15s, color 0.15s;
-    line-height: 1.6;
+    white-space: nowrap;
   }
-  .unit-btn.active { background: #2F5496; color: #fff; }
-  .unit-btn:first-child { border-right: 1.5px solid #2F5496; }
+  .view-toggle button + button { border-left: 1.5px solid #2F5496; }
+  .view-toggle button.active { background: #2F5496; color: #fff; }
 
   /* ── CSV Loader ── */
   .csv-loader {
@@ -439,18 +452,13 @@
   <div class="tabs" style="grid-column:1/2; grid-row:2/3;">
     <button class="tab-btn active" onclick="switchTab('range')">Credit Ranges</button>
     <button class="tab-btn" onclick="switchTab('heatmap')">Confidence Heatmap</button>
-    <div class="unit-toggle" style="margin-left:8px;">
-      <button class="unit-btn active" id="btn-qc" onclick="setUnit(true)"
-        onmouseenter="showTooltip(event,'<strong>Quarter Credits (QC)</strong>UW\'s native credit unit. One QC ≈ 10 contact hours per term.')"
+    <div class="view-toggle unit-toggle" style="margin-left:auto;">
+      <button class="active" data-val="qc" onclick="setUnit('qc')"
+        onmouseenter="showTooltip(event,'Quarter Credits — raw estimates as assessed in the curriculum')"
         onmouseleave="hideTooltip()">QC</button>
-      <button class="unit-btn" id="btn-sc" onclick="setUnit(false)"
-        onmouseenter="showTooltip(event,'<strong>Semester Credits (SC)</strong>ABET\'s standard unit. Converted from QC using the UW factor: 1 QC × 0.667 = 0.667 SC. The 45 SC threshold is expressed in this unit.')"
+      <button data-val="sc" onclick="setUnit('sc')"
+        onmouseenter="showTooltip(event,'Semester Credits — values converted using ×0.667 (standard UW conversion)')"
         onmouseleave="hideTooltip()">SC</button>
-    </div>
-    <div class="csv-loader">
-      <input type="file" id="csv-file-input" accept=".csv" style="display:none;" onchange="handleCSVFile(event)">
-      <button class="csv-btn" onclick="document.getElementById('csv-file-input').click()">⟳ Load CSV</button>
-      <span class="csv-status" id="csv-status">Using built-in data</span>
     </div>
   </div>
 
@@ -458,23 +466,31 @@
   <div class="main-panel card" style="grid-row:3/4;">
     <div id="view-range">
       <div class="range-header">
-        <div class="card-title" id="range-chart-title" style="margin-bottom:0;">Criterion 5b Credit Estimates — Quarter Credits (Low–High Range)</div>
-        <div style="display:flex;align-items:center;">
-          <span class="sort-label">Sort by</span>
-          <select class="sort-select" id="range-sort" onchange="buildRangeChart()">
-            <option value="course">Course number</option>
-            <option value="design">Eng. Design (high→low)</option>
-            <option value="science">Eng. Science (high→low)</option>
-          </select>
+        <div class="range-header-row1">
+          <div class="card-title" style="margin-bottom:0;" id="range-chart-title">Criterion 5b Credit Estimates — Quarter Credits, Design + Science Combined (Low–High Range)</div>
+          <div class="range-controls">
+            <div class="view-toggle mode-toggle">
+              <button class="active" data-val="aggregate" onclick="setMode('aggregate')"
+                onmouseenter="showTooltip(event,'Aggregate — combine Engineering Design and Science into a single total bar per course')"
+                onmouseleave="hideTooltip()">Aggregate</button>
+              <button data-val="separate" onclick="setMode('separate')"
+                onmouseenter="showTooltip(event,'Separate — show Engineering Design and Engineering Science as individual bars per course')"
+                onmouseleave="hideTooltip()">Separate</button>
+            </div>
+            <span class="sort-label">Sort by</span>
+            <select class="sort-select" id="range-sort" onchange="buildRangeChart()">
+              <option value="course">Course number</option>
+              <option value="aggregate" selected>Combined total (high→low)</option>
+            </select>
+          </div>
         </div>
+        <div class="range-hint">Click any course row to see details</div>
       </div>
-      <div class="tab-hint" style="margin-bottom:10px;">Click any course row to see details →</div>
       <svg id="range-chart"></svg>
       <div class="legend" id="range-legend"></div>
     </div>
     <div id="view-heatmap" class="hidden">
       <div class="card-title">Confidence Level by Course and Category</div>
-      <div class="tab-hint" style="margin-bottom:10px;">Click any cell to see details →</div>
       <div class="heatmap-container">
         <svg id="heatmap-chart"></svg>
       </div>
@@ -483,27 +499,6 @@
 
   <!-- ── Sidebar ── -->
   <div class="sidebar">
-    <!-- Progress -->
-    <div class="card">
-      <div class="card-title">Progress Toward 45 SC Target</div>
-      <div class="progress-sc" id="prog-sc-num">—</div>
-      <div style="font-size:12px;color:#888;margin-bottom:12px;" id="prog-sc-sub">semester credits accumulated (7 of 13 courses)</div>
-      <div class="progress-bar-wrap">
-        <div class="progress-track" id="prog-track">
-          <div class="progress-fill-high" id="prog-high"></div>
-          <div class="progress-fill-low" id="prog-low"></div>
-          <div class="progress-target-line" id="prog-target-line">
-            <div class="progress-target-label">45 SC target</div>
-          </div>
-        </div>
-      </div>
-      <div class="progress-numbers">
-        <span>0 SC</span>
-        <span id="prog-max-label">60 SC</span>
-      </div>
-      <div style="font-size:12px;color:#666;margin-top:10px;" id="prog-proj"></div>
-    </div>
-
     <!-- Detail -->
     <div class="card detail-card" id="detail-card">
       <div class="card-title">Course Detail</div>
@@ -642,16 +637,45 @@ const DESIGN_COLOR  = "#2F5496";
 const SCIENCE_COLOR = "#C55A11";
 
 let selectedCourse = null;
-let showQC = true;   // true = quarter credits, false = semester credits
+let viewUnit = 'qc';      // 'qc' | 'sc'
+let viewMode = 'aggregate'; // 'separate' | 'aggregate'
 
-function setUnit(isQC) {
-  showQC = isQC;
-  document.getElementById("btn-qc").classList.toggle("active", isQC);
-  document.getElementById("btn-sc").classList.toggle("active", !isQC);
+function setUnit(u) {
+  viewUnit = u;
+  document.querySelectorAll('.unit-toggle button').forEach(b => b.classList.toggle('active', b.dataset.val === u));
+  updateChartTitle();
+  buildStatusBar();
   buildRangeChart();
-  // Rebuild heatmap if it's currently visible so cell labels update too
-  const heatmapVisible = !document.getElementById("view-heatmap").classList.contains("hidden");
-  if (heatmapVisible) buildHeatmap();
+  if (!document.getElementById("view-heatmap").classList.contains("hidden")) buildHeatmap();
+}
+
+function setMode(m) {
+  viewMode = m;
+  document.querySelectorAll('.mode-toggle button').forEach(b => b.classList.toggle('active', b.dataset.val === m));
+
+  // Swap sort options based on mode
+  const sel = document.getElementById("range-sort");
+  const prev = sel.value;
+  if (m === 'aggregate') {
+    sel.innerHTML = `<option value="course">Course number</option>
+      <option value="aggregate">Combined total (high→low)</option>`;
+    sel.value = (prev === 'course') ? 'course' : 'aggregate';
+  } else {
+    sel.innerHTML = `<option value="course">Course number</option>
+      <option value="design">Eng. Design (high→low)</option>
+      <option value="science">Eng. Science (high→low)</option>`;
+    sel.value = (prev === 'aggregate' || prev === 'course') ? 'course' : prev;
+  }
+
+  updateChartTitle();
+  buildRangeChart();
+}
+
+function updateChartTitle() {
+  const unit = viewUnit === 'sc' ? 'Semester Credits' : 'Quarter Credits';
+  const mode = viewMode === 'aggregate' ? 'Design + Science Combined' : 'Design & Science Separate';
+  document.getElementById('range-chart-title').textContent =
+    `Criterion 5b Credit Estimates \u2014 ${unit}, ${mode} (Low\u2013High Range)`;
 }
 
 // ─────────────────────────────────────────────
@@ -660,7 +684,37 @@ function setUnit(isQC) {
 function buildStatusBar() {
   const totalScLow  = courses.reduce((s, c) => s + c.total.scLow,  0);
   const totalScHigh = courses.reduce((s, c) => s + c.total.scHigh, 0);
-  const avgRatio = totalScLow / (courses.length * 3.3);
+  const totalQcLow  = courses.reduce((s, c) => s + c.design.low  + c.science.low,  0);
+  const totalQcHigh = courses.reduce((s, c) => s + c.design.high + c.science.high, 0);
+
+  const isQC = viewUnit === 'qc';
+  const unit = isQC ? 'QC' : 'SC';
+  const totalLow  = isQC ? totalQcLow  : totalScLow;
+  const totalHigh = isQC ? totalQcHigh : totalScHigh;
+  const target    = isQC ? +(TARGET_SC / 0.667).toFixed(1) : TARGET_SC; // 67.5 QC or 45 SC
+  const avgLow    = totalLow / courses.length;
+
+  // Progress tile — unit-aware, uses totalLow/totalHigh/target already set above
+  const progLow  = (totalLow  / courses.length) * TOTAL_COURSES;
+  const progHigh = (totalHigh / courses.length) * TOTAL_COURSES;
+  const maxVal   = Math.max(target * 1.2, totalHigh * 1.05);
+  const barPctLow    = ((totalLow  / maxVal) * 100).toFixed(1);
+  const barPctHigh   = ((totalHigh / maxVal) * 100).toFixed(1);
+  const barPctTarget = ((target    / maxVal) * 100).toFixed(1);
+  const projColor = progLow >= target ? '#276221' : '#9C0006';
+  const projIcon  = progLow >= target ? '✓' : '⚠';
+  const targetLabel = isQC ? '~67.5 QC' : '45 SC';
+  const progressPill = `
+    <div class="stat-pill">
+      <div class="lbl">Progress Toward ${targetLabel} Target</div>
+      <div class="num">${totalLow.toFixed(1)}&thinsp;–&thinsp;${totalHigh.toFixed(1)} <span style="font-size:13px;font-weight:400;color:#666;">${unit}</span></div>
+      <div style="position:relative;height:8px;background:#E8EDF5;border-radius:4px;margin:5px 0 3px;">
+        <div style="position:absolute;left:0;top:0;height:100%;width:${barPctHigh}%;background:rgba(47,84,150,0.25);border-radius:4px;"></div>
+        <div style="position:absolute;left:0;top:0;height:100%;width:${barPctLow}%;background:#2F5496;border-radius:4px 0 0 4px;"></div>
+        <div style="position:absolute;top:-3px;bottom:-3px;left:${barPctTarget}%;width:2px;background:#C00000;"></div>
+      </div>
+      <div class="sub" style="color:${projColor};">${projIcon} Proj. ${progLow.toFixed(1)}–${progHigh.toFixed(1)} ${unit} &nbsp;·&nbsp; ${Math.round(totalLow/target*100)}%–${Math.round(totalHigh/target*100)}% of target</div>
+    </div>`;
 
   const sb = document.getElementById("status-bar");
   sb.innerHTML = `
@@ -670,44 +724,17 @@ function buildStatusBar() {
       <div class="sub">${Math.round(courses.length/TOTAL_COURSES*100)}% complete</div>
     </div>
     <div class="stat-pill">
-      <div class="lbl">Accumulated SC (Low Est.)</div>
-      <div class="num">${totalScLow.toFixed(2)}</div>
-      <div class="sub">of 45 SC ABET target (${Math.round(totalScLow/TARGET_SC*100)}%)</div>
+      <div class="lbl">${unit} Low Est. &nbsp;/&nbsp; ${unit} High Est.</div>
+      <div class="num">${totalLow.toFixed(2)} <span style="font-size:16px;font-weight:400;color:#aaa;">/</span> ${totalHigh.toFixed(2)}</div>
+      <div class="sub">of ${target} ${unit} ABET target &nbsp;·&nbsp; ${Math.round(totalLow/target*100)}%–${Math.round(totalHigh/target*100)}% range</div>
     </div>
     <div class="stat-pill">
-      <div class="lbl">Accumulated SC (High Est.)</div>
-      <div class="num">${totalScHigh.toFixed(2)}</div>
-      <div class="sub">of 45 SC ABET target (${Math.round(totalScHigh/TARGET_SC*100)}%)</div>
+      <div class="lbl">Avg. ${unit} / Course &nbsp; Low / High</div>
+      <div class="num">${avgLow.toFixed(2)} <span style="font-size:16px;font-weight:400;color:#aaa;">/</span> ${(totalHigh/courses.length).toFixed(2)}</div>
+      <div class="sub">Projected: ${(avgLow*TOTAL_COURSES).toFixed(1)} / ${(totalHigh/courses.length*TOTAL_COURSES).toFixed(1)} ${unit} (low / high)</div>
     </div>
-    <div class="stat-pill">
-      <div class="lbl">Avg. SC / Course (Low)</div>
-      <div class="num">${(totalScLow/courses.length).toFixed(2)}</div>
-      <div class="sub">Projected total: ${(totalScLow/courses.length*TOTAL_COURSES).toFixed(1)} SC (low)</div>
-    </div>
+    ${progressPill}
   `;
-}
-
-// ─────────────────────────────────────────────
-// PROGRESS BAR
-// ─────────────────────────────────────────────
-function buildProgress() {
-  const totalScLow  = courses.reduce((s, c) => s + c.total.scLow,  0);
-  const totalScHigh = courses.reduce((s, c) => s + c.total.scHigh, 0);
-  const projLow  = (totalScLow  / courses.length) * TOTAL_COURSES;
-  const projHigh = (totalScHigh / courses.length) * TOTAL_COURSES;
-  const maxSC = Math.max(TARGET_SC * 1.2, projHigh * 1.05);
-
-  document.getElementById("prog-sc-num").textContent = `${totalScLow.toFixed(1)}–${totalScHigh.toFixed(1)} SC`;
-  document.getElementById("prog-sc-sub").innerHTML = `semester credits from ${courses.length} of ${TOTAL_COURSES} courses analyzed<br><span style="color:#aaa;">Eng. Design + Eng. Science combined</span>`;
-  document.getElementById("prog-max-label").textContent = `${Math.round(maxSC)} SC`;
-  document.getElementById("prog-low").style.width  = `${(totalScLow  / maxSC) * 100}%`;
-  document.getElementById("prog-high").style.width = `${(totalScHigh / maxSC) * 100}%`;
-  document.getElementById("prog-target-line").style.left = `${(TARGET_SC / maxSC) * 100}%`;
-  document.getElementById("prog-proj").innerHTML =
-    `<b>Projection (if remaining 6 courses average same rate):</b><br>` +
-    `Low: ${projLow.toFixed(1)} SC &nbsp;·&nbsp; High: ${projHigh.toFixed(1)} SC<br>` +
-    `<span style="color:${projLow >= TARGET_SC ? '#276221' : '#9C0006'}">` +
-    `${projLow >= TARGET_SC ? '✓ Low estimate meets target' : '⚠ Low estimate may fall short of 45 SC target'}</span>`;
 }
 
 // ─────────────────────────────────────────────
@@ -717,53 +744,50 @@ function getSortedCourses() {
   const sel = document.getElementById("range-sort");
   const by = sel ? sel.value : "course";
   const arr = [...courses];
-  if (by === "design")  arr.sort((a, b) => b.design.high  - a.design.high);
-  if (by === "science") arr.sort((a, b) => b.science.high - a.science.high);
-  // "course" keeps original order (already sorted by course number)
+  if (by === "design")    arr.sort((a, b) => b.design.high  - a.design.high);
+  if (by === "science")   arr.sort((a, b) => b.science.high - a.science.high);
+  if (by === "aggregate") arr.sort((a, b) => (b.design.high + b.science.high) - (a.design.high + a.science.high));
+  // "course" keeps original order
   return arr;
 }
 
 function buildRangeChart() {
   const svg = document.getElementById("range-chart");
   const W = svg.parentElement.clientWidth - 44;
-  if (W <= 0) return; // element is hidden; skip render
-  const ROW_H = 58;
+  const isAgg = viewMode === 'aggregate';
+  const ROW_H = isAgg ? 44 : 58;
   const LABEL_W = 100;
   const CHART_W = W - LABEL_W - 16;
   const sorted = getSortedCourses();
   const H = sorted.length * ROW_H + 60;
 
-  // Unit-aware settings
-  const unit  = showQC ? "QC" : "SC";
-  const mult  = showQC ? 1 : 0.667;
-  const MAX   = showQC ? 5 : 3.5;
-  const ticks = showQC ? [0,1,2,3,4,5] : [0,0.5,1.0,1.5,2.0,2.5,3.0,3.5];
-
-  // Update card title
-  const titleEl = document.getElementById("range-chart-title");
-  if (titleEl) titleEl.textContent =
-    `Criterion 5b Credit Estimates — ${showQC ? "Quarter" : "Semester"} Credits (Low–High Range)`;
+  const factor = viewUnit === 'sc' ? 0.667 : 1;
+  const unitLabel = viewUnit === 'sc' ? 'SC' : 'QC';
+  const MAX_VAL = viewUnit === 'sc' ? 3.5 : 5;
+  const gridVals = viewUnit === 'sc' ? [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5] : [0, 1, 2, 3, 4, 5];
 
   svg.setAttribute("width", W);
   svg.setAttribute("height", H);
   svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
 
-  const x = v => LABEL_W + (v / MAX) * CHART_W;
+  const x = v => LABEL_W + (v / MAX_VAL) * CHART_W;
+  // x-position used to avoid value-label collisions:
+  // in aggregate mode there are no dots, so only guard against the SVG edge
+  const dotX = isAgg ? W - 10 : W - 60;
 
   // Gridlines + axis
   let markup = `<g>`;
-  ticks.forEach(v => {
+  gridVals.forEach(v => {
     const cx = x(v);
-    const label = Number.isInteger(v) ? `${v}` : v.toFixed(1);
     markup += `<line x1="${cx}" y1="36" x2="${cx}" y2="${H - 10}" stroke="#E0E6F0" stroke-width="1"/>`;
-    markup += `<text x="${cx}" y="24" text-anchor="middle" font-size="11" fill="#999" font-family="Arial">${label} ${unit}</text>`;
+    markup += `<text x="${cx}" y="24" text-anchor="middle" font-size="11" fill="#999" font-family="Arial">${v} ${unitLabel}</text>`;
   });
 
   // Course rows
   sorted.forEach((c, i) => {
     const masterIdx = courses.indexOf(c);
     const y0 = 40 + i * ROW_H;
-    const midY = y0 + ROW_H / 2 - 4;
+    const midY = y0 + ROW_H / 2 - (isAgg ? 2 : 4);
     const isSelected = selectedCourse && selectedCourse.number === c.number;
     const rowBg = isSelected ? "#EEF2F8" : (i % 2 === 0 ? "#FAFBFD" : "#fff");
 
@@ -773,42 +797,66 @@ function buildRangeChart() {
       onclick="selectCourse(${masterIdx})" data-row="${i}"/>`;
 
     // Course label
+    const courseCredLabel = viewUnit === 'sc' ? `${c.sc} SC` : `${c.credits} QC`;
     markup += `<text x="${LABEL_W - 8}" y="${midY - 6}" text-anchor="end" font-size="12" font-weight="700" fill="#2F5496" font-family="Arial" style="pointer-events:none;">${c.number}</text>`;
-    markup += `<text x="${LABEL_W - 8}" y="${midY + 8}" text-anchor="end" font-size="10" fill="#777" font-family="Arial" style="pointer-events:none;">${c.sc} SC</text>`;
+    markup += `<text x="${LABEL_W - 8}" y="${midY + 8}" text-anchor="end" font-size="10" fill="#777" font-family="Arial" style="pointer-events:none;">${courseCredLabel}</text>`;
 
-    // Scale cat values for display
-    const dDisplay = { ...c.design,  low: +(c.design.low  * mult).toFixed(2), high: +(c.design.high  * mult).toFixed(2) };
-    const sDisplay = { ...c.science, low: +(c.science.low * mult).toFixed(2), high: +(c.science.high * mult).toFixed(2) };
-
-    // Design bar (top track)
-    const dy = midY - 16;
-    markup += drawRangeBar(x, dDisplay, dy, DESIGN_COLOR, unit);
-
-    // Science bar (bottom track)
-    const sy = midY + 4;
-    markup += drawRangeBar(x, sDisplay, sy, SCIENCE_COLOR, unit);
-
-    // Confidence dots
-    markup += confDot(W - 60, dy + 5, c.design.conf);
-    markup += confDot(W - 60, sy + 5, c.science.conf);
-    markup += `<text x="${W - 48}" y="${dy + 9}" font-size="9" fill="#666" font-family="Arial" style="pointer-events:none;">D</text>`;
-    markup += `<text x="${W - 48}" y="${sy + 9}" font-size="9" fill="#666" font-family="Arial" style="pointer-events:none;">S</text>`;
+    if (isAgg) {
+      // Single combined bar: use stored SC totals in SC mode, or sum QC values
+      const combinedLow  = viewUnit === 'sc'
+        ? c.total.scLow
+        : +((c.design.low  + c.science.low).toFixed(2));
+      const combinedHigh = viewUnit === 'sc'
+        ? c.total.scHigh
+        : +((c.design.high + c.science.high).toFixed(2));
+      // Use lower-confidence of the two for opacity (more conservative)
+      const confIdx = Math.max(CONF_ORDER.indexOf(c.design.conf), CONF_ORDER.indexOf(c.science.conf));
+      const aggConf = CONF_ORDER[confIdx];
+      const aggCat  = { low: combinedLow, high: combinedHigh, conf: aggConf };
+      const barY = midY - 5;
+      markup += drawRangeBar(x, aggCat, barY, DESIGN_COLOR, unitLabel, dotX);
+    } else {
+      // Separate bars: scale by factor
+      const designCat  = { low: +(c.design.low  * factor).toFixed(2), high: +(c.design.high  * factor).toFixed(2), conf: c.design.conf };
+      const scienceCat = { low: +(c.science.low * factor).toFixed(2), high: +(c.science.high * factor).toFixed(2), conf: c.science.conf };
+      const dy = midY - 16;
+      const sy = midY + 4;
+      markup += drawRangeBar(x, designCat,  dy, DESIGN_COLOR,  unitLabel, dotX);
+      markup += drawRangeBar(x, scienceCat, sy, SCIENCE_COLOR, unitLabel, dotX);
+      markup += confDot(W - 60, dy + 5, c.design.conf);
+      markup += confDot(W - 60, sy + 5, c.science.conf);
+      markup += `<text x="${W - 48}" y="${dy + 9}" font-size="9" fill="#666" font-family="Arial" style="pointer-events:none;">D</text>`;
+      markup += `<text x="${W - 48}" y="${sy + 9}" font-size="9" fill="#666" font-family="Arial" style="pointer-events:none;">S</text>`;
+    }
   });
 
   markup += `</g>`;
   svg.innerHTML = markup;
 
   // Legend
-  document.getElementById("range-legend").innerHTML = `
-    <div class="legend-item"><div class="legend-swatch" style="background:${DESIGN_COLOR};"></div> Engineering Design</div>
-    <div class="legend-item"><div class="legend-swatch" style="background:${SCIENCE_COLOR};"></div> Engineering Science</div>
-    <div style="width:1px;background:#ddd;align-self:stretch;margin:0 4px;"></div>
-    ${CONF_ORDER.map(c => `<div class="legend-item"><div class="legend-swatch" style="background:${CONF_COLOR[c]};border-radius:50%;"></div> ${c}</div>`).join("")}
-    <div class="legend-item" style="margin-left:8px;color:#888;font-size:11px;">D = Design confidence &nbsp; S = Science confidence</div>
-  `;
+  const confDots = CONF_ORDER.map(c => `<div class="legend-item"><div class="legend-swatch" style="background:${CONF_COLOR[c]};border-radius:50%;"></div> ${c}</div>`).join("");
+  const opacitySwatches = [0.9, 0.7, 0.55, 0.4].map((op, i) =>
+    `<div style="width:18px;height:10px;background:${DESIGN_COLOR};opacity:${op};border-radius:2px;"></div>`
+  ).join("");
+  const opacityLabels = ["High", "Moderate", "Low-Mod.", "Low"].map(l =>
+    `<span style="font-size:10px;color:#888;">${l}</span>`
+  ).join("");
+  document.getElementById("range-legend").innerHTML = isAgg
+    ? `<div class="legend-item"><div class="legend-swatch" style="background:${DESIGN_COLOR};"></div> Combined 5b Total (Design + Science) in ${unitLabel}</div>
+       <div style="width:1px;background:#ddd;align-self:stretch;margin:0 6px;"></div>
+       <div style="display:flex;flex-direction:column;gap:2px;">
+         <div style="display:flex;gap:4px;align-items:center;">${opacitySwatches}</div>
+         <div style="display:flex;gap:4px;">${opacityLabels}</div>
+       </div>
+       <div class="legend-item" style="margin-left:4px;color:#888;font-size:11px;">Bar opacity = confidence (conservative of Design &amp; Science)</div>`
+    : `<div class="legend-item"><div class="legend-swatch" style="background:${DESIGN_COLOR};"></div> Engineering Design (${unitLabel})</div>
+       <div class="legend-item"><div class="legend-swatch" style="background:${SCIENCE_COLOR};"></div> Engineering Science (${unitLabel})</div>
+       <div style="width:1px;background:#ddd;align-self:stretch;margin:0 4px;"></div>
+       ${confDots}
+       <div class="legend-item" style="margin-left:8px;color:#888;font-size:11px;">D = Design confidence &nbsp; S = Science confidence</div>`;
 }
 
-function drawRangeBar(x, cat, y, color, unit = "QC") {
+function drawRangeBar(x, cat, y, color, unitLabel = 'QC', dotX = 9999) {
   const xLow  = x(cat.low);
   const xHigh = x(cat.high);
   const barH  = 10;
@@ -826,8 +874,13 @@ function drawRangeBar(x, cat, y, color, unit = "QC") {
   out += `<line x1="${xLow}" y1="${y - 2}" x2="${xLow}" y2="${y + barH + 2}" stroke="${color}" stroke-width="2" style="pointer-events:none;"/>`;
   // High cap line
   out += `<line x1="${xHigh}" y1="${y - 2}" x2="${xHigh}" y2="${y + barH + 2}" stroke="${color}" stroke-width="2" style="pointer-events:none;"/>`;
-  // Value label
-  out += `<text x="${xHigh + 5}" y="${y + 9}" font-size="10" fill="${color}" font-family="Arial" style="pointer-events:none;">${cat.low}–${cat.high} ${unit}</text>`;
+  // Value label — flip to left side of bar if label would crash into confidence dots
+  const LABEL_APPROX_W = 58;
+  if (xHigh + 5 + LABEL_APPROX_W < dotX) {
+    out += `<text x="${xHigh + 5}" y="${y + 9}" font-size="10" fill="${color}" font-family="Arial" style="pointer-events:none;">${cat.low}–${cat.high}</text>`;
+  } else {
+    out += `<text x="${xLow - 5}" y="${y + 9}" text-anchor="end" font-size="10" fill="${color}" font-family="Arial" style="pointer-events:none;">${cat.low}–${cat.high}</text>`;
+  }
   return out;
 }
 
@@ -840,6 +893,8 @@ function confDot(x, y, conf) {
 // ─────────────────────────────────────────────
 function buildHeatmap() {
   const svg = document.getElementById("heatmap-chart");
+  const factor = viewUnit === 'sc' ? 0.667 : 1;
+  const unitLabel = viewUnit === 'sc' ? 'SC' : 'QC';
   const COLS = ["Eng. Design Confidence", "Eng. Science Confidence"];
   const CELL_W = 160, CELL_H = 46;
   const LABEL_W = 110;
@@ -869,21 +924,19 @@ function buildHeatmap() {
     cats.forEach((cat, ci) => {
       const cx = LABEL_W + ci * CELL_W;
       const conf = cat.conf;
-      const unit = showQC ? "QC" : "SC";
-      const mult = showQC ? 1 : 0.667;
-      const lo   = (cat.low  * mult).toFixed(2);
-      const hi   = (cat.high * mult).toFixed(2);
+      const dispLow  = +(cat.low  * factor).toFixed(2);
+      const dispHigh = +(cat.high * factor).toFixed(2);
       markup += `
         <rect x="${cx + 3}" y="${y + 3}" width="${CELL_W - 6}" height="${CELL_H - 6}" rx="5"
           fill="${CONF_BG[conf]}" stroke="${CONF_COLOR[conf]}" stroke-width="1.5"
           style="cursor:pointer;"
           onclick="selectCourse(${ri})"
-          onmouseenter="cellHover(event,${ri},${ci})"
+          onmouseenter="cellHover(event,'${c.number}','${ci===0?'Design':'Science'}','${conf}','${dispLow}–${dispHigh} ${unitLabel}')"
           onmouseleave="hideTooltip()"/>
         <text x="${cx + CELL_W/2}" y="${y + CELL_H/2 - 2}" text-anchor="middle"
           font-size="12" font-weight="700" fill="${CONF_COLOR[conf]}" font-family="Arial" style="pointer-events:none;">${conf}</text>
         <text x="${cx + CELL_W/2}" y="${y + CELL_H/2 + 13}" text-anchor="middle"
-          font-size="10" fill="${CONF_COLOR[conf]}" font-family="Arial" style="pointer-events:none;">${lo}–${hi} ${unit}</text>
+          font-size="10" fill="${CONF_COLOR[conf]}" font-family="Arial" style="pointer-events:none;">${dispLow}–${dispHigh} ${unitLabel}</text>
       `;
     });
   });
@@ -924,27 +977,30 @@ function positionTooltip(event) {
 
 function rowHover(el, event, idx) {
   const c = courses[idx];
-  const unit = showQC ? "QC" : "SC";
-  const mult = showQC ? 1 : 0.667;
-  const fmt  = v => (v * mult).toFixed(2);
-  showTooltip(event, `
-    <strong>${c.number}: ${c.name}</strong>
-    Design: ${fmt(c.design.low)}–${fmt(c.design.high)} ${unit} (${c.design.conf})<br>
-    Science: ${fmt(c.science.low)}–${fmt(c.science.high)} ${unit} (${c.science.conf})<br>
-    Total: ${c.total.scLow}–${c.total.scHigh} SC
-  `);
+  const factor = viewUnit === 'sc' ? 0.667 : 1;
+  const unit = viewUnit === 'sc' ? 'SC' : 'QC';
+  let html;
+  if (viewMode === 'aggregate') {
+    const tLow  = viewUnit === 'sc' ? c.total.scLow  : +((c.design.low  + c.science.low).toFixed(2));
+    const tHigh = viewUnit === 'sc' ? c.total.scHigh : +((c.design.high + c.science.high).toFixed(2));
+    html = `<strong>${c.number}: ${c.name}</strong>
+      Combined 5b total: ${tLow}–${tHigh} ${unit}<br>
+      Design: ${c.design.conf} &nbsp;·&nbsp; Science: ${c.science.conf}`;
+  } else {
+    const dLow  = +(c.design.low  * factor).toFixed(2);
+    const dHigh = +(c.design.high * factor).toFixed(2);
+    const sLow  = +(c.science.low  * factor).toFixed(2);
+    const sHigh = +(c.science.high * factor).toFixed(2);
+    html = `<strong>${c.number}: ${c.name}</strong>
+      Design: ${dLow}–${dHigh} ${unit} (${c.design.conf})<br>
+      Science: ${sLow}–${sHigh} ${unit} (${c.science.conf})`;
+  }
+  showTooltip(event, html);
 }
 function rowLeave(el, idx) { hideTooltip(); }
 
-function cellHover(event, ri, ci) {
-  const c    = courses[ri];
-  const cat  = ci === 0 ? c.design : c.science;
-  const catName = ci === 0 ? "Design" : "Science";
-  const unit = showQC ? "QC" : "SC";
-  const mult = showQC ? 1 : 0.667;
-  const lo   = (cat.low  * mult).toFixed(2);
-  const hi   = (cat.high * mult).toFixed(2);
-  showTooltip(event, `<strong>${c.number} — ${catName}</strong>Confidence: ${cat.conf}<br>Estimate: ${lo}–${hi} ${unit}`);
+function cellHover(event, num, cat, conf, range) {
+  showTooltip(event, `<strong>${num} — ${cat}</strong>Confidence: ${conf}<br>Estimate: ${range}`);
 }
 
 // ─────────────────────────────────────────────
@@ -1107,7 +1163,6 @@ function parseCSV(text) {
 
 function refreshAll() {
   buildStatusBar();
-  buildProgress();
   buildRangeChart();
   const heatmapVisible = !document.getElementById("view-heatmap").classList.contains("hidden");
   if (heatmapVisible) buildHeatmap();
@@ -1124,7 +1179,6 @@ function switchTab(tab) {
   document.getElementById("view-range").classList.toggle("hidden", tab !== "range");
   document.getElementById("view-heatmap").classList.toggle("hidden", tab !== "heatmap");
   if (tab === "heatmap") buildHeatmap();
-  if (tab === "range") buildRangeChart();
 }
 
 // ─────────────────────────────────────────────
@@ -1132,7 +1186,6 @@ function switchTab(tab) {
 // ─────────────────────────────────────────────
 window.addEventListener("DOMContentLoaded", () => {
   buildStatusBar();
-  buildProgress();
   buildRangeChart();
 });
 
