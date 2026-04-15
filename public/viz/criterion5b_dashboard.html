@@ -640,6 +640,28 @@ let courses = [
     notes: "Strongest engineering design course in curriculum; execution phase of 492–493 capstone sequence. P1/P2/P3 milestones execute the planned HCD process (Milestone Rubric requires rigorous, principled approach reflecting professional HCD standards). Process Book Rubric requires Design Specification with system diagrams, experience maps, user flow diagrams, and interaction specifications — most explicit engineering design rubric criterion in the curriculum. Engineering science is project-dependent: some teams use survey data and usability metrics (mentioned in Process Comprehensiveness rubric criterion), others work entirely qualitatively. Present 492+493 as a unified capstone sequence in the self-study. F2 (video), F3 (showcase), and F5 (reflection) excluded from design credit.",
     doc: "HCDE 493/HCDE_493_ABET_Evaluation.docx"
   },
+  {
+    number: "HCDE 316",
+    name: "Sustainable Design",
+    credits: 5, sc: 3.33,
+    design:  { low: 1.5,  high: 2.5,  conf: "Moderate" },
+    science: { low: 0.5,  high: 1.0,  conf: "Moderate" },
+    total:   { scLow: 1.33, scHigh: 2.33 },
+    tools: "Miro (LCA mapping, required); prototyping tools project-dependent",
+    notes: "Sustainable product redesign course. Full design arc: A1 LCA Map (life cycle analysis + user flow) → A2 quantitative impact assessment → A3 research plan → A4 research findings → A5 prototyping/testing plan → A6/A7 final presentation and report. Engineering science credit from A2 quantitative LCA: students must numerically estimate baseline and redesign environmental footprints with cited assumptions (ISO 14040 LCA methodology). Prototyping Plan rubric (A5) includes explicit criteria for prototype specification, risk management, and testing protocol. Moderate confidence — sustainability framing may be unfamiliar to ABET reviewers; credit count ~5 QC assumed (confirm from UW Time Schedule).",
+    doc: "HCDE 316/HCDE_316_ABET_Evaluation.docx"
+  },
+  {
+    number: "HCDE 439",
+    name: "Physical Computing",
+    credits: 4, sc: 2.67,
+    design:  { low: 0.75, high: 1.0,  conf: "High" },
+    science: { low: 2.0,  high: 2.5,  conf: "High" },
+    total:   { scLow: 1.83, scHigh: 2.33 },
+    tools: "Arduino IDE, Git/GitHub, VS Code (all required A0); WebSerial, p5.js (A6); breadboard and electronics lab components",
+    notes: "Strongest engineering science course in curriculum. Circuit Demo Rubric across A1-A6 requires 'all chosen values labeled and justified through appropriate calculations' — explicit quantitative engineering science criterion. Skill stack: A1 Ohm's law for resistor selection → A2 PWM and digital control → A3 voltage divider analysis for sensors → A4 peripheral libraries and sensor calibration → A5 N-MOSFET transistor switching for high-current loads → A6 bidirectional WebSerial communication. Midterm formally assesses circuit knowledge. Engineering design concentrated in Final Project (individual integrated electronic prototype: schematic + circuit + firmware + demo) and A6 (self-designed bidirectional interaction system). Credit count ~4 QC assumed (confirm from UW Time Schedule).",
+    doc: "HCDE 439/HCDE_439_ABET_Evaluation.docx"
+  },
 ];
 
 const CONF_ORDER = ["High", "Moderate", "Low-Moderate", "Low"];
