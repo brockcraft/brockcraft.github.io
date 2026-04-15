@@ -637,7 +637,7 @@ let courses = [
     science: { low: 0.0,  high: 0.5,  conf: "Low" },
     total:   { scLow: 2.0, scHigh: 3.0 },
     tools: "Figma or equivalent (required by Design Specification rubric); project-dependent: survey platforms, screen recording tools",
-    notes: "Strongest engineering design course in curriculum; execution phase of 492–493 capstone sequence. P1/P2/P3 milestones execute the planned HCD process (Milestone Rubric requires rigorous, principled approach reflecting professional HCD standards). Process Book Rubric requires Design Specification with system diagrams, experience maps, user flow diagrams, and interaction specifications — most explicit engineering design rubric criterion in the curriculum. Engineering science is project-dependent: some teams use survey data and usability metrics (mentioned in Process Comprehensiveness rubric criterion), others work entirely qualitatively. Present 492+493 as a unified capstone sequence in the self-study. F2 (video), F3 (showcase), and F5 (reflection) excluded from design credit.",
+    notes: "Strongest engineering design course in curriculum; execution phase of 492-493 capstone sequence. P1/P2/P3 milestones execute the planned HCD process (Milestone Rubric requires rigorous, principled approach reflecting professional HCD standards). Process Book Rubric requires Design Specification with system diagrams, experience maps, user flow diagrams, and interaction specifications. Engineering science is project-dependent: some teams use survey data and usability metrics, others work entirely qualitatively. Present 492+493 as a unified capstone sequence in the self-study. F2 (video), F3 (showcase), and F5 (reflection) excluded from design credit.",
     doc: "HCDE 493/HCDE_493_ABET_Evaluation.docx"
   },
   {
@@ -750,7 +750,7 @@ function buildStatusBar() {
   const targetLabel = isQC ? '~67.5 QC' : '45 SC';
   const progressPill = `
     <div class="stat-pill">
-      <div class="lbl">Progress Toward ${targetLabel} Target</div>
+      <div class="lbl">Estimated Criterion 5b Coverage</div>
       <div class="num">${totalLow.toFixed(1)}&thinsp;–&thinsp;${totalHigh.toFixed(1)} <span style="font-size:13px;font-weight:400;color:#666;">${unit}</span></div>
       <div style="position:relative;height:8px;background:#E8EDF5;border-radius:4px;margin:5px 0 3px;">
         <div style="position:absolute;left:0;top:0;height:100%;width:${barPctHigh}%;background:rgba(47,84,150,0.25);border-radius:4px;"></div>
