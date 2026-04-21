@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Reviews API Documentation</title>
+  <title>HCDE 530 App Reviews API Documentation</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
@@ -45,9 +45,9 @@
 </head>
 <body>
 
-<h1>Reviews API</h1>
+<h1>HCDE 530 App Reviews Reviews "Dummy" API Documentation</h1>
 
-<p>Retrieve a paginated list of application reviews.</p>
+<p>this API is an endpoint for you to retrieve a paginated list of hypothetical application reviews. You can use it to practice your skills making API calls.</p>
 
 <h2>Endpoint</h2>
 <pre><code>GET /reviews</code></pre>
@@ -233,6 +233,9 @@
     }
   ]
 }</code></pre>
-
+<h2>Other Example Requests</h2>
+<pre><code>GET /reviews?app=Dovetail&amp;min_rating=4</code></pre>
+<pre><code>GET /reviews?rating=1&amp;limit=10</code></pre>
+<pre><code>GET /reviews?app=Miro&amp;limit=5&amp;offset=10</code></pre>
 </body>
 </html>
