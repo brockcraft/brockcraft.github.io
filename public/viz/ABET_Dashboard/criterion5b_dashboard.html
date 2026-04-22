@@ -414,15 +414,15 @@
     <h2>About this Dashboard</h2>
 
     <h3>Methodology</h3>
-    <p>This dashboard summarizes an ongoing evaluation of the HCDE BS curriculum against <strong>ABET EAC Criterion 5b</strong>, which requires a minimum of 45 semester credits (SC) of engineering topics covering engineering design, engineering science, and modern engineering tools. The HCDE BS curriculum evaluated here consists of 14 required HCDE courses plus 12 QC of engineering electives.</p>
+    <p>This dashboard summarizes an ongoing evaluation of the HCDE BS curriculum against <strong>ABET EAC Criterion 5b</strong>, which requires a minimum of 45 semester credits (SC) of engineering topics covering engineering design, engineering science, and modern engineering tools. The HCDE BS curriculum evaluated here consists of 14 required HCDE courses plus 12 QC of engineering fundamentals.</p>
     <p>Each evaluated course is assessed by examining its Canvas course export (assignments, rubrics, syllabi, and module structure). Credit estimates are expressed as quarter-credit (QC) ranges — a low estimate reflecting only the most clearly ABET-legible content, and a high estimate including content that qualifies with reasonable interpretation. Quarter credits are converted to semester credits using the standard UW conversion factor (×0.667, so 45 SC ≈ 67.5 QC).</p>
     <p>Credit estimates reflect the <em>portion</em> of a course's content that qualifies under Criterion 5b — not the course's full credit value. A 5 QC course may contribute only 1–2 QC (≈0.7–1.3 SC) toward the 45 SC threshold if much of its content falls under other criteria (e.g., Criterion 5c: professional and social topics).</p>
-    <p>Engineering Electives (12 QC, shown as the warm-teal block at the left of the Coverage tile) are a fixed program requirement counted as a whole. Individual elective courses are not separately evaluated because their content varies by student selection.</p>
+    <p>Engineering Fundamentals (12 QC, shown as the warm-teal block at the left of the Coverage tile) are a fixed program requirement counted as a whole. Individual fundamentals courses are not separately evaluated in this review.</p>
     <p>Clicking any course row in the Credit Ranges chart opens the Course Detail sidebar, which includes a link to the full evaluation PDF for that course.</p>
     <p style="margin-top:10px;"><a href="ABET_Analysis_Methodology.pdf" target="_blank" rel="noopener" style="color:#2F5496;text-decoration:underline;font-weight:600;">Full methodology document (PDF) &rarr;</a></p>
 
     <h3>Reading the Coverage Tile</h3>
-    <p>The <strong>Estimated Criterion 5b Coverage</strong> tile at the top of the page shows total estimated coverage across the whole curriculum. The warm-teal block at the left represents the 12 QC Engineering Electives; the solid-blue block shows the low estimate from the 14 evaluated courses stacked on top; the light-blue block extends to the high estimate. The red vertical line marks the 45 SC / ~68 QC ABET target, and the number beneath it shows the target value in the currently selected unit. Hover any bar segment for details.</p>
+    <p>The <strong>Estimated Criterion 5b Coverage</strong> tile at the top of the page shows total estimated coverage across the whole curriculum. The warm-teal block at the left represents the 12 QC Engineering Fundamentals; the solid-blue block shows the low estimate from the 14 evaluated courses stacked on top; the light-blue block extends to the high estimate. The red vertical line marks the 45 SC / ~68 QC ABET target, and the number beneath it shows the target value in the currently selected unit. Hover any bar segment for details.</p>
 
     <h3>Confidence Ratings</h3>
     <p>Confidence reflects how clearly a course's assignments and rubrics map to ABET's definitions — it is confidence in the credit <em>estimate</em> produced by this review, not an assessment of the course's quality or rigor, and not a measure of model or AI certainty.</p>
@@ -759,7 +759,7 @@ function buildStatusBar() {
   const target    = isQC ? +(TARGET_SC / 0.667).toFixed(1) : TARGET_SC; // 67.5 QC or 45 SC
   const avgLow    = totalLow / courses.length;
 
-  // Progress tile — unit-aware, stacks 12 QC Engineering Electives at left, then evaluated courses on top
+  // Progress tile — unit-aware, stacks 12 QC Engineering Fundamentals at left, then evaluated courses on top
   const electives = isQC ? 12 : +(12 * 0.667).toFixed(2);              // 12 QC or ~8.00 SC
   const electivesDisplay = isQC ? '12' : electives.toFixed(1);
   const combinedLow  = electives + totalLow;
@@ -779,7 +779,7 @@ function buildStatusBar() {
   // Tooltip content uses the existing showTooltip/hideTooltip system (positioned tooltip widget at #tooltip).
   // Keep content quote-free so the string can be inlined safely into onmouseenter="showTooltip(event,'...')".
   const tipEscape = (s) => s.replace(/'/g, "\\'").replace(/"/g, "&quot;");
-  const tipE = tipEscape(`<b>Engineering Electives</b><br>${electivesDisplay} ${unit} fixed required block (12 QC per program requirements). Not individually evaluated here.`);
+  const tipE = tipEscape(`<b>Engineering Fundamentals</b><br>${electivesDisplay} ${unit} fixed required block (12 QC per program requirements). Not individually evaluated here.`);
   const tipL = tipEscape(`<b>Evaluated courses — low estimate</b><br>${totalLow.toFixed(1)} ${unit} across the 14 evaluated HCDE courses (most defensible Criterion 5b content only).`);
   const tipH = tipEscape(`<b>Evaluated courses — high estimate</b><br>Up to ${totalHigh.toFixed(1)} ${unit} (upper bound including content that qualifies with reasonable interpretation).`);
   const tipT = tipEscape(`<b>ABET Criterion 5b target</b><br>45 SC minimum (~67.5 QC, rounded to 68).`);
@@ -802,7 +802,7 @@ function buildStatusBar() {
       </div>
       <div style="position:relative;height:14px;margin:0 0 3px;font-size:10px;color:#555;line-height:14px;">
         <div style="position:absolute;top:0;left:calc(${barPctElectives}% - 1px);width:2px;height:4px;background:${electivesDivider};"></div>
-        <div style="position:absolute;top:3px;left:0;width:${barPctElectives}%;text-align:center;white-space:nowrap;overflow:visible;">Eng. Electives (${electivesDisplay} ${unit})</div>
+        <div style="position:absolute;top:3px;left:0;width:${barPctElectives}%;text-align:center;white-space:nowrap;overflow:visible;">Eng. Fundamentals (${electivesDisplay} ${unit})</div>
         <div style="position:absolute;top:3px;left:${barPctTarget}%;transform:translateX(-50%);color:#C00000;font-weight:700;"
              onmouseenter="showTooltip(event,'${tipT}')" onmousemove="positionTooltip(event)" onmouseleave="hideTooltip()">${targetNumber}</div>
       </div>
