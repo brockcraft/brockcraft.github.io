@@ -105,6 +105,89 @@ function transformSubmission(raw: RawSubmission): Project {
   };
 }
 
+// ─── Clusters ─────────────────────────────────────────────────────────────────
+
+interface ClusterDef {
+  label: string;
+  color: string;
+  description: string;
+}
+
+const CLUSTERS: Record<string, ClusterDef> = {
+  creative: {
+    label: "Creative Experiences",
+    color: "#DB2777",
+    description: "Playful, expressive, and imaginative interfaces and applications",
+  },
+  data: {
+    label: "Data Analysis & Visualization",
+    color: "#0284C7",
+    description: "Data pipelines, dashboards, maps, and quantitative pattern finding",
+  },
+  design: {
+    label: "Design Workflow Tools",
+    color: "#7C3AED",
+    description: "Color, typography, ideation, and design process tooling",
+  },
+  qualitative: {
+    label: "Qualitative Analysis",
+    color: "#4F46E5",
+    description: "Tools that process transcripts, surveys, and open-ended responses into themes and insights",
+  },
+  communication: {
+    label: "Research Communication",
+    color: "#D97706",
+    description: "Translating research findings into stakeholder-ready outputs and documents",
+  },
+  evaluation: {
+    label: "UX Evaluation & Auditing",
+    color: "#059669",
+    description: "Heuristic evaluation, accessibility auditing, bias detection, and protocol review",
+  },
+};
+
+const PROJECT_CLUSTERS: Record<string, string> = {
+  "4572531": "evaluation",    // Alobaid — heuristic critique
+  "4581218": "creative",      // Badoni — movie taste
+  "4132623": "communication", // Cai — job prep
+  "4583561": "qualitative",   // Chaudhari — survey affinity
+  "4588067": "data",          // Gao — EU AI Act compliance
+  "4241574": "qualitative",   // Guan — survey themes
+  "4575282": "data",          // Hadkar — campus safety map
+  "4577509": "communication", // Haveliwala — study docs
+  "4585576": "creative",      // Huang — AED locator
+  "4578561": "data",          // Hu — scooter analysis
+  "4024274": "qualitative",   // Jeyte — voice preservation
+  "4573395": "design",        // Kang — color pairing
+  "3711444": "qualitative",   // Larson — transcript quote finder
+  "4586677": "design",        // Lee — font selection
+  "4577276": "design",        // Li — inspiration collector
+  "4587891": "qualitative",   // Liu — theme grouper
+  "4581406": "qualitative",   // Luo — interview synthesis
+  "4476680": "data",          // Mattison — coaching dashboard
+  "4574807": "creative",      // Mohanakrishnan — open source recommender
+  "2139063": "communication", // Ng — research briefs
+  "4574753": "qualitative",   // Nguyen — transcript analyzer
+  "4588555": "data",          // Rangaswamy — legal AI discourse
+  "4575649": "qualitative",   // Ren — decision auditor
+  "4532864": "evaluation",    // Rodriguez — heuristic evaluator
+  "4594561": "creative",      // Sayed — adaptive reading app
+  "4596194": "design",        // Shah — design reflector
+  "4591881": "creative",      // Singhi — constellation creator
+  "4597185": "qualitative",   // Song — usability themes
+  "4577535": "communication", // Sridhar — stakeholder summaries
+  "4581191": "design",        // Thamke — SVG variants
+  "4574242": "evaluation",    // Tran — protocol bias detector
+  "4578584": "qualitative",   // Upadhyay — multi-modal analysis
+  "4572683": "evaluation",    // Varrier — website audit
+  "4584697": "design",        // Wang Lina — brainstorm facilitator
+  "4573349": "evaluation",    // Wang Mengying — privacy audit
+  "4161310": "creative",      // Xia — storybook
+  "4585640": "creative",      // Xue — football boot recommender
+  "3578107": "creative",      // Yang — Claude companion
+  "4600951": "qualitative",   // Zhang — qualitative clustering
+};
+
 // ─── Visuals ──────────────────────────────────────────────────────────────────
 
 const TRACK_COLORS: Record<TrackLabel, { bg: string; text: string; border: string }> = {
@@ -487,6 +570,76 @@ const CSS = `
     margin: 0;
   }
 
+  /* Description */
+  .mp2-description {
+    font-size: 0.925rem;
+    color: #4B5563;
+    line-height: 1.65;
+    margin: 0 0 1.5rem;
+    max-width: 72ch;
+  }
+
+  /* View toggle */
+  .mp2-view-toggle {
+    display: flex;
+    gap: 0;
+    background: #F3F4F6;
+    border-radius: 10px;
+    padding: 3px;
+    margin-bottom: 1.25rem;
+    width: fit-content;
+  }
+  .mp2-view-toggle__btn {
+    padding: 0.4rem 1rem;
+    border: none;
+    border-radius: 7px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    background: transparent;
+    color: #6B7280;
+    transition: background 0.15s, color 0.15s;
+    white-space: nowrap;
+  }
+  .mp2-view-toggle__btn[aria-pressed="true"] {
+    background: #fff;
+    color: #111827;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  }
+
+  /* Cluster view */
+  .mp2-clusters {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+  .mp2-cluster__header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    padding-left: 0.85rem;
+    border-left-width: 4px;
+    border-left-style: solid;
+  }
+  .mp2-cluster__label {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #111827;
+    margin: 0;
+  }
+  .mp2-cluster__count {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #9CA3AF;
+  }
+  .mp2-cluster__desc {
+    font-size: 0.82rem;
+    color: #6B7280;
+    margin: 0 0 1rem 0;
+    padding-left: 0.85rem;
+  }
+
   @media (max-width: 600px) {
     .mp2-grid {
       grid-template-columns: 1fr;
@@ -762,6 +915,110 @@ function ProjectModal({ project, onClose, reduceMotion }: ProjectModalProps) {
   );
 }
 
+// ─── View toggle ──────────────────────────────────────────────────────────────
+
+type ViewMode = "grid" | "clusters";
+
+function ViewToggle({ view, onChange }: { view: ViewMode; onChange: (v: ViewMode) => void }) {
+  return (
+    <div className="mp2-view-toggle" role="group" aria-label="View mode">
+      <button
+        className="mp2-view-toggle__btn"
+        aria-pressed={view === "grid"}
+        onClick={() => onChange("grid")}
+      >
+        All Projects
+      </button>
+      <button
+        className="mp2-view-toggle__btn"
+        aria-pressed={view === "clusters"}
+        onClick={() => onChange("clusters")}
+      >
+        By Cluster
+      </button>
+    </div>
+  );
+}
+
+// ─── Cluster view ─────────────────────────────────────────────────────────────
+
+interface ClusterViewProps {
+  projects: Project[];
+  search: string;
+  onProjectClick: (p: Project) => void;
+  reduceMotion: boolean;
+}
+
+function ClusterView({ projects, search, onProjectClick, reduceMotion }: ClusterViewProps) {
+  const fadeTransition = reduceMotion
+    ? { duration: 0 }
+    : { duration: 0.2, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] };
+
+  const filtered = useMemo(() => {
+    if (!search.trim()) return projects;
+    const q = search.trim().toLowerCase();
+    return projects.filter(
+      (p) =>
+        p.student_name.toLowerCase().includes(q) ||
+        p.title.toLowerCase().includes(q) ||
+        p.problem_full.toLowerCase().includes(q)
+    );
+  }, [projects, search]);
+
+  return (
+    <div className="mp2-clusters">
+      {Object.entries(CLUSTERS).map(([key, def]) => {
+        const clusterProjects = filtered.filter(
+          (p) => (PROJECT_CLUSTERS[p.id] ?? "creative") === key
+        );
+        if (clusterProjects.length === 0) return null;
+        return (
+          <motion.section
+            key={key}
+            initial={reduceMotion ? false : { opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={fadeTransition}
+          >
+            <div
+              className="mp2-cluster__header"
+              style={{ borderLeftColor: def.color }}
+            >
+              <h2 className="mp2-cluster__label" style={{ color: def.color }}>
+                {def.label}
+              </h2>
+              <span className="mp2-cluster__count">{clusterProjects.length} projects</span>
+            </div>
+            <p className="mp2-cluster__desc">{def.description}</p>
+            <ul className="mp2-grid" style={{ listStyle: "none", margin: 0, padding: 0 }}>
+              <AnimatePresence initial={false} mode="popLayout">
+                {clusterProjects.map((p) => (
+                  <motion.li
+                    key={p.id}
+                    initial={reduceMotion ? false : { opacity: 0, scale: 0.93 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={reduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.93 }}
+                    transition={fadeTransition}
+                    style={{ listStyle: "none" }}
+                  >
+                    <ProjectCard
+                      project={p}
+                      onClick={() => onProjectClick(p)}
+                      reduceMotion={reduceMotion}
+                    />
+                  </motion.li>
+                ))}
+              </AnimatePresence>
+            </ul>
+          </motion.section>
+        );
+      })}
+      {filtered.length === 0 && (
+        <p className="mp2-empty">No projects match your search.</p>
+      )}
+    </div>
+  );
+}
+
 // ─── Main component ───────────────────────────────────────────────────────────
 
 export default function Mp2Gallery() {
@@ -775,6 +1032,7 @@ export default function Mp2Gallery() {
   const [selectedPlatforms, setSelectedPlatforms] = useState<string[]>([]);
   const [search, setSearch] = useState("");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [view, setView] = useState<ViewMode>("grid");
 
   const scrollYRef = useRef(0);
 
@@ -859,7 +1117,7 @@ export default function Mp2Gallery() {
         <div className="mp2-header">
           <div>
             <h1>HCDE 530 — MP2 Student Projects</h1>
-            <p>{projects.length} project proposals &middot; Spring 2026</p>
+            <p>{projects.length} projects &middot; Spring 2026</p>
           </div>
           <a
             href="https://forms.gle/cPewru2XP8BUgX2r9"
@@ -872,16 +1130,40 @@ export default function Mp2Gallery() {
         </div>
 
         {!loading && !error && (
-          <FilterBar
-            tracks={["Design", "Research", "Both"]}
-            selectedTrack={selectedTrack}
-            onTrackChange={setSelectedTrack}
-            allPlatformTags={allPlatformTags}
-            selectedPlatforms={selectedPlatforms}
-            onPlatformToggle={togglePlatform}
-            search={search}
-            onSearch={setSearch}
-          />
+          <>
+            <p className="mp2-description">
+              Mini Project 2 is the culmination of HCDE 530 — each student designed and
+              deployed a tool that does something real for a real human-centered design use
+              case. Projects were built in two weeks using AI-assisted development platforms
+              and fall into one of two tracks: <strong>Design</strong>, where the interface
+              is the product, or <strong>Research</strong>, where the output is a structured
+              finding or data artifact. Browse all projects below or explore by cluster.
+            </p>
+            <ViewToggle view={view} onChange={setView} />
+            {view === "grid" ? (
+              <FilterBar
+                tracks={["Design", "Research", "Both"]}
+                selectedTrack={selectedTrack}
+                onTrackChange={setSelectedTrack}
+                allPlatformTags={allPlatformTags}
+                selectedPlatforms={selectedPlatforms}
+                onPlatformToggle={togglePlatform}
+                search={search}
+                onSearch={setSearch}
+              />
+            ) : (
+              <div className="mp2-filters" style={{ marginBottom: "1.5rem" }}>
+                <input
+                  type="search"
+                  className="mp2-filters__search"
+                  placeholder="Search by student name or project description…"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  aria-label="Search projects"
+                />
+              </div>
+            )}
+          </>
         )}
 
         {loading && (
@@ -893,51 +1175,63 @@ export default function Mp2Gallery() {
 
         {!loading && !error && (
           <>
-            {isFiltered && (
-              <p className="mp2-results-meta">
-                Showing {filteredProjects.length} of {projects.length}
-              </p>
-            )}
-
             <LayoutGroup>
-              <ul className="mp2-grid" style={{ listStyle: "none", margin: 0, padding: 0 }}>
-                <AnimatePresence initial={false} mode="popLayout">
-                  {filteredProjects.map((p) => (
-                    <motion.li
-                      key={p.id}
-                      initial={reduceMotion ? false : { opacity: 0, scale: 0.93 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={
-                        reduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.93 }
-                      }
-                      transition={{
-                        opacity: fadeTransition,
-                        scale: fadeTransition,
-                      }}
-                      style={{ listStyle: "none" }}
-                    >
-                      <ProjectCard
-                        project={p}
-                        onClick={() => openProject(p)}
-                        reduceMotion={reduceMotion}
-                      />
-                    </motion.li>
-                  ))}
-                </AnimatePresence>
+              {view === "grid" && (
+                <>
+                  {isFiltered && (
+                    <p className="mp2-results-meta">
+                      Showing {filteredProjects.length} of {projects.length}
+                    </p>
+                  )}
+                  <ul className="mp2-grid" style={{ listStyle: "none", margin: 0, padding: 0 }}>
+                    <AnimatePresence initial={false} mode="popLayout">
+                      {filteredProjects.map((p) => (
+                        <motion.li
+                          key={p.id}
+                          initial={reduceMotion ? false : { opacity: 0, scale: 0.93 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={
+                            reduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.93 }
+                          }
+                          transition={{
+                            opacity: fadeTransition,
+                            scale: fadeTransition,
+                          }}
+                          style={{ listStyle: "none" }}
+                        >
+                          <ProjectCard
+                            project={p}
+                            onClick={() => openProject(p)}
+                            reduceMotion={reduceMotion}
+                          />
+                        </motion.li>
+                      ))}
+                    </AnimatePresence>
 
-                {filteredProjects.length === 0 && (
-                  <motion.li
-                    key="empty"
-                    className="mp2-empty"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={fadeTransition}
-                  >
-                    No projects match the current filters.
-                  </motion.li>
-                )}
-              </ul>
+                    {filteredProjects.length === 0 && (
+                      <motion.li
+                        key="empty"
+                        className="mp2-empty"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={fadeTransition}
+                      >
+                        No projects match the current filters.
+                      </motion.li>
+                    )}
+                  </ul>
+                </>
+              )}
+
+              {view === "clusters" && (
+                <ClusterView
+                  projects={projects}
+                  search={search}
+                  onProjectClick={openProject}
+                  reduceMotion={reduceMotion}
+                />
+              )}
 
               <AnimatePresence>
                 {selectedProject && (
