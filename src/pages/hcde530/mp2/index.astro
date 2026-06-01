@@ -1,11 +1,31 @@
 ---
-import BaseLayout from "../../../layouts/BaseLayout.astro";
 import Mp2Gallery from "../../../components/hcde530/Mp2Gallery";
 ---
 
-<BaseLayout
-  title="HCDE 530 — MP2 Student Projects"
-  description="Student project proposals from HCDE 530 MP2"
->
-  <Mp2Gallery client:only="react" />
-</BaseLayout>
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Student project proposals from HCDE 530 MP2" />
+    <title>HCDE 530 — MP2 Student Projects</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *, *::before, *::after { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: "Roboto", sans-serif;
+        background: #F9FAFB;
+        color: #111827;
+      }
+    </style>
+  </head>
+  <body>
+    <Mp2Gallery client:only="react" />
+  </body>
+</html>
