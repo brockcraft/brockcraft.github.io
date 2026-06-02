@@ -426,7 +426,7 @@
     "platform": "Claude Code + GitHub Pages",
     "rationale": "Claude Code will be used as the development environment to write and organize the project code, while GitHub Pages will be used to deploy and host the final web application. This setup supports building a lightweight browser-based UX audit tool that can be easily shared, tested, and accessed online.",
     "title": "Automated Website UX Audit Tool",
-    "image": null
+    "image": "/hcde530/images/Project photo - Manish Varrier.png"
   },
   {
     "submission_id": "4584697",
