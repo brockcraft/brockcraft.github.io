@@ -375,6 +375,7 @@ const CSS = `
     aspect-ratio: 16 / 8;
     display: block;
     object-fit: cover;
+    object-position: top center;
   }
   .mp2-card__body {
     padding: 1rem 1.1rem 1.1rem;
@@ -489,6 +490,7 @@ const CSS = `
     border-radius: 16px 16px 0 0;
     flex-shrink: 0;
     object-fit: cover;
+    object-position: top center;
   }
   .mp2-modal__body {
     padding: 1.5rem 1.75rem 2rem;
