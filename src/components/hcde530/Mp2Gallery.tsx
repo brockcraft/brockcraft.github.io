@@ -373,9 +373,16 @@ const CSS = `
   .mp2-card__thumb {
     width: 100%;
     aspect-ratio: 16 / 8;
+    overflow: hidden;
     display: block;
+    flex-shrink: 0;
+  }
+  .mp2-card__thumb img {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
     object-position: top center;
+    display: block;
   }
   .mp2-card__body {
     padding: 1rem 1.1rem 1.1rem;
@@ -489,8 +496,14 @@ const CSS = `
     aspect-ratio: 16 / 7;
     border-radius: 16px 16px 0 0;
     flex-shrink: 0;
+    overflow: hidden;
+  }
+  .mp2-modal__thumb img {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
     object-position: top center;
+    display: block;
   }
   .mp2-modal__body {
     padding: 1.5rem 1.75rem 2rem;
@@ -770,13 +783,14 @@ function ProjectCard({ project, onClick, reduceMotion }: ProjectCardProps) {
       transition={{ layout: { type: "spring", stiffness: 420, damping: 34 } }}
     >
       {project.image ? (
-        <img
-          className="mp2-card__thumb"
-          src={project.image}
-          alt={`${project.student_name} project`}
-          loading="lazy"
-          decoding="async"
-        />
+        <div className="mp2-card__thumb">
+          <img
+            src={project.image}
+            alt={`${project.student_name} project`}
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
       ) : (
         <div
           className="mp2-card__thumb"
@@ -848,12 +862,13 @@ function ProjectModal({ project, onClose, reduceMotion }: ProjectModalProps) {
           transition={{ type: "spring", stiffness: 380, damping: 36 }}
         >
           {project.image ? (
-            <img
-              className="mp2-modal__thumb"
-              src={project.image}
-              alt={`${project.student_name} project`}
-              decoding="async"
-            />
+            <div className="mp2-modal__thumb">
+              <img
+                src={project.image}
+                alt={`${project.student_name} project`}
+                decoding="async"
+              />
+            </div>
           ) : (
             <div
               className="mp2-modal__thumb"
