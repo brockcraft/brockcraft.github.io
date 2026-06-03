@@ -10,7 +10,7 @@
     "platform": "Lovable",
     "rationale": "This project needs a great user interface more than backend computation. The core experience is submitting a URL or screenshot and reading a structured report, which is interface-first work. Lovable deploys fast and handles this interaction model well, with AI powering the analysis in the background.",
     "title": "Automated Heuristic UX Critique Report",
-    "image": null
+    "image": "/hcde530/images/CritLens_Gallery_Image_Under_1MB - Abdulrahman Khalid A Alobaid.jpg"
   },
   {
     "submission_id": "4581218",
@@ -244,7 +244,7 @@
     "platform": "Cursor IDE, Vercel for deployment",
     "rationale": "This project is experienced primarily through a web interactive interface where adaptive preference elicitation (asking beginner developers for their preferences) and recommendation explanations shape the user experience. Cursor is appropriate because the prototype requires conversational flows, conditional questioning, and real-time recommendation logic rather than heavy computational analysis alone. Note: I have already fetched repository data (data from 100 repositories) from github API as I continue to work on the project.",
     "title": "Open Source Contribution Recommender",
-    "image": null
+    "image": "/hcde530/images/Poster - Nimesh Mohanakrishnan.png"
   },
   {
     "submission_id": "2139063",
@@ -387,7 +387,7 @@
     "platform": "Cursor",
     "rationale": "The tool relies on real computation to parse SVG files, map data to layers, call the Gemini API for AI-driven generation, and batch render output files at scale. The interface is important for making that pipeline feel simple and intuitive, but the processing and automation happening underneath is what drives the core value.",
     "title": "Batch SVG Design Variant Generator",
-    "image": null
+    "image": "/hcde530/images/thumbnail - Swaraj Thamke.jpeg"
   },
   {
     "submission_id": "4574242",
