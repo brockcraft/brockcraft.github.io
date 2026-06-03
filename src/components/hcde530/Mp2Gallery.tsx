@@ -372,14 +372,15 @@ const CSS = `
   }
   .mp2-card__thumb {
     width: 100%;
-    aspect-ratio: 16 / 8;
-    overflow: hidden;
+    padding-top: 50%;
     position: relative;
+    overflow: hidden;
     flex-shrink: 0;
   }
   .mp2-card__thumb img {
     position: absolute;
-    inset: 0;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -494,15 +495,16 @@ const CSS = `
   }
   .mp2-modal__thumb {
     width: 100%;
-    aspect-ratio: 16 / 7;
+    padding-top: 43.75%;
+    position: relative;
+    overflow: hidden;
     border-radius: 16px 16px 0 0;
     flex-shrink: 0;
-    overflow: hidden;
-    position: relative;
   }
   .mp2-modal__thumb img {
     position: absolute;
-    inset: 0;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
