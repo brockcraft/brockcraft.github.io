@@ -270,7 +270,7 @@
     "platform": "Cursor + Python",
     "rationale": "This project needs real computation—fetching public posts, cleaning text, coding excerpts, and aggregating themes—not a polished consumer UI as the main deliverable. Cursor + Python supports a notebook + CSV + grounded-theory pipeline, with an optional lightweight local UI later for exploration only. Questions for Brock/ Alyse: 1. Does this project cover the assignment expectations? 2. I am thinking of using something creative like teachable machines, or something to train lawyer's arguments or witness prep depositions in real time, but I don't know if that would satisfy the assignment criteria. How does that addition sound?",
     "title": "Legal AI Public Discourse Analyzer",
-    "image": null
+    "image": "/hcde530/images/Screenshot 2026-06-03 at 1.32.11 PM - Ranjitha Rangaswamy.png"
   },
   {
     "submission_id": "4575649",
