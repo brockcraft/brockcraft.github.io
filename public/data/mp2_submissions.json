@@ -335,7 +335,7 @@
     "platform": "— Cursor.",
     "rationale": "— This project requires a Figma plugin, which Lovable and Bolt cannot scaffold — it needs direct access to the Figma Plugin API and its native storage layer. The document generation logic and card system also involve real computation that benefits from Cursor's code-first environment over a drag-and-drop builder.",
     "title": "In-Progress Design Decision Reflector",
-    "image": null
+    "image": "/hcde530/images/Screenshot 2026-06-02 180339 - Stuti Shah.png"
   },
   {
     "submission_id": "4591881",
