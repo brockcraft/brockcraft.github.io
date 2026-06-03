@@ -283,7 +283,7 @@
     "platform": "Cursor + Python.",
     "rationale": "The core work is computation: parsing chat transcripts, running structured LLM prompts to extract decision points, and aggregating them into an inspectable matrix and exportable artifacts, not interface design. Publishing as a GitHub notebook aligns with academic norms for methodological tools and lets reviewers inspect the schema, the prompt, and the validation harness directly, which is the intellectual contribution.",
     "title": "AI-Assisted Qualitative Decision Auditor",
-    "image": null
+    "image": "/hcde530/images/tracequal_thumb_matrix_1920x1080 - Jared Ren.png"
   },
   {
     "submission_id": "4532864",
