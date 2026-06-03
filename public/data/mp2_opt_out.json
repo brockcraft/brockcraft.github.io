@@ -1,0 +1,15 @@
+[
+  {
+    "submission_id": "4574753",
+    "last_name": "Nguyen",
+    "first_name": "Nina",
+    "problem": "A tool that takes raw UX interview transcripts and produces bullet points, quote snippets, and a preliminary theme analysis, so researchers don't have to manually skim long transcripts before affinity mapping and deeper analysis.",
+    "audience": "UX researchers and other HCD practitioners who regularly review qualitative interview data are the primary users. They benefit by spending less time on repetitive transcript reading and more time on synthesis, analysis, and strategic thinking.",
+    "data": "It takes raw interview transcripts as plain text (from uploaded files or pasted text, sourced from de-identified project data or public sample transcripts) and optional researcher notes, and produces structured outputs: bullet points for affinity prep, quote snippets, and a short preliminary analysis.",
+    "track": "This will be on the research track.",
+    "platform": "Cursor + Python.",
+    "rationale": "The core value is computation (reading, extracting, and synthesizing transcript text into structured findings), not a polished standalone UI. Cursor + Python in a Jupyter notebook fits that workflow and matches the limited time budget for a solo prototype focused on processing real transcript data.",
+    "title": "UX Interview Transcript Analyzer",
+    "image": null
+  }
+]
