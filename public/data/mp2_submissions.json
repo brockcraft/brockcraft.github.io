@@ -452,7 +452,7 @@
     "platform": "Cursor (? currently use Cursor, but maybe combine using Cursor and other AI tools - Lovable or Bolt)",
     "rationale": "The product is experienced primarily through its interface—the story, art, touch interactions, and audio are the deliverable—not a data-analysis pipeline. Cursor fits because the work is building and iterating that UI in HTML/CSS/JavaScript with branching logic and games, while keeping everything in the HCDE git repo (including .cursorrules and notes) for MP2 submission, portfolio review, and GitHub Pages deployment; Python-heavy computation is not the core of this project.",
     "title": "Interactive Branching Storybook for Children",
-    "image": null
+    "image": "/hcde530/images/截屏2026-06-03 上午2.18.46 - Yudie Xia.png"
   },
   {
     "submission_id": "4585640",
