@@ -1139,7 +1139,7 @@ export default function Mp2Gallery() {
       <div className="mp2">
         <div className="mp2-header">
           <div>
-            <h1>HCDE 530 — MP2 Student Projects</h1>
+            <h1>HCDE 530 — Mini Project 2 Collection</h1>
             <p>{projects.length} projects &middot; Spring 2026</p>
           </div>
           <a
