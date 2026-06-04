@@ -492,5 +492,18 @@
     "rationale": "This project requires real computation-heavy workflows (file parsing, PII masking, LLM-driven clustering, hierarchy generation, role-aware data handling), which fits Cursor best. The interface matters, but the core value is robust analysis and transformation of qualitative data rather than lightweight UI assembly alone.",
     "title": "Qualitative Data Auto-Clustering Tool",
     "image": null
+  },
+  {
+    "submission_id": "LATE001",
+    "last_name": "Khawar",
+    "first_name": "Maham",
+    "problem": "A tool that hosts a live usability session in the browser, automatically logs every participant click, and compares it against a researcher-defined golden path — so UX researchers get a structured deviation report without manually coding a single interaction.",
+    "audience": "UX researchers are the primary users — they define the golden path, run the session, and interpret the report. UX designers and developers are secondary beneficiaries who consume the output to prioritize what to fix.",
+    "data": "The researcher inputs an ordered list of expected steps (the golden path) and a prototype URL; the tool produces a structured report of total decisions made, total errors, error types (misclick, backtrack, skip), and time on task.",
+    "track": "Research track — the tool captures interaction data during a live session and outputs structured findings.",
+    "platform": "Bolt.",
+    "rationale": "This tool requires real computation — logging clicks, comparing sequences against a golden path, and classifying error types — not just a polished static interface, which rules out Lovable. Bolt handles conditional logic and live interaction tracking while remaining accessible for vibe coding within a one-week timeline.",
+    "title": "Live Usability Session Path Deviation Analyzer",
+    "image": null
   }
 ]
