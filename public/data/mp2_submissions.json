@@ -88,7 +88,7 @@
     "platform": "Cursor + Python for the data pipeline; Bolt for the frontend interface.",
     "rationale": "The project has two distinct layers — a computation layer processing SPD crime data, OSM infrastructure, and Reddit-derived safety signals into clean GeoJSON using Python, and an interface layer covering the map, pins, accessibility toggle, and emergency resources. Cursor handles the data work where Python is the right tool, and Bolt handles the UI where complex conditional interactions and fast deployment matter. How I am planning to build this The project is split into two parallel workstreams. In Cursor using Python, I will pull and clean the SPD crime dataset, query OpenStreetMap via the osmnx library to extract lighting infrastructure, curb cuts, and ramp locations around the University District, and scrape Reddit using PRAW for posts mentioning safety and Seattle neighborhoods. I will run a pre-trained Hugging Face classifier on the Reddit text to categorize safety sentiment and extract location mentions, then combine all three sources into a clean GeoJSON file that the frontend can consume as a pre-loaded baseline layer. In Bolt I will build the frontend — an interactive Leaflet.js map displaying the pre-loaded data, a pin-dropping interface where users can tag unsafe locations with time of day and incident type, a toggleable accessibility layer showing wheelchair-accessible routes and infrastructure, and a one-tap emergency resources tab with UW SafeCampus, UWPD, and crisis line contacts. Before building I will run a short survey of 15–20 UW students to validate assumptions and inform design decisions, particularly around the companion walking feature. Planned features (not finalised yet- will finalize these based on user research) Community safety map — the core of the app. Pre-loaded with SPD crime data and Reddit-derived safety signals as a baseline. Users drop pins on locations that feel unsafe, attach a photo, select time of day and incident type. Pins are visible to all users and accumulate over time. Accessibility layer — a toggleable overlay showing wheelchair-accessible routes, curb cuts, ramp locations, and surface quality sourced from OpenStreetMap. No existing safety tool combines mobility accessibility with safety perception in one place — this is the design contribution. Emergency resources — one-tap access to UW SafeCampus, UWPD, and campus crisis lines. Always visible, never buried in a menu. Walking companion board — scoped as future work, informed by survey findings. Users post where they are leaving from, where they are going, and what time. Others can join. Trust is built through UW email verification, completed walk badges, and anonymous post-walk safety confirmations. Designed deliberately after research rather than before it. Safe route suggester — also future work. Suggests a well-lit, lower-risk route weighted by community pins and OSM lighting data, even if slightly longer than the fastest path. Requires graph computation beyond the current scope.",
     "title": "UW Campus Safety Perception Map",
-    "image": null
+    "image": "/hcde530/images/safewalk_poster - Ashlesha Mukund Hadkar.png"
   },
   {
     "submission_id": "4577509",
@@ -205,7 +205,7 @@
     "platform": "Lovable + Cursor",
     "rationale": "The project focuses on helping researchers analyze and synthesize qualitative data through AI-assisted theme grouping and quote extraction. Cursor supports the computational processing of qualitative text data, while Lovable enables an interactive interface where researchers can review, refine, and reorganize AI-generated thematic groupings and supporting evidence.",
     "title": "AI-Assisted Qualitative Theme Grouper",
-    "image": null
+    "image": "/hcde530/images/Screenshot 2026-06-03 at 19.44.59 - Grace Liu.png"
   },
   {
     "submission_id": "4581406",
@@ -218,7 +218,7 @@
     "platform": "Cursor + React — the tool requires real computation including audio file upload, transcription via OpenAI Whisper, and AI summarization via Anthropic Claude, which requires a proper development environment rather than a no-code builder.",
     "rationale": "This project has two external API integrations (Whisper for transcription, Claude for question generation and summarization) and a file upload flow — that complexity is past what Bolt or Lovable handle cleanly. Cursor gives full control over the API calls, file handling, and debugging needed to make the core functionality work reliably.",
     "title": "AI Interview Prep and Synthesis Tool",
-    "image": "/hcde530/images/Cover - Mila Luo.png"
+    "image": "/hcde530/images/Slide 16_9 - 1 - Mila Luo.png"
   },
   {
     "submission_id": "4476680",
@@ -374,7 +374,7 @@
     "platform": "Cursor",
     "rationale": "The tool relies on real computation to parse SVG files, map data to layers, call the Gemini API for AI-driven generation, and batch render output files at scale. The interface is important for making that pipeline feel simple and intuitive, but the processing and automation happening underneath is what drives the core value.",
     "title": "Batch SVG Design Variant Generator",
-    "image": "/hcde530/images/thumbnail - Swaraj Thamke.jpeg"
+    "image": "/hcde530/images/new-thumbnail - Swaraj Thamke.jpeg"
   },
   {
     "submission_id": "4574242",
@@ -504,6 +504,6 @@
     "platform": "Bolt.",
     "rationale": "This tool requires real computation — logging clicks, comparing sequences against a golden path, and classifying error types — not just a polished static interface, which rules out Lovable. Bolt handles conditional logic and live interaction tracking while remaining accessible for vibe coding within a one-week timeline.",
     "title": "Live Usability Session Path Deviation Analyzer",
-    "image": null
+    "image": "/hcde530/images/Gemini_Generated_Image_b2m9x2b2m9x2b2m9 - Maham Khawar.png"
   }
 ]
