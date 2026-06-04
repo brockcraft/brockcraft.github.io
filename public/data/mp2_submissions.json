@@ -101,7 +101,7 @@
     "platform": "Bolt.",
     "rationale": "The tool requires real computation i.e. a Zoom API call to generate the session link and a backend scheduler to trigger the reminder email 24 hours before the session. Bolt handles both the interface and the backend logic.",
     "title": "UX Study Document Auto-Generator",
-    "image": null
+    "image": "/hcde530/images/Alefiya H. thumbnail image - Alefiya Haveliwala.png"
   },
   {
     "submission_id": "4585576",
@@ -335,7 +335,7 @@
     "platform": "**Lovable**\n — with the \n**Claude API**\n called via Lovable's built-in edge function support for AI naming, and \n**optional Supabase**\n for a lightweight used-names registry only.",
     "rationale": "The product's value is almost entirely in how it looks and feels — an immersive \n**galaxy aesthetic**\n in \n**Roboto Mono**\n, a smooth draw-to-constellation experience, and a beautiful \n**2D/3D result**\n — which makes Lovable the right choice because the interface is the product and Lovable deploys a polished React frontend faster than any alternative. The \n**nearest-neighbour snap**\n across ~9,000 stars runs fast enough \n**client-side in JavaScript**\n without any compute backend, so there is no technical argument for Bolt at this data scale.",
     "title": "Personal Constellation Creator",
-    "image": null
+    "image": "/hcde530/images/Slide 16_9 - 483 - Rachit Singhi.png"
   },
   {
     "submission_id": "4597185",
