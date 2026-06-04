@@ -494,6 +494,19 @@
     "image": "/hcde530/images/Screenshot 2026-06-03 at 8.34.07 PM - Ning Zhang.png"
   },
   {
+    "submission_id": "4574753",
+    "last_name": "Nguyen",
+    "first_name": "Nina",
+    "problem": "A tool that lets users upload a reference image and identifies which named trend it matches, then surfaces more examples, so they stop guessing search terms or fighting Pinterest to find a look they can't name.",
+    "audience": "Design students or designers who build moodboards but lack vocabulary for styles they're drawn to. They benefit by turning a vague \"I like this\" into a named trend plus related examples to pull from.",
+    "data": "A user-uploaded reference image matched against a curated library of design trends (name, defining traits, example images), producing a trend match and example set the user can save.",
+    "track": "Design track.",
+    "platform": "Bolt.",
+    "rationale": "This project's core is computation in response to user input: matching an uploaded image against the trend library and returning a reasoned result. Bolt is built for that kind of real logic behind a visual experience, whereas Lovable is optimized for shipping interfaces fast.",
+    "title": "Visual Design Trend Identifier",
+    "image": null
+  },
+  {
     "submission_id": "LATE001",
     "last_name": "Khawar",
     "first_name": "Maham",

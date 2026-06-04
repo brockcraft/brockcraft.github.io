@@ -186,6 +186,7 @@ const PROJECT_CLUSTERS: Record<string, string> = {
   "4585640": "creative",      // Xue — football boot recommender
   "3578107": "creative",      // Yang — Claude companion
   "4600951": "qualitative",   // Zhang — qualitative clustering
+  "4574753": "design",        // Nguyen — visual design trend identifier
   "LATE001": "evaluation",    // Khawar — golden path deviation analyzer
 };
 
