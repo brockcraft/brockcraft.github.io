@@ -36,7 +36,7 @@
     "platform": "Bolt (Claude Code or Lovable as a close second)",
     "rationale": "This project needs complex conditional logic such as file uploads, multi-section form state, session persistence, tabbed output views, and dynamic LLM-driven rendering. These are all things that Bolt can handle well, along with the capability to make a UI forward product that deploys quickly.",
     "title": "UX Job Interview Prep Assistant",
-    "image": null
+    "image": "/hcde530/images/thumbnail (1) - Amy Cai.jpg"
   },
   {
     "submission_id": "4583561",
@@ -296,7 +296,7 @@
     "platform": "Cursor + Claude + Vercel I chose these tools to build the project on since I will not run out of tokens as I have the cursor education plan and Claude Pro. Vercel will allow me to deploy free on the base tier.",
     "rationale": "The core intelligence lives in the Claude API call and the system prompt that structures the JSON output, that is computation responding to user input, not a passive display layer. Cursor is the right choice because the meaningful work is wiring a vision model to a structured output and rendering it correctly, not designing a marketing-style interface. Although I have some Claude skills that could help me create a cleaner UI.",
     "title": "Screenshot-Based UI Heuristic Evaluator",
-    "image": null
+    "image": "/hcde530/images/Screenshot 2026-06-03 at 3.11.42 PM - Nicolas Rodriguez.png"
   },
   {
     "submission_id": "4594561",
