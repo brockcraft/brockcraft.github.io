@@ -218,7 +218,7 @@
     "platform": "Cursor + React — the tool requires real computation including audio file upload, transcription via OpenAI Whisper, and AI summarization via Anthropic Claude, which requires a proper development environment rather than a no-code builder.",
     "rationale": "This project has two external API integrations (Whisper for transcription, Claude for question generation and summarization) and a file upload flow — that complexity is past what Bolt or Lovable handle cleanly. Cursor gives full control over the API calls, file handling, and debugging needed to make the core functionality work reliably.",
     "title": "AI Interview Prep and Synthesis Tool",
-    "image": null
+    "image": "/hcde530/images/Cover - Mila Luo.png"
   },
   {
     "submission_id": "4476680",
