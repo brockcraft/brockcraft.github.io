@@ -10,7 +10,8 @@
     "platform": "Lovable",
     "rationale": "This project needs a great user interface more than backend computation. The core experience is submitting a URL or screenshot and reading a structured report, which is interface-first work. Lovable deploys fast and handles this interaction model well, with AI powering the analysis in the background.",
     "title": "Automated Heuristic UX Critique Report",
-    "image": "/hcde530/images/CritLens_Gallery_Image_Under_1MB - Abdulrahman Khalid A Alobaid.jpg"
+    "image": "/hcde530/images/CritLens_Gallery_Image_Under_1MB - Abdulrahman Khalid A Alobaid.jpg",
+    "project_url": null
   },
   {
     "submission_id": "4581218",
@@ -23,7 +24,8 @@
     "platform": "Cursor + TypeScript/React (web app) + Python (data layer); Figma MCP for design-to-code translation, Claude Code for computation logic.",
     "rationale": "The core work is computational; calculating taste fingerprints, running compatibility scoring across the group, and resolving auction logic which makes Cursor the right fit. Figma MCP allows interface designs to be translated directly into code without losing fidelity, and Claude Code accelerates the scoring logic and API integration in the terminal. Score Calculation: Swipe-based taste fingerprint Each person rates 10 TMDB-seeded movies via fast swipe yes / no / meh. The LLM maps each rated movie to its TMDB metadata vector (genre weights, tone, pacing, decade, runtime) and infers a personal taste profile, not just \"likes action\" but \"likes slow-burn character-driven thrillers from the 90s.\" Group compatibility score = cosine similarity between each person's taste vector, averaged and visualized as a Venn overlap. The recommended movie sits in the intersection zone, not the loudest person's zone. Blind auction Each person gets 100 points per session, distributed secretly across nominated movies. No one sees anyone else's bids until reveal. The winner isn't simply highest total, the algorithm uses a max-min fairness model, weighting collective enthusiasm over individual passion. A movie that gets 30 points from everyone beats a movie that gets 80 from one person and nothing from the rest. This surfaces the movie nobody hates over the movie one person loves. Combined mode Taste fingerprint filters the full TMDB pool down to ~20 movies the group is genuinely compatible with. Blind auction then runs only on that shortlist, so you're bidding on 20 curated picks, not the entire internet.",
     "title": "Group Movie Taste Compatibility Finder",
-    "image": "/hcde530/images/itshowtime-cover - Auli Badoni.png"
+    "image": "/hcde530/images/itshowtime-cover - Auli Badoni.png",
+    "project_url": null
   },
   {
     "submission_id": "4132623",
@@ -36,7 +38,8 @@
     "platform": "Bolt (Claude Code or Lovable as a close second)",
     "rationale": "This project needs complex conditional logic such as file uploads, multi-section form state, session persistence, tabbed output views, and dynamic LLM-driven rendering. These are all things that Bolt can handle well, along with the capability to make a UI forward product that deploys quickly.",
     "title": "UX Job Interview Prep Assistant",
-    "image": "/hcde530/images/thumbnail (1) - Amy Cai.jpg"
+    "image": "/hcde530/images/thumbnail (1) - Amy Cai.jpg",
+    "project_url": null
   },
   {
     "submission_id": "4583561",
@@ -49,7 +52,8 @@
     "platform": "Cursor + Python; output published as a GitHub notebook.",
     "rationale": "I've decided to use Cursor and Python because my project is primarily computation based. I will be processing, analyzing, and transforming CSV data so that my output can be insights to inform research.",
     "title": "Survey Response Affinity Mapper",
-    "image": null
+    "image": null,
+    "project_url": null
   },
   {
     "submission_id": "4588067",
@@ -62,7 +66,8 @@
     "platform": "Cursor + Python",
     "rationale": "This project requires real computation, specifically parsing text, matching against regulatory criteria, and generating structured output, rather than primarily a visual interface. Cursor + Python is the right choice because the core work is text analysis and structured report generation, which maps directly to Python's strengths.",
     "title": "EU AI Act Compliance Gap Analyzer",
-    "image": null
+    "image": null,
+    "project_url": null
   },
   {
     "submission_id": "4241574",
@@ -75,7 +80,8 @@
     "platform": "Cursor + Python, published as a Jupyter notebook on GitHub.",
     "rationale": "This project needs real computation because it processes, categorizes, and counts text responses. The interface is secondary, so Cursor + Python is a better fit than Lovable or Bolt.",
     "title": "Open-Ended Survey Theme Summarizer",
-    "image": null
+    "image": null,
+    "project_url": null
   },
   {
     "submission_id": "4575282",
@@ -88,7 +94,8 @@
     "platform": "Cursor + Python for the data pipeline; Bolt for the frontend interface.",
     "rationale": "The project has two distinct layers — a computation layer processing SPD crime data, OSM infrastructure, and Reddit-derived safety signals into clean GeoJSON using Python, and an interface layer covering the map, pins, accessibility toggle, and emergency resources. Cursor handles the data work where Python is the right tool, and Bolt handles the UI where complex conditional interactions and fast deployment matter. How I am planning to build this The project is split into two parallel workstreams. In Cursor using Python, I will pull and clean the SPD crime dataset, query OpenStreetMap via the osmnx library to extract lighting infrastructure, curb cuts, and ramp locations around the University District, and scrape Reddit using PRAW for posts mentioning safety and Seattle neighborhoods. I will run a pre-trained Hugging Face classifier on the Reddit text to categorize safety sentiment and extract location mentions, then combine all three sources into a clean GeoJSON file that the frontend can consume as a pre-loaded baseline layer. In Bolt I will build the frontend — an interactive Leaflet.js map displaying the pre-loaded data, a pin-dropping interface where users can tag unsafe locations with time of day and incident type, a toggleable accessibility layer showing wheelchair-accessible routes and infrastructure, and a one-tap emergency resources tab with UW SafeCampus, UWPD, and crisis line contacts. Before building I will run a short survey of 15–20 UW students to validate assumptions and inform design decisions, particularly around the companion walking feature. Planned features (not finalised yet- will finalize these based on user research) Community safety map — the core of the app. Pre-loaded with SPD crime data and Reddit-derived safety signals as a baseline. Users drop pins on locations that feel unsafe, attach a photo, select time of day and incident type. Pins are visible to all users and accumulate over time. Accessibility layer — a toggleable overlay showing wheelchair-accessible routes, curb cuts, ramp locations, and surface quality sourced from OpenStreetMap. No existing safety tool combines mobility accessibility with safety perception in one place — this is the design contribution. Emergency resources — one-tap access to UW SafeCampus, UWPD, and campus crisis lines. Always visible, never buried in a menu. Walking companion board — scoped as future work, informed by survey findings. Users post where they are leaving from, where they are going, and what time. Others can join. Trust is built through UW email verification, completed walk badges, and anonymous post-walk safety confirmations. Designed deliberately after research rather than before it. Safe route suggester — also future work. Suggests a well-lit, lower-risk route weighted by community pins and OSM lighting data, even if slightly longer than the fastest path. Requires graph computation beyond the current scope.",
     "title": "UW Campus Safety Perception Map",
-    "image": "/hcde530/images/safewalk_poster - Ashlesha Mukund Hadkar.png"
+    "image": "/hcde530/images/safewalk_poster - Ashlesha Mukund Hadkar.png",
+    "project_url": "https://bright-stride-shine.lovable.app/navigate"
   },
   {
     "submission_id": "4577509",
@@ -101,7 +108,8 @@
     "platform": "Bolt.",
     "rationale": "The tool requires real computation i.e. a Zoom API call to generate the session link and a backend scheduler to trigger the reminder email 24 hours before the session. Bolt handles both the interface and the backend logic.",
     "title": "UX Study Document Auto-Generator",
-    "image": "/hcde530/images/Alefiya H. thumbnail image - Alefiya Haveliwala.png"
+    "image": "/hcde530/images/Alefiya H. thumbnail image - Alefiya Haveliwala.png",
+    "project_url": null
   },
   {
     "submission_id": "4585576",
@@ -114,7 +122,8 @@
     "platform": "Bolt",
     "rationale": "Bolt is appropriate because the project depends on interactive workflows, location-based information, and conditional user actions rather than only data processing. The system requires multiple connected interfaces, such as emergency guidance, AED mapping, and rescue flow interactions, where the user experience is central to helping people act quickly under stressful situations.",
     "title": "Emergency AED Locator and Guide",
-    "image": null
+    "image": null,
+    "project_url": null
   },
   {
     "submission_id": "4578561",
@@ -127,7 +136,8 @@
     "platform": "Cursor + Python",
     "rationale": "This project is centered on computational analysis of large-scale behavioral datasets rather than interface interaction design. Cursor and Python are the best fit because the main challenge is processing structured trip data, identifying patterns across time and geography, and translating quantitative findings into research insights that could inform transportation and service design decisions.",
     "title": "Urban Scooter Trip Pattern Analyzer",
-    "image": null
+    "image": null,
+    "project_url": null
   },
   {
     "submission_id": "4024274",
@@ -140,7 +150,8 @@
     "platform": "Lovable.",
     "rationale": "The reason why lovable will be a good platform for this problem is that the core interaction of the tool will be uploading notes, reviewing highlighted flags, accepting or dismissing warnings, and exporting findings. It is interface-driven rather than computation-heavy",
     "title": "Low-Literacy Voice Preservation Checker",
-    "image": null
+    "image": null,
+    "project_url": null
   },
   {
     "submission_id": "4573395",
@@ -153,7 +164,8 @@
     "platform": "Bolt",
     "rationale": "I think Bolt will be the best fit for building this tool because the project would require real computation as well as an interactive interface. The tool would have to do things like calculate contrast ratios, apply certain pass/fail rules, generate alternative color pairings (if necessary), and then show live previews in realistic interface components and so I think Bolt would be best for this as this requires complex interactions and computation in response to user input.",
     "title": "Accessible UI Color Pairing Tool",
-    "image": null
+    "image": null,
+    "project_url": null
   },
   {
     "submission_id": "3711444",
@@ -166,7 +178,8 @@
     "platform": "Cursor + Python",
     "rationale": "This feels more computally-heavy, since the code needs to actually find the right lines across long transcripts and multiple people when a user only remembers the gist. Cursor + Python is good for that kind of search/ranking work, whereas in my experience Lovable and Bolt focus less on complex functionality and moreso UI aesthetics.",
     "title": "Qualitative Transcript Quote Finder",
-    "image": null
+    "image": null,
+    "project_url": null
   },
   {
     "submission_id": "4586677",
@@ -179,7 +192,8 @@
     "platform": "Given the multi-step user flow (filter → select → pair → preview → export) and the dynamic font loading, Bolt is the stronger fit. However, I also have access to Claude Code, and I was wondering if I could use that in my Cursor terminal.",
     "rationale": "For Bolt, I thought it would be a good fit to build the final product, considering that this project is front-end and design-based. That is also why I thought Claude Code could also be a good fit because it could easily be integrated into my Cursor workflow and also build a front-end design tool.",
     "title": "Guided Font Selection and Pairing Tool",
-    "image": "/hcde530/images/fontface-poster-1920x1080 - Gena Lee.png"
+    "image": "/hcde530/images/fontface-poster-1920x1080 - Gena Lee.png",
+    "project_url": "https://gena-lee.github.io/hcde530/fontface/"
   },
   {
     "submission_id": "4577276",
@@ -192,7 +206,8 @@
     "platform": "Probably Bolt because my project has a significant UI component. However, it also requires some backend establishment (especially as I figure out how to actually make a macOS widget/app/extension), so maybe Cursor will be needed for those aspects too. Claude for planning.",
     "rationale": "Probably Bolt because my project has a significant UI component. However, it also requires some backend establishment (especially as I figure out how to actually make a macOS widget/app/extension), so maybe Cursor will be needed for those aspects too. Claude for planning.",
     "title": "Annotated Design Inspiration Collector",
-    "image": null
+    "image": null,
+    "project_url": null
   },
   {
     "submission_id": "4587891",
@@ -205,7 +220,8 @@
     "platform": "Lovable + Cursor",
     "rationale": "The project focuses on helping researchers analyze and synthesize qualitative data through AI-assisted theme grouping and quote extraction. Cursor supports the computational processing of qualitative text data, while Lovable enables an interactive interface where researchers can review, refine, and reorganize AI-generated thematic groupings and supporting evidence.",
     "title": "AI-Assisted Qualitative Theme Grouper",
-    "image": "/hcde530/images/Screenshot 2026-06-03 at 19.44.59 - Grace Liu.png"
+    "image": "/hcde530/images/Screenshot 2026-06-03 at 19.44.59 - Grace Liu.png",
+    "project_url": null
   },
   {
     "submission_id": "4581406",
@@ -218,7 +234,8 @@
     "platform": "Cursor + React — the tool requires real computation including audio file upload, transcription via OpenAI Whisper, and AI summarization via Anthropic Claude, which requires a proper development environment rather than a no-code builder.",
     "rationale": "This project has two external API integrations (Whisper for transcription, Claude for question generation and summarization) and a file upload flow — that complexity is past what Bolt or Lovable handle cleanly. Cursor gives full control over the API calls, file handling, and debugging needed to make the core functionality work reliably.",
     "title": "AI Interview Prep and Synthesis Tool",
-    "image": "/hcde530/images/Slide 16_9 - 1 - Mila Luo.png"
+    "image": "/hcde530/images/Slide 16_9 - 1 - Mila Luo.png",
+    "project_url": "https://uxresearchagent.vercel.app/"
   },
   {
     "submission_id": "4476680",
@@ -231,7 +248,8 @@
     "platform": "Jupyter Notebook (Cursor + Python),",
     "rationale": "There is a potential PHI/PII risk: although unlikely, open-text survey feedback could contain protected health or personally identifiable information so I don't think I can use a tool like Bolt or Loveable. This can run locally, would keep all data on-device and never send it to a third-party service. This could be built with an interactive dashboard component to keep it simple enough for non-technical users. A hosted/shared option could also be offered as an optional upgrade once compliance is confirmed.",
     "title": "Class-Level Coaching Feedback Dashboard",
-    "image": null
+    "image": null,
+    "project_url": null
   },
   {
     "submission_id": "4574807",
@@ -244,7 +262,8 @@
     "platform": "Cursor IDE, Vercel for deployment",
     "rationale": "This project is experienced primarily through a web interactive interface where adaptive preference elicitation (asking beginner developers for their preferences) and recommendation explanations shape the user experience. Cursor is appropriate because the prototype requires conversational flows, conditional questioning, and real-time recommendation logic rather than heavy computational analysis alone. Note: I have already fetched repository data (data from 100 repositories) from github API as I continue to work on the project.",
     "title": "Open Source Contribution Recommender",
-    "image": "/hcde530/images/Poster - Nimesh Mohanakrishnan.png"
+    "image": "/hcde530/images/Poster - Nimesh Mohanakrishnan.png",
+    "project_url": null
   },
   {
     "submission_id": "2139063",
@@ -257,7 +276,8 @@
     "platform": "Bolt and/or Cursor with consideration complexity of functionality and whether my credit limit creates friction (Cursor I have a student account with pro lvl credits so even if Bolt is better for scaffolding UI I may get further in Cursor)",
     "rationale": "ResearchBridge needs more than a pretty interface — it requires real computation in response to user input: parsing uploaded documents, calling the Anthropic API with structured prompts (built in AI agent for this tool), and dynamically generating different outputs based on which audiences are selected. Lovable would handle the UI well but struggles with file handling and conditional API logic; Bolt supports the reactive, input-driven computation this workflow depends on while still producing a deployable interface quickly.",
     "title": "Audience-Specific Research Brief Generator",
-    "image": null
+    "image": null,
+    "project_url": null
   },
   {
     "submission_id": "4588555",
@@ -270,7 +290,8 @@
     "platform": "Cursor + Python",
     "rationale": "This project needs real computation—fetching public posts, cleaning text, coding excerpts, and aggregating themes—not a polished consumer UI as the main deliverable. Cursor + Python supports a notebook + CSV + grounded-theory pipeline, with an optional lightweight local UI later for exploration only. Questions for Brock/ Alyse: 1. Does this project cover the assignment expectations? 2. I am thinking of using something creative like teachable machines, or something to train lawyer's arguments or witness prep depositions in real time, but I don't know if that would satisfy the assignment criteria. How does that addition sound?",
     "title": "Legal AI Public Discourse Analyzer",
-    "image": "/hcde530/images/Screenshot 2026-06-03 at 1.32.11 PM - Ranjitha Rangaswamy.png"
+    "image": "/hcde530/images/Screenshot 2026-06-03 at 1.32.11 PM - Ranjitha Rangaswamy.png",
+    "project_url": "https://ranjitharangaswamy.com/DocketSignal/"
   },
   {
     "submission_id": "4575649",
@@ -283,7 +304,8 @@
     "platform": "Cursor + Python.",
     "rationale": "The core work is computation: parsing chat transcripts, running structured LLM prompts to extract decision points, and aggregating them into an inspectable matrix and exportable artifacts, not interface design. Publishing as a GitHub notebook aligns with academic norms for methodological tools and lets reviewers inspect the schema, the prompt, and the validation harness directly, which is the intellectual contribution.",
     "title": "AI-Assisted Qualitative Decision Auditor",
-    "image": "/hcde530/images/tracequal_thumb_matrix_1920x1080 - Jared Ren.png"
+    "image": "/hcde530/images/tracequal_thumb_matrix_1920x1080 - Jared Ren.png",
+    "project_url": null
   },
   {
     "submission_id": "4532864",
@@ -296,7 +318,8 @@
     "platform": "Cursor + Claude + Vercel I chose these tools to build the project on since I will not run out of tokens as I have the cursor education plan and Claude Pro. Vercel will allow me to deploy free on the base tier.",
     "rationale": "The core intelligence lives in the Claude API call and the system prompt that structures the JSON output, that is computation responding to user input, not a passive display layer. Cursor is the right choice because the meaningful work is wiring a vision model to a structured output and rendering it correctly, not designing a marketing-style interface. Although I have some Claude skills that could help me create a cleaner UI.",
     "title": "Screenshot-Based UI Heuristic Evaluator",
-    "image": "/hcde530/images/Screenshot 2026-06-03 at 3.11.42 PM - Nicolas Rodriguez.png"
+    "image": "/hcde530/images/Screenshot 2026-06-03 at 3.11.42 PM - Nicolas Rodriguez.png",
+    "project_url": null
   },
   {
     "submission_id": "4594561",
@@ -309,7 +332,8 @@
     "platform": "Lovable.",
     "rationale": "This is a design track project where the entire research insight lives in the interface, including accessible typography, customization first onboarding, motion control, and audio synchronized reading, so the deciding question (computation or interface) lands clearly on interface. Lovable is the right tool because it lets me deploy a real, accessible web app fast without spending the project's limited time on framework setup or hosting, which keeps the focus on the UX decisions my research demands.",
     "title": "Adaptive Reading App for Neurodivergent Learners",
-    "image": null
+    "image": null,
+    "project_url": null
   },
   {
     "submission_id": "4596194",
@@ -322,7 +346,8 @@
     "platform": "— Cursor.",
     "rationale": "— This project requires a Figma plugin, which Lovable and Bolt cannot scaffold — it needs direct access to the Figma Plugin API and its native storage layer. The document generation logic and card system also involve real computation that benefits from Cursor's code-first environment over a drag-and-drop builder.",
     "title": "In-Progress Design Decision Reflector",
-    "image": "/hcde530/images/Screenshot 2026-06-02 180339 - Stuti Shah.png"
+    "image": "/hcde530/images/Screenshot 2026-06-02 180339 - Stuti Shah.png",
+    "project_url": null
   },
   {
     "submission_id": "4591881",
@@ -335,7 +360,8 @@
     "platform": "**Lovable**\n — with the \n**Claude API**\n called via Lovable's built-in edge function support for AI naming, and \n**optional Supabase**\n for a lightweight used-names registry only.",
     "rationale": "The product's value is almost entirely in how it looks and feels — an immersive \n**galaxy aesthetic**\n in \n**Roboto Mono**\n, a smooth draw-to-constellation experience, and a beautiful \n**2D/3D result**\n — which makes Lovable the right choice because the interface is the product and Lovable deploys a polished React frontend faster than any alternative. The \n**nearest-neighbour snap**\n across ~9,000 stars runs fast enough \n**client-side in JavaScript**\n without any compute backend, so there is no technical argument for Bolt at this data scale.",
     "title": "Personal Constellation Creator",
-    "image": "/hcde530/images/Slide 16_9 - 483 - Rachit Singhi.png"
+    "image": "/hcde530/images/Slide 16_9 - 483 - Rachit Singhi.png",
+    "project_url": "https://twinkle.ltd/"
   },
   {
     "submission_id": "4597185",
@@ -348,7 +374,8 @@
     "platform": "- Cursor + Python: the right choice when the work is primarily computation — processing, analyzing, transforming data",
     "rationale": "I want to use Cursor + python because the work is primarily computation. I need to process the notes, transcripts and voice recordings, and then get it to analyze them, group them into themes, and then produce some structured notes.",
     "title": "Usability Session Theme Synthesizer",
-    "image": null
+    "image": null,
+    "project_url": null
   },
   {
     "submission_id": "4577535",
@@ -361,7 +388,8 @@
     "platform": "Bolt (and maybe Claude)",
     "rationale": "This project requires real AI computation in response to user input, as it will transform text into multiple stakeholder-specific outputs. Bolt supports the combination of conditional logic, AI calls, and a designed interactive experience.",
     "title": "Stakeholder-Tailored Research Summary Tool",
-    "image": null
+    "image": null,
+    "project_url": null
   },
   {
     "submission_id": "4581191",
@@ -374,7 +402,8 @@
     "platform": "Cursor",
     "rationale": "The tool relies on real computation to parse SVG files, map data to layers, call the Gemini API for AI-driven generation, and batch render output files at scale. The interface is important for making that pipeline feel simple and intuitive, but the processing and automation happening underneath is what drives the core value.",
     "title": "Batch SVG Design Variant Generator",
-    "image": "/hcde530/images/new-thumbnail - Swaraj Thamke.jpeg"
+    "image": "/hcde530/images/new-thumbnail - Swaraj Thamke.jpeg",
+    "project_url": null
   },
   {
     "submission_id": "4574242",
@@ -387,7 +416,8 @@
     "platform": "Cursor + Python",
     "rationale": "This project needs real computation — parsing questions, matching bias patterns, scoring, and comparing moderator versions — more than it needs a polished interface. Cursor + Python fits that workflow: you can build and iterate on the rule-based logic quickly and ship a working demo in two weeks without front-end overhead.",
     "title": "Research Protocol Bias Detector",
-    "image": null
+    "image": null,
+    "project_url": null
   },
   {
     "submission_id": "4578584",
@@ -400,7 +430,8 @@
     "platform": "Cursor + Python with a Streamlit interface.",
     "rationale": "This project requires real computation across multiple modalities and cannot be built in Lovable or Bolt. The output report is generative rather than templated: its structure is determined by what the analysis actually found, so a session dominated by navigation friction produces a different report than one with evenly distributed issues. A conversational query layer lets the researcher ask for specific findings in natural language after the report is generated, which means the interface itself is produced in response to the conversation rather than being a fixed dashboard. Both of these directly reflect the generative UI concept where the output format reflects the content rather than following a pre-built template.",
     "title": "Multi-Modal Usability Session Analyzer",
-    "image": null
+    "image": null,
+    "project_url": null
   },
   {
     "submission_id": "4572683",
@@ -413,7 +444,8 @@
     "platform": "Claude Code + Vercel",
     "rationale": "Claude Code will be used as the development environment to write and organize the project code, while GitHub Pages will be used to deploy and host the final web application. This setup supports building a lightweight browser-based UX audit tool that can be easily shared, tested, and accessed online.",
     "title": "Automated Website UX Audit Tool",
-    "image": "/hcde530/images/Project photo - Manish Varrier.png"
+    "image": "/hcde530/images/Project photo - Manish Varrier.png",
+    "project_url": null
   },
   {
     "submission_id": "4584697",
@@ -426,7 +458,8 @@
     "platform": "Bolt.",
     "rationale": "This project requires conditional logic, timed interactions, and phase transitions (from HMW generation into a Crazy 8s session) that need real interactive behavior beyond a static UI. Bolt handles that complexity while keeping the build low-code, which matches the two-week timeline and a focus on interaction design over engineering.",
     "title": "AI-Guided Crazy 8s Brainstorm Facilitator",
-    "image": null
+    "image": null,
+    "project_url": null
   },
   {
     "submission_id": "4573349",
@@ -439,7 +472,8 @@
     "platform": "Cursor + Python.",
     "rationale": "The core work is computation: detecting sensitive text patterns, classifying risk, and transforming the input into a safe output, which is exactly what Python is built for. There is no UI that needs to be the product; the value is entirely in what the tool produces.",
     "title": "Session Notes Privacy Audit Tool",
-    "image": null
+    "image": null,
+    "project_url": null
   },
   {
     "submission_id": "4161310",
@@ -452,7 +486,8 @@
     "platform": "Cursor (? currently use Cursor, but maybe combine using Cursor and other AI tools - Lovable or Bolt)",
     "rationale": "The product is experienced primarily through its interface—the story, art, touch interactions, and audio are the deliverable—not a data-analysis pipeline. Cursor fits because the work is building and iterating that UI in HTML/CSS/JavaScript with branching logic and games, while keeping everything in the HCDE git repo (including .cursorrules and notes) for MP2 submission, portfolio review, and GitHub Pages deployment; Python-heavy computation is not the core of this project.",
     "title": "Interactive Branching Storybook for Children",
-    "image": "/hcde530/images/截屏2026-06-03 上午2.18.46 - Yudie Xia (1).png"
+    "image": "/hcde530/images/截屏2026-06-03 上午2.18.46 - Yudie Xia (1).png",
+    "project_url": "https://preview--reading-pal-guide.lovable.app/"
   },
   {
     "submission_id": "4585640",
@@ -465,7 +500,8 @@
     "platform": "Lovable and cursor(since already paid)",
     "rationale": "This project lives or dies on the interface: an amateur player won't read a CSV or a notebook, they want a clean comparison view they can use on their phone before going to the store. The computation involved is simple filtering and ranking — no heavy data processing — so Lovable's strength in shipping a polished, deployable UI fast is the right match, rather than Cursor's strength in computation-heavy notebooks.",
     "title": "Football Boot Surface Match Recommender",
-    "image": null
+    "image": null,
+    "project_url": null
   },
   {
     "submission_id": "3578107",
@@ -478,7 +514,8 @@
     "platform": "Bolt .",
     "rationale": "This project needs more than a static interface because the Claude mascot should react to changing coding states, user actions, and conditional events like errors, waiting, success, or idle time. I think Bolt is the best fit because the core challenge is designing interactive behavior with logic.",
     "title": "Animated Claude Coding Companion",
-    "image": null
+    "image": null,
+    "project_url": null
   },
   {
     "submission_id": "4600951",
@@ -491,7 +528,8 @@
     "platform": "Cursor.",
     "rationale": "This project requires real computation-heavy workflows (file parsing, PII masking, LLM-driven clustering, hierarchy generation, role-aware data handling), which fits Cursor best. The interface matters, but the core value is robust analysis and transformation of qualitative data rather than lightweight UI assembly alone.",
     "title": "Qualitative Data Auto-Clustering Tool",
-    "image": "/hcde530/images/Screenshot 2026-06-03 at 8.34.07 PM - Ning Zhang.png"
+    "image": "/hcde530/images/Screenshot 2026-06-03 at 8.34.07 PM - Ning Zhang.png",
+    "project_url": null
   },
   {
     "submission_id": "4574753",
@@ -504,7 +542,8 @@
     "platform": "Bolt.",
     "rationale": "This project's core is computation in response to user input: matching an uploaded image against the trend library and returning a reasoned result. Bolt is built for that kind of real logic behind a visual experience, whereas Lovable is optimized for shipping interfaces fast.",
     "title": "Visual Design Trend Identifier",
-    "image": null
+    "image": null,
+    "project_url": null
   },
   {
     "submission_id": "LATE001",
@@ -517,6 +556,7 @@
     "platform": "Bolt.",
     "rationale": "This tool requires real computation — logging clicks, comparing sequences against a golden path, and classifying error types — not just a polished static interface, which rules out Lovable. Bolt handles conditional logic and live interaction tracking while remaining accessible for vibe coding within a one-week timeline.",
     "title": "Live Usability Session Path Deviation Analyzer",
-    "image": "/hcde530/images/Gemini_Generated_Image_b2m9x2b2m9x2b2m9 - Maham Khawar.png"
+    "image": "/hcde530/images/Gemini_Generated_Image_b2m9x2b2m9x2b2m9 - Maham Khawar.png",
+    "project_url": "https://wall-flower.bolt.host"
   }
 ]

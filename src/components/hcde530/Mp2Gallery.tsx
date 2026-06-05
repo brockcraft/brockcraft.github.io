@@ -15,6 +15,7 @@ interface RawSubmission {
   rationale: string;
   title?: string | null;
   image?: string | null;
+  project_url?: string | null;
 }
 
 type TrackLabel = "Design" | "Research" | "Both";
@@ -33,6 +34,7 @@ interface Project {
   platform_raw: string;
   platform_tags: string[];
   image: string | null;
+  project_url: string | null;
 }
 
 // ─── Utilities ────────────────────────────────────────────────────────────────
@@ -102,6 +104,7 @@ function transformSubmission(raw: RawSubmission): Project {
     platform_raw: raw.platform ?? "",
     platform_tags: extractPlatformTags(raw.platform ?? ""),
     image: raw.image ?? null,
+    project_url: raw.project_url ?? null,
   };
 }
 
@@ -436,6 +439,19 @@ const CSS = `
     gap: 4px;
     margin-top: 0.25rem;
   }
+  .mp2-card__project-link {
+    display: inline-block;
+    margin-top: 0.6rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #6D28D9;
+    text-decoration: none;
+    letter-spacing: 0.01em;
+  }
+  .mp2-card__project-link:hover {
+    text-decoration: underline;
+    color: #5B21B6;
+  }
   .mp2-platform-chip {
     display: inline-flex;
     padding: 2px 8px;
@@ -590,6 +606,23 @@ const CSS = `
     border: none;
     border-top: 1px solid #F3F4F6;
     margin: 0;
+  }
+  .mp2-modal__project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin-top: 1.25rem;
+    padding: 0.55rem 1.1rem;
+    border-radius: 8px;
+    background: #6D28D9;
+    color: #fff;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.15s;
+  }
+  .mp2-modal__project-link:hover {
+    background: #5B21B6;
   }
 
   /* Description */
@@ -819,6 +852,17 @@ function ProjectCard({ project, onClick, reduceMotion }: ProjectCardProps) {
             ))}
           </div>
         )}
+        {project.project_url && (
+          <a
+            className="mp2-card__project-link"
+            href={project.project_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+          >
+            View project →
+          </a>
+        )}
       </div>
     </motion.div>
   );
@@ -931,6 +975,17 @@ function ProjectModal({ project, onClose, reduceMotion }: ProjectModalProps) {
                 <span className="mp2-modal__section-label">Platform</span>
                 <p className="mp2-modal__section-text">{project.platform_raw}</p>
               </div>
+            )}
+
+            {project.project_url && (
+              <a
+                className="mp2-modal__project-link"
+                href={project.project_url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View live project →
+              </a>
             )}
           </div>
         </motion.div>
