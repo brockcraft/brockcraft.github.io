@@ -122,8 +122,8 @@
     "platform": "Bolt",
     "rationale": "Bolt is appropriate because the project depends on interactive workflows, location-based information, and conditional user actions rather than only data processing. The system requires multiple connected interfaces, such as emergency guidance, AED mapping, and rescue flow interactions, where the user experience is central to helping people act quickly under stressful situations.",
     "title": "Emergency AED Locator and Guide",
-    "image": null,
-    "project_url": null
+    "image": "/hcde530/images/Rescue Ready Poster (1) - Annie Huang.png",
+    "project_url": "https://emergency-aed-locato-u064.bolt.host/"
   },
   {
     "submission_id": "4578561",
@@ -136,8 +136,8 @@
     "platform": "Cursor + Python",
     "rationale": "This project is centered on computational analysis of large-scale behavioral datasets rather than interface interaction design. Cursor and Python are the best fit because the main challenge is processing structured trip data, identifying patterns across time and geography, and translating quantitative findings into research insights that could inform transportation and service design decisions.",
     "title": "Urban Scooter Trip Pattern Analyzer",
-    "image": null,
-    "project_url": null
+    "image": "/hcde530/images/截屏2026-06-06 下午7.33.53 1 - Zhian Hu.png",
+    "project_url": "https://hcde530.vercel.app/"
   },
   {
     "submission_id": "4024274",
