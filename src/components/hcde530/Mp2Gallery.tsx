@@ -860,7 +860,7 @@ function ProjectCard({ project, onClick, reduceMotion }: ProjectCardProps) {
             rel="noopener noreferrer"
             onClick={(e) => e.stopPropagation()}
           >
-            View project →
+            Launch project →
           </a>
         )}
       </div>
