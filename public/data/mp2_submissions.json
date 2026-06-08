@@ -276,7 +276,7 @@
     "platform": "Bolt and/or Cursor with consideration complexity of functionality and whether my credit limit creates friction (Cursor I have a student account with pro lvl credits so even if Bolt is better for scaffolding UI I may get further in Cursor)",
     "rationale": "ResearchBridge needs more than a pretty interface — it requires real computation in response to user input: parsing uploaded documents, calling the Anthropic API with structured prompts (built in AI agent for this tool), and dynamically generating different outputs based on which audiences are selected. Lovable would handle the UI well but struggles with file handling and conditional API logic; Bolt supports the reactive, input-driven computation this workflow depends on while still producing a deployable interface quickly.",
     "title": "Audience-Specific Research Brief Generator",
-    "image": null,
+    "image": "/hcde530/images/Screenshot 2026-06-07 at 10.17.17 PM - May Ng.png",
     "project_url": null
   },
   {
