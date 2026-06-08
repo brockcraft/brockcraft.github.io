@@ -248,7 +248,7 @@
     "platform": "Jupyter Notebook (Cursor + Python),",
     "rationale": "There is a potential PHI/PII risk: although unlikely, open-text survey feedback could contain protected health or personally identifiable information so I don't think I can use a tool like Bolt or Loveable. This can run locally, would keep all data on-device and never send it to a third-party service. This could be built with an interactive dashboard component to keep it simple enough for non-technical users. A hosted/shared option could also be offered as an optional upgrade once compliance is confirmed.",
     "title": "Class-Level Coaching Feedback Dashboard",
-    "image": null,
+    "image": "/hcde530/images/Dashboard - Aleigha Mattison.png",
     "project_url": null
   },
   {
