@@ -193,7 +193,7 @@
     "rationale": "For Bolt, I thought it would be a good fit to build the final product, considering that this project is front-end and design-based. That is also why I thought Claude Code could also be a good fit because it could easily be integrated into my Cursor workflow and also build a front-end design tool.",
     "title": "Guided Font Selection and Pairing Tool",
     "image": "/hcde530/images/fontface-poster-1920x1080 - Gena Lee.png",
-    "project_url": "https://gena-lee.github.io/hcde530/fontface/"
+    "project_url": "https://fontface-two.vercel.app/"
   },
   {
     "submission_id": "4577276",
