@@ -164,7 +164,7 @@
     "platform": "Bolt",
     "rationale": "I think Bolt will be the best fit for building this tool because the project would require real computation as well as an interactive interface. The tool would have to do things like calculate contrast ratios, apply certain pass/fail rules, generate alternative color pairings (if necessary), and then show live previews in realistic interface components and so I think Bolt would be best for this as this requires complex interactions and computation in response to user input.",
     "title": "Accessible UI Color Pairing Tool",
-    "image": null,
+    "image": "/hcde530/images/AccessiPair - Sabrina Kang.jpg",
     "project_url": null
   },
   {
@@ -500,7 +500,7 @@
     "platform": "Lovable and cursor(since already paid)",
     "rationale": "This project lives or dies on the interface: an amateur player won't read a CSV or a notebook, they want a clean comparison view they can use on their phone before going to the store. The computation involved is simple filtering and ranking — no heavy data processing — so Lovable's strength in shipping a polished, deployable UI fast is the right match, rather than Cursor's strength in computation-heavy notebooks.",
     "title": "Football Boot Surface Match Recommender",
-    "image": null,
+    "image": "/hcde530/images/Cleathead Poster (1) - Sifan Xue.png",
     "project_url": null
   },
   {
