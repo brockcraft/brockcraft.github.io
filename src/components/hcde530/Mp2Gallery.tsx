@@ -253,28 +253,6 @@ const CSS = `
     color: #6B7280;
     margin: 0;
   }
-  .mp2-submit-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    padding: 0.55rem 1.1rem;
-    background: #7E6CAB;
-    color: #fff;
-    border-radius: 8px;
-    font-size: 0.875rem;
-    font-weight: 600;
-    text-decoration: none;
-    white-space: nowrap;
-    transition: background 0.15s, transform 0.1s;
-    flex-shrink: 0;
-  }
-  .mp2-submit-btn:hover {
-    background: #6D5D96;
-    transform: translateY(-1px);
-  }
-  .mp2-submit-btn:active {
-    transform: translateY(0);
-  }
   .mp2-filters {
     display: flex;
     flex-direction: column;
@@ -1198,14 +1176,6 @@ export default function Mp2Gallery() {
             <h1>HCDE 530 — Mini Project 2 Collection</h1>
             <p>{projects.length} projects &middot; Spring 2026</p>
           </div>
-          <a
-            href="https://forms.gle/cPewru2XP8BUgX2r9"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mp2-submit-btn"
-          >
-            📷 Submit your project photo
-          </a>
         </div>
 
         {!loading && !error && (
