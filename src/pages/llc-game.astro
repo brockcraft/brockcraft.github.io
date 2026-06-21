@@ -4,7 +4,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 <BaseLayout title="Lifelong Learning Challenge Game" description="Download the artwork for the Lifelong Learning Challenge Game card deck">
   <h1>Lifelong Learning Challenge Game Card Deck</h1>
-  <img src="/assets/LLC_GAME_TITLECARD.png" alt="Lifelong Learning Challenge Game Title Card" style="max-width: 400px; height: auto; display: block; margin: 1rem auto;">
+  <div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; align-items: flex-start; margin: 1rem auto;">
+    <img src="/assets/LLC_GAME_TITLECARD.png" alt="Lifelong Learning Challenge Game Title Card" style="flex: 1 1 300px; max-width: 400px; height: auto;">
+    <img src="/assets/LLC_GAME_OVERVIEW.png" alt="Lifelong Learning Challenge Game Overview Card" style="flex: 1 1 300px; max-width: 400px; height: auto;">
+  </div>
   <p>This file contains the artwork for the Lifelong Learning Challenge Game card deck that can be published at vendors such as Vistaprint.</p>
   <p><a href="/docs/LLC_GAME_(v3).pdf" download class="download-link">Download PDF</a></p>
 </BaseLayout>
